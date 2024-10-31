@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const USER_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/user`
+import { http } from '@/app/_utils/http'
 
 export type UserProfileResponseData = {
 	id: string
@@ -24,28 +22,10 @@ export type UserProfileUpdateRequest = {
 	profile: UserProfileUpdateData
 }
 
-export const userApi = axios.create({
-	baseURL: USER_URL,
-})
-
-userApi.defaults.headers.common['Content-Type'] = 'application/json'
-
-export const getUserProfile = async (accessToken: string | undefined) => {
-	return await userApi
-		.get<UserProfileResponseData>('/me', {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+export const getUserProfile = async () => {
+	return await http.get<UserProfileResponseData>('/user/me').then((res) => res.data)
 }
 export const updatetUserProfile = async (data: UserProfileUpdateRequest) => {
-	const { profile, accessToken } = data
-	return await userApi
-		.put<UserProfileResponseData>('/update', profile, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+	const { profile } = data
+	return await http.put<UserProfileResponseData>('/user/update', profile).then((res) => res.data)
 }

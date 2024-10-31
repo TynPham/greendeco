@@ -5,6 +5,9 @@ import 'swiper/css'
 import type { Metadata } from 'next'
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
+import AppContextProvider from '../_configs/store/useAppContext'
+import { cookies } from 'next/headers'
+import { ACCESS_TOKEN_COOKIE_NAME } from '../_configs/constants/cookies'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -12,12 +15,16 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+	const cookieStore = cookies()
+	const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? ''
 	return (
 		<html lang='en'>
 			<body>
 				<div id='__next'>
-					<ToastContainer className='w-auto' />
-					{children}
+					<AppContextProvider initToken={accessToken}>
+						<ToastContainer className='w-auto' />
+						{children}
+					</AppContextProvider>
 				</div>
 			</body>
 		</html>

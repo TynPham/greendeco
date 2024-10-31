@@ -9,7 +9,7 @@ import useActivePath from '@/app/_hooks/useActivePath'
 import { ADMINISTRATOR_ROUTE } from '@/app/_configs/constants/variables'
 import { deleteCookie } from 'cookies-next'
 import { useQueryClient } from '@tanstack/react-query'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { ADMIN_QUERY_KEY } from '@/app/_configs/constants/queryKey'
 import { useRouter } from 'next/navigation'
 
@@ -65,7 +65,7 @@ function LogoutButton() {
 	const queryClient = useQueryClient()
 	const router = useRouter()
 	const handleLogOut = () => {
-		deleteCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)
+		deleteCookie(ACCESS_TOKEN_COOKIE_NAME)
 		queryClient.removeQueries([ADMIN_QUERY_KEY])
 		router.push(ADMINISTRATOR_ROUTE.LOGIN.LINK)
 	}

@@ -5,7 +5,7 @@ import {
 } from '@/app/_api/axios/admin/order'
 import Button from '@/app/_components/Button'
 import { TextField } from '@/app/_components/form'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { getCookie } from 'cookies-next'
@@ -26,7 +26,7 @@ type PickUpdateModalType = {
 }
 
 export default function PickUpDateModal({ order }: PickUpdateModalType) {
-	const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)
+	const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
 	const queryClient = useQueryClient()
 	const { closeDialog } = useDialogStore()
 	const orderPickUpDateModalRef = useRef<any>()

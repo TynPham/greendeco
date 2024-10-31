@@ -10,7 +10,7 @@ import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/app/_configs/constants/queryKey
 import { PencilSquareIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import Button from '@/app/_components/Button'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 
 export default function VariantDisplay({
 	variantList,
@@ -120,7 +120,7 @@ const DeleteVariantButton = ({ variantId }: { variantId: VariantData['id'] }) =>
 	})
 
 	const handleDeleteVariant = () => {
-		const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+		const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 		deleteVariantMutation.mutate({
 			variantId: variantId,
 			adminAccessToken: adminAccessToken,

@@ -16,12 +16,11 @@ import clsx from 'clsx'
 import useClickOutside from '@/app/_hooks/useClickOutside'
 
 export default function AuthenticationHandler() {
-	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
 	const router = useRouter()
 
 	const userQuery = useQuery({
 		queryKey: [UseQueryKeys.User],
-		queryFn: () => getUserProfile(accessToken),
+		queryFn: getUserProfile,
 		retry: false,
 	})
 

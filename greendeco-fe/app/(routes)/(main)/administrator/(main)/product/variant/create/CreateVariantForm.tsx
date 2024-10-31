@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { VariantSchema, VariantFormInputType } from '@/app/_configs/schemas/variantMangement'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { AxiosError } from 'axios'
 import VariantImage from '../VariantImage'
 import LabelProvider from '@/app/_components/form/LabelProvider'
@@ -73,7 +73,7 @@ export default function CreateVariantForm({
 	const onSubmitHandler: SubmitHandler<VariantFormInputType> = (values, e) => {
 		e?.preventDefault()
 
-		const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+		const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 
 		const { price, color_name, ...restValues } = values
 		if (variantImage) {

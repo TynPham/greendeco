@@ -18,7 +18,7 @@ import {
 import ImageUploadGrid from './ImagesUploadGrid'
 import { useImageUploadStore } from '@/app/_configs/store/useImagesUploadStore'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { notifyCreateProductSuccess } from '../Notifications'
 import { MultilineTextField } from '@/app/_components/form/MultiplelineTextField'
 import LabelProvider from '@/app/_components/form/LabelProvider'
@@ -76,7 +76,7 @@ export default function CreateProductForm() {
 
 	const onSubmitHandler: SubmitHandler<ProductDetailFormInputType> = (values, e) => {
 		e?.preventDefault()
-		const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+		const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 		createProductMutation.mutate({
 			productData: { ...values, images: [...images] },
 			adminAccessToken: adminAccessToken,

@@ -11,7 +11,7 @@ import { notifyUpdateCancelSuccess } from './Notification'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { notifyError } from '../../../(customer)/user/setting/profile/Notification'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { getCookie } from 'cookies-next'
 import { ORDER_STATE_FIELD } from '@/app/_configs/constants/variables'
 import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/app/_configs/constants/queryKey'
@@ -25,7 +25,7 @@ type CancelModalType = {
 }
 
 export default function CancelModal({ order }: CancelModalType) {
-	const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+	const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 	const queryClient = useQueryClient()
 	const { closeDialog } = useDialogStore()
 	const orderCancelModalRef = useRef<any>()

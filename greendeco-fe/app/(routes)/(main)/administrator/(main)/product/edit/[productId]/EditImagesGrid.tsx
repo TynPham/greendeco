@@ -9,6 +9,7 @@ import { useContext } from 'react'
 import { useStore } from 'zustand'
 import { EditImagesContext } from '@/app/_configs/store/useEditImageStore'
 import { ProductData } from '@/app/_api/axios/product'
+import { getCookie } from 'cookies-next'
 
 function EditImageUploadGrid({ images }: { images: ProductData['images'] }) {
 	return (
@@ -30,6 +31,7 @@ const UploadInput = React.memo(function UploadInput({ index }: { index: number }
 	const imagesStore = useContext(EditImagesContext)
 	if (!imagesStore) throw new Error('Missing EditImageContext.Provider in the tree')
 	const replaceImages = useStore(imagesStore, (state) => state.replaceImages)
+	const adminAccessToken = getCookie('admin_Access_Token')?.toString() ?? ''
 
 	const imageUploadMutation = useMutation({
 		//NOTE: The callback used for the mutation

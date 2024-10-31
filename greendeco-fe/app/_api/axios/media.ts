@@ -1,13 +1,11 @@
-import axios from 'axios'
-
-const MEDIA_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/media`
-
-export const mediaApi = axios.create({
-	baseURL: MEDIA_URL,
-})
-
-mediaApi.defaults.headers.common['Content-Type'] = 'multipart/form-data'
+import { http } from '@/app/_utils/http'
 
 export const uploadImage = async (file: FormData) => {
-	return await mediaApi.post('/upload', file).then((res) => res.data)
+	return await http
+		.post('/media/upload', file, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		})
+		.then((res) => res.data)
 }

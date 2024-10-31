@@ -15,7 +15,7 @@ import axios from 'axios'
 import { FilterParams, fieldJSONParse } from '../product'
 import { OrderState as StateOfOrder } from '@/app/_configs/constants/paramKeys'
 import { createNotification, sendNotification } from './notification'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { getCookie } from 'cookies-next'
 const ORDER_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}`
 
@@ -230,7 +230,7 @@ export const updateOrderStatusSendNoti = async ({
 }
 
 export const getOrderFullDetailAsAdministratorById = async (orderId: OrderData['id']) => {
-	const accessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 
 	return await Promise.all([
 		getOrderDetailById(orderId, accessToken),

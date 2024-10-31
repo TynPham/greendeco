@@ -4,7 +4,7 @@ import {
 	updateOrderStatusSendNoti,
 } from '@/app/_api/axios/admin/order'
 import { Dropdown } from '@/app/_components/dropdown'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { ORDER_STATE_FIELD } from '@/app/_configs/constants/variables'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
@@ -18,7 +18,7 @@ import createNotificationMessage from '@/app/_hooks/useOrderNotificationMessage'
 
 export default function OrderDropdownState({ order }: { order: OrderState }) {
 	const [state, setState] = useState(order.state)
-	const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+	const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 	const { openOrderUpdateDialog } = useOrderUpdateDialog({ order: order })
 	const states = ORDER_STATE_FIELD
 	const queryClient = useQueryClient()

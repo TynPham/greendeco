@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/app/_configs/constants/queryKey'
 import { getCookie } from 'cookies-next'
 import { useQuery } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ import { TailSpin } from 'react-loader-spinner'
 export default function OrderManagementPage() {
 	const { queryObject } = useQueryParams<FilterParams>()
 
-	const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+	const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 	const orderQuery = useQuery({
 		queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order, queryObject],
 		queryFn: () =>

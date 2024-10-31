@@ -4,7 +4,7 @@ import { headers } from 'next/dist/client/components/headers'
 import { getCookie } from 'cookies-next'
 import {
 	ACCESS_TOKEN_COOKIE_NAME,
-	ADMIN_ACCESS_TOKEN_COOKIE_NAME,
+	ACCESS_TOKEN_COOKIE_NAME,
 } from '@/app/_configs/constants/cookies'
 import { UserProfileResponseData } from './user'
 import {

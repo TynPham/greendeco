@@ -15,7 +15,7 @@ import {
 	ADMINISTRATOR_ROUTE,
 } from '@/app/_configs/constants/variables'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { updateProduct } from '@/app/_api/axios/admin/product'
 import { ProductData } from '@/app/_api/axios/product'
 import EditImagesGrid from './EditImagesGrid'
@@ -82,7 +82,7 @@ export default function ProductEditForm(product: ProductData) {
 	const onSubmitHandler: SubmitHandler<UpdateProductDetailFormInputType> = (values, e) => {
 		e?.preventDefault()
 
-		const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+		const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 		updateProductMutation.mutate({
 			productData: { id: product.id, ...values, images: [...images] },
 			adminAccessToken: adminAccessToken,

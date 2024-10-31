@@ -4,7 +4,7 @@ import { ProductData } from '@/app/_api/axios/product'
 import useDeleteProduct from '@/app/_hooks/useDeleteProduct'
 import Button from '@/app/_components/Button'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
 import { useDialogStore } from '@/app/_configs/store/useDialogStore'
 import useClickOutside from '@/app/_hooks/useClickOutside'
@@ -20,7 +20,7 @@ export default function DeleteProductDialog({ productId }: { productId: ProductD
 	})
 
 	const handleDeleteProduct = () => {
-		const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+		const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 		mutate({
 			productId: productId,
 			adminAccessToken: adminAccessToken,

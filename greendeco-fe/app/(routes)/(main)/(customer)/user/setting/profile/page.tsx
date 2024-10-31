@@ -6,17 +6,13 @@ import UserProfileForm from './UserProfileForm'
 import { notifyGetProfileError } from './Notification'
 import { useRouter } from 'next/navigation'
 import { MutatingDots } from 'react-loader-spinner'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 
 export default function UserProfilePage() {
 	const router = useRouter()
 
-	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
 	const userProfileQuery = useQuery({
 		queryKey: ['user'],
-		queryFn: () => getUserProfile(accessToken),
+		queryFn: getUserProfile,
 		onError: (e) => {
 			if (e instanceof AxiosError) {
 				notifyGetProfileError(e.response?.data.msg, {

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/app/_configs/constants/queryKey'
 import { getProductListAsAdministrator } from '@/app/_api/axios/admin/product'
 import { getCookie } from 'cookies-next'
-import { ADMIN_ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import Button from '@/app/_components/Button'
 import { useRouter } from 'next/navigation'
 import { ADMINISTRATOR_ROUTE } from '@/app/_configs/constants/variables'
@@ -14,7 +14,7 @@ import { useMemo } from 'react'
 
 export default function ProductManagementPage() {
 	const router = useRouter()
-	const adminAccessToken = getCookie(ADMIN_ACCESS_TOKEN_COOKIE_NAME)?.toString()
+	const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 	const productQuery = useQuery({
 		queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product],
 		queryFn: () => getProductListAsAdministrator(adminAccessToken),

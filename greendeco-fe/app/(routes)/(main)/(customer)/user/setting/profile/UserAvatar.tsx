@@ -10,13 +10,15 @@ import { notifyError } from './Notification'
 import Button from '@/app/_components/Button'
 import { PhotoIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { MutatingDots } from 'react-loader-spinner'
+import { User } from '@/app/_types/user.type'
+import { clientToken } from '@/app/_utils/http'
 
 function UserAvatar({
 	avatar,
 	setAvatar,
 }: {
-	avatar: UserProfileResponseData['avatar']
-	setAvatar: Dispatch<UserProfileResponseData['avatar']>
+	avatar: User['avatar']
+	setAvatar: Dispatch<User['avatar']>
 }) {
 	const imageUploadMutation = useMutation({
 		//NOTE: The callback used for the mutation

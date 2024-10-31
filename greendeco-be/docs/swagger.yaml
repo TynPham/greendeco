@@ -496,6 +496,8 @@ definitions:
     properties:
       access_Token:
         type: string
+      user:
+        $ref: '#/definitions/models.User'
     type: object
 host: localhost:8080
 info:
@@ -2966,4 +2968,10 @@ paths:
 schemes:
 - http
 - https
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

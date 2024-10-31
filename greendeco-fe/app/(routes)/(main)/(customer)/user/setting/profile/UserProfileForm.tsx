@@ -6,15 +6,18 @@ import { UserProfileFormInputType, UserProfileSchema } from '@/app/_configs/sche
 import UserAvatar from './UserAvatar'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState, memo } from 'react'
-import { UserProfileResponseData, updatetUserProfile } from '@/app/_api/axios/user'
+import { UserProfileResponseData, updateUserProfile } from '@/app/_api/axios/user'
 import { notifySuccess, notifyError } from './Notification'
 import { TextField } from '@/app/_components/form'
 import { getCookie } from 'cookies-next'
 import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
+import { User } from '@/app/_types/user.type'
+import { useAppContext } from '@/app/_configs/store/useAppContext'
 
-function UserProfileForm({ profile }: { profile: UserProfileResponseData }) {
+function UserProfileForm({ profile }: { profile: User }) {
 	const { avatar, firstName, lastName, email, phoneNumber } = profile
 	const [userAvatar, setUserAvatar] = useState(avatar)
+	const { setUser } = useAppContext()
 
 	const queryClient = useQueryClient()
 
@@ -39,12 +42,12 @@ function UserProfileForm({ profile }: { profile: UserProfileResponseData }) {
 
 	const updateUserProfileMutation = useMutation({
 		//NOTE: The callback used for the mutation
-		mutationFn: updatetUserProfile,
+		mutationFn: updateUserProfile,
 		//NOTE: Execuse after receiving suscess responses
 		onSuccess: (data) => {
 			reset(data)
 			notifySuccess()
-			queryClient.invalidateQueries({ queryKey: ['user'] })
+			setUser(data)
 		},
 		//NOTE: Execuse after receving failure responses
 		onError: (e) => {
@@ -59,7 +62,6 @@ function UserProfileForm({ profile }: { profile: UserProfileResponseData }) {
 		const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
 		//NOTE: Execute the Mutation
 		updateUserProfileMutation.mutate({
-			accessToken: accessToken,
 			profile: {
 				avatar: userAvatar,
 				email: values.email,

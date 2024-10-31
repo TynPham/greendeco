@@ -40,6 +40,7 @@ type UserLogin struct {
 
 type UserToken struct {
 	AccessToken string `json:"access_Token"`
+	User        User   `json:"user"`
 }
 
 type EmailResponse struct {

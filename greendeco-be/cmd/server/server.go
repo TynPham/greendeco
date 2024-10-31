@@ -7,6 +7,7 @@ import (
 	"greendeco-be/pkg/routes"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -23,6 +24,10 @@ import (
 // @host localhost:8080
 // @BasePath /api/v1
 // @schemes http https
+// @securityDefinitions.apikey Bearer
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
 func Serve() {
 	err := configs.LoadConfig()
 	if err != nil {

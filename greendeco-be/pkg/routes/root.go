@@ -1,15 +1,15 @@
 package routes
 
 import (
-    _ "greendeco-be/docs"
-    "github.com/gofiber/fiber/v2"
-    "github.com/gofiber/swagger"
+	_ "greendeco-be/docs"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 )
 
 func SwaggerRoute(a fiber.Router) {
-    // Sử dụng config đúng cú pháp
     a.Get("/docs/*", swagger.New(swagger.Config{
-        URL: "/docs/doc.json",  // URL tới swagger JSON
+        URL: "/docs/doc.json",
         DeepLinking: true,
         Title: "GreenDeco API Documentation",
     }))

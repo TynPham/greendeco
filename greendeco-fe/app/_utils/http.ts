@@ -8,6 +8,9 @@ class ClientToken {
 	}
 
 	setToken(token: string) {
+		if (typeof window === 'undefined') {
+			throw new Error('Cannot set access token on server side')
+		}
 		this.token = token
 	}
 

@@ -1,4 +1,5 @@
 import { LoginFormInputType } from '@/app/_configs/schemas/authentication'
+import { User } from '@/app/_types/user.type'
 import axios from 'axios'
 
 const AUTHENTICATION_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/auth`
@@ -33,7 +34,9 @@ export const registerAccount = async (newAccount: RegisterData) => {
 }
 
 export const loginAccount = async (account: LoginData) => {
-	return await authApi.post('/login', account).then((res) => res.data)
+	return await authApi
+		.post<{ access_Token: string; user: User }>('/login', account)
+		.then((res) => res.data)
 }
 
 export const sendEmailToResetPassword = async ({ email }: { email: string }) => {

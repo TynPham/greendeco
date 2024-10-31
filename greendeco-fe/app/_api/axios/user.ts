@@ -1,3 +1,4 @@
+import { User } from '@/app/_types/user.type'
 import { http } from '@/app/_utils/http'
 
 export type UserProfileResponseData = {
@@ -18,14 +19,15 @@ export type UserProfileUpdateData = {
 }
 
 export type UserProfileUpdateRequest = {
-	accessToken: string | undefined
 	profile: UserProfileUpdateData
 }
 
-export const getUserProfile = async () => {
-	return await http.get<UserProfileResponseData>('/user/me').then((res) => res.data)
+export const getUserProfile = async (token: string) => {
+	return await http
+		.get<User>('/user/me', { headers: { Authorization: `Bearer ${token}` } })
+		.then((res) => res.data)
 }
-export const updatetUserProfile = async (data: UserProfileUpdateRequest) => {
+export const updateUserProfile = async (data: UserProfileUpdateRequest) => {
 	const { profile } = data
-	return await http.put<UserProfileResponseData>('/user/update', profile).then((res) => res.data)
+	return await http.put<User>('/user/update', profile).then((res) => res.data)
 }

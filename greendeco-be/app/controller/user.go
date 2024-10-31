@@ -15,6 +15,7 @@ import (
 	"greendeco-be/pkg/middlewares"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -150,6 +151,7 @@ func Login(c *fiber.Ctx) error {
 
 	return c.JSON(models.UserToken{
 		AccessToken: token,
+		User:        *userExist,
 	})
 }
 

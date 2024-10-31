@@ -14,10 +14,12 @@ import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { UseQueryKeys } from '@/app/_configs/constants/queryKey'
 import { useRouter } from 'next/navigation'
 import { AUTHENTICATION_ROUTE } from '@/app/_configs/constants/variables'
+import { useAppContext } from '@/app/_configs/store/useAppContext'
 
 export default function LoginForm() {
 	const queryClient = useQueryClient()
 	const router = useRouter()
+	const { setUser } = useAppContext()
 
 	const defaultInputValues: LoginFormInputType = {
 		email: '',
@@ -44,6 +46,7 @@ export default function LoginForm() {
 		onSuccess: (data) => {
 			reset()
 			setCookie({ name: ACCESS_TOKEN_COOKIE_NAME, value: data.access_Token })
+			setUser(data.user)
 			queryClient.invalidateQueries([UseQueryKeys.User])
 			notifyLoginSuccess()
 			router.back()

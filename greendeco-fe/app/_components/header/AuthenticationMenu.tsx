@@ -6,7 +6,7 @@ import { UserProfileResponseData, getUserProfile } from '@/app/_api/axios/user'
 import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { UseQueryKeys } from '@/app/_configs/constants/queryKey'
 import { ArrowLeftOnRectangleIcon, ChevronDownIcon, Cog8ToothIcon } from '@heroicons/react/24/solid'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { isError, useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteCookie, getCookie } from 'cookies-next'
 import Button from '../Button'
 import { useRouter } from 'next/navigation'
@@ -14,22 +14,17 @@ import { DEFAULT_AVATAR } from '@/app/_configs/constants/images'
 import React, { useRef, useState } from 'react'
 import clsx from 'clsx'
 import useClickOutside from '@/app/_hooks/useClickOutside'
+import { useAppContext } from '@/app/_configs/store/useAppContext'
+import { User } from '@/app/_types/user.type'
 
 export default function AuthenticationHandler() {
 	const router = useRouter()
-
-	const userQuery = useQuery({
-		queryKey: [UseQueryKeys.User],
-		queryFn: getUserProfile,
-		retry: false,
-	})
-
-	const { data, isLoading, isSuccess, isError } = userQuery
+	const { user } = useAppContext()
 
 	return (
 		<div className='h-full w-[220px] rounded-[8px] bg-primary-625 shadow-18'>
-			{isSuccess && <UserSettingMenu {...data} />}
-			{isError && (
+			{user && <UserSettingMenu user={user} />}
+			{!user && (
 				<Button
 					className='h-full w-full'
 					onClick={() => router.push('/login')}
@@ -41,7 +36,7 @@ export default function AuthenticationHandler() {
 	)
 }
 
-function UserSettingMenu(props: UserProfileResponseData) {
+function UserSettingMenu({ user }: { user: User }) {
 	const [isOpen, setIsOpen] = useState(false)
 	const queryClient = useQueryClient()
 	const settingMenuRef = useRef<any>()
@@ -72,7 +67,7 @@ function UserSettingMenu(props: UserProfileResponseData) {
 			onClick={() => setIsOpen(!isOpen)}
 			className='relative h-full w-full'
 		>
-			<MenuButton {...props} />
+			<MenuButton {...user} />
 
 			<AnimatePresence>
 				{isOpen && (

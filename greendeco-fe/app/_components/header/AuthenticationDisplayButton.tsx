@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import { deleteCookie } from 'cookies-next'
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 export default function AuthenticationDisplayButton() {
 	// return (

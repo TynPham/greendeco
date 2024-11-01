@@ -33,10 +33,10 @@ export default function FeaturedProduct() {
 			<div className='container'>
 				<div className='flex-col-start gap-comfortable '>
 					<div className='flex items-end justify-between border-b-[1px] border-neutral-gray-1 py-cozy'>
-						<ul className='flex h-[4rem] items-end gap-comfortable'>
+						<ul className='flex h-[4rem] items-end lg:gap-comfortable'>
 							{featureOptions.map((opt) => (
 								<li
-									className='cursor-pointer px-cozy'
+									className='cursor-pointer px-compact lg:px-cozy'
 									key={opt.type}
 									onClick={() => setActiveType(opt.type)}
 								>
@@ -65,8 +65,8 @@ function Option({ label, active }: { label: FetureOptionType['label']; active: b
 	return (
 		<h2
 			className={clsx('text-neutral-gray-1  transition-all duration-200 ease-in-out', {
-				'text-heading-1 font-semi-bold': active,
-				'text-body-md font-regular': !active,
+				'text-heading-3 font-semi-bold md:text-heading-2 lg:text-heading-1': active,
+				'text-body-xsm font-regular md:text-body-sm lg:text-body-md': !active,
 			})}
 		>
 			{label}

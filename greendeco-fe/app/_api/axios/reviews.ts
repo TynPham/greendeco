@@ -1,11 +1,7 @@
-import axios from 'axios'
 import { ProductData } from './product'
 import { UserProfileResponseData } from './user'
 import { Sort } from '@/app/_configs/constants/paramKeys'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
-
-const REVIEW_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/review`
+import { http } from '@/app/_utils/http'
 
 export type ReviewItemData = {
 	id: string
@@ -42,41 +38,25 @@ export type ReviewSortParams = {
 	user_id?: string
 }
 
-export const reviewApi = axios.create({
-	baseURL: REVIEW_URL,
-})
-
-reviewApi.defaults.headers.common['Content-Type'] = 'application/json'
-
 export const getReviewListByProductId = async (
 	productId: ProductData['id'],
 	params?: ReviewSortParams,
 ) => {
-	return await reviewApi
-		.get<ReviewListResponseData>(`/product/${productId}`, {
+	return await http
+		.get<ReviewListResponseData>(`/review/product/${productId}`, {
 			params: params ? { ...params } : null,
 		})
 		.then((res) => res.data)
 }
 
 export const getAllReviews = async (params?: ReviewSortParams) => {
-	return await reviewApi
-		.get<ReviewListResponseData>(`/all`, {
+	return await http
+		.get<ReviewListResponseData>(`/review/all`, {
 			params: params ? { ...params } : null,
 		})
 		.then((res) => res.data)
 }
 
 export const createProductReview = async (data: CreateProductReviewData) => {
-	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await reviewApi.post(
-		'',
-		{ ...data },
-		{
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		},
-	)
+	return await http.post('/review', { ...data })
 }

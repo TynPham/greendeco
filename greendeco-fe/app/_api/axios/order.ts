@@ -1,11 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { CartInfoData } from './cart'
-import { headers } from 'next/dist/client/components/headers'
 import { getCookie } from 'cookies-next'
-import {
-	ACCESS_TOKEN_COOKIE_NAME,
-	ACCESS_TOKEN_COOKIE_NAME,
-} from '@/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import { UserProfileResponseData } from './user'
 import {
 	FilterParams,
@@ -13,11 +9,9 @@ import {
 	VariantData,
 	fieldJSONParse,
 	getProductBaseById,
-	getProductDetailById,
 } from './product'
 import { BAD_REQUEST_STATUS } from '@/app/_configs/constants/status'
-
-const ORDER_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/order`
+import { http } from '@/app/_utils/http'
 
 type OrderState = 'draft' | 'processing' | 'completed' | 'cancelled'
 
@@ -94,93 +88,48 @@ export type CreateOrderResponseData = {
 	id: OrderData['id']
 }
 
-export const orderApi = axios.create({
-	baseURL: ORDER_URL,
-})
-
 export const createOrder = async (data: Omit<CreateOrderData, 'cart_id'>) => {
 	const cartId = getCookie('cartId')?.toString()
-	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 
 	if (!cartId) throw new AxiosError('There is no cart available', '404')
-	if (!accessToken) throw new AxiosError('Unauthorized', '401')
 
 	const orderData: CreateOrderData = {
 		cart_id: cartId,
 		...data,
 	}
 
-	return await orderApi.post<CreateOrderResponseData>(
-		'',
-		{
-			...orderData,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		},
-	)
+	return await http.post<CreateOrderResponseData>('/order', {
+		...orderData,
+	})
 }
 
-export const getOrderListByUser = async (params?: FilterParams, token?: string) => {
+export const getOrderListByUser = async (params?: FilterParams) => {
 	let paramAfterJSON
 	if (params) {
 		paramAfterJSON = fieldJSONParse(params)
 	}
 
-	const accessToken = token ? token : getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await orderApi
-		.get<OrderListData>('', {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
+	return await http
+		.get<OrderListData>('/order', {
 			params: { ...paramAfterJSON },
 		})
 		.then((res) => res.data)
 }
 
-export const getOrderDetailById = async (id: OrderData['id'], token?: string) => {
-	const accessToken = token ? token : getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await orderApi
-		.get<OrderDetailResponseData>(`/${id}`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+export const getOrderDetailById = async (id: OrderData['id']) => {
+	return await http.get<OrderDetailResponseData>(`/order/${id}`).then((res) => res.data)
 }
 
-export const getOrderProductListById = async (id: OrderData['id'], token?: string) => {
-	const accessToken = token ? token : getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await orderApi
-		.get<OrderProductList>(`/${id}/product`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+export const getOrderProductListById = async (id: OrderData['id']) => {
+	return await http.get<OrderProductList>(`/order/${id}/product`).then((res) => res.data)
 }
 
-export const getOrderPrice = async (id: OrderData['id'], token?: string) => {
-	const accessToken = token ? token : getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await orderApi
-		.get<OrderPrice>(`${id}/total`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+export const getOrderPrice = async (id: OrderData['id']) => {
+	return await http.get<OrderPrice>(`/order/${id}/total`).then((res) => res.data)
 }
 
-export const getOrderProductWithImageListById = async (id: OrderData['id'], token?: string) => {
-	const accessToken = token ? token : getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-	return await getOrderProductListById(id, accessToken).then(async (orderProductList) => {
+export const getOrderProductWithImageListById = async (id: OrderData['id']) => {
+	return await getOrderProductListById(id).then(async (orderProductList) => {
 		return await Promise.all(
 			orderProductList.items.map(async (orderItem) => {
 				return await getProductBaseById(orderItem.product_id)
@@ -208,12 +157,10 @@ export const getOrderProductWithImageListById = async (id: OrderData['id'], toke
 }
 
 export const getOrderFullDetailById = async (orderId: OrderData['id']) => {
-	const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
 	return await Promise.all([
-		getOrderDetailById(orderId, accessToken),
-		getOrderProductWithImageListById(orderId, accessToken),
-		getOrderPrice(orderId, accessToken),
+		getOrderDetailById(orderId),
+		getOrderProductWithImageListById(orderId),
+		getOrderPrice(orderId),
 	]).then(([order, productList, price]) => {
 		const orderFullDetail: OrderFullDetailData = {
 			order: order.items,

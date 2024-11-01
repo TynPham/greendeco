@@ -1,7 +1,5 @@
 import { INVALID_NAME_STRING } from '@/app/_configs/constants/variables'
-import axios from 'axios'
-
-const PRODUCT_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}`
+import { http } from '@/app/_utils/http'
 
 export type ProductData = {
 	id: string
@@ -133,21 +131,13 @@ export const fieldJSONParseWithSearchValidation = (params: FilterParams) => {
 	}
 }
 
-export const productApi = axios.create({
-	baseURL: PRODUCT_URL,
-})
-
-productApi.defaults.headers.common['Content-Type'] = 'application/json'
-
 export const getProductList = async (params?: FilterParams) => {
 	let paramAfterJSON
 	if (params) {
 		paramAfterJSON = fieldJSONParse(params)
 	}
 
-	console.log(paramAfterJSON)
-
-	return await productApi
+	return await http
 		.get<ProductListData>('/product', {
 			params: { ...paramAfterJSON },
 		})
@@ -160,7 +150,7 @@ export const getProductListWithSearch = async (params?: FilterParams) => {
 		paramAfterJSON = fieldJSONParseWithSearchValidation(params)
 	}
 
-	return await productApi
+	return await http
 		.get<ProductListData>('/product', {
 			params: { ...paramAfterJSON },
 		})
@@ -168,26 +158,22 @@ export const getProductListWithSearch = async (params?: FilterParams) => {
 }
 
 export const getProductBaseById = async (productId: string) => {
-	return await productApi
-		.get<ProductByIdResponseData>(`product/${productId}`)
-		.then((res) => res.data)
+	return await http.get<ProductByIdResponseData>(`product/${productId}`).then((res) => res.data)
 }
 
 export const getVariantsByProductId = async (productId: string) => {
-	return await productApi
+	return await http
 		.get<VariantListResponseData>(`variant/product/${productId}`)
 		.then((res) => res.data)
 }
 export const getDefaultVariantByProductId = async (productId: string) => {
-	return await productApi
+	return await http
 		.get<DefaultVariantResponseData>(`variant/default/${productId}`)
 		.then((res) => res.data.items.variant)
 }
 
 export const getVariantById = async (variantId: string) => {
-	return await productApi
-		.get<VariantInfoResponseData>(`variant/${variantId}`)
-		.then((res) => res.data)
+	return await http.get<VariantInfoResponseData>(`variant/${variantId}`).then((res) => res.data)
 }
 
 export const getProductDetailById = async (productId: string) => {

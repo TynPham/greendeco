@@ -1,4 +1,4 @@
-import { clientToken, http } from '@/app/_utils/http'
+import { http } from '@/app/_utils/http'
 
 export const uploadImage = async (file: FormData) => {
 	return await http

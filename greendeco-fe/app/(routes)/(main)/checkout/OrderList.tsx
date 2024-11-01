@@ -1,14 +1,13 @@
 'use client'
 
 import { getCartItemListFromCartId } from '@/app/_api/axios/cart'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/app/_configs/constants/cookies'
 import {
 	CartListFullDetail,
 	handleGetCartFullDetail,
 	CartItemWithFullVariantInfo,
 } from '@/app/_hooks/useCart'
 import { useQuery } from '@tanstack/react-query'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 import { getCookie } from 'cookies-next'
 import { VariantData } from '@/app/_api/axios/product'
 import Image from 'next/image'
@@ -21,13 +20,11 @@ import { UseQueryKeys } from '@/app/_configs/constants/queryKey'
 function OrderItemList() {
 	const router = useRouter()
 	const getCartItemForCheckout = async () => {
-		const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 		const cartId = getCookie('cartId')?.toString()
 
-		if (!accessToken) throw new AxiosError('Unauthorized', UNAUTHORIZE_STATUS.toString())
 		if (!cartId) throw new AxiosError('Cart does not exist', NOT_FOUND_STATUS.toString())
 
-		return await getCartItemListFromCartId(cartId, accessToken).then((cartInfo) =>
+		return await getCartItemListFromCartId(cartId).then((cartInfo) =>
 			handleGetCartFullDetail(cartInfo),
 		)
 	}

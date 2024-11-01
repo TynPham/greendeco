@@ -1,9 +1,4 @@
-import axios from 'axios'
-import { userApi } from '../user'
-
-const USER_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}`
-
-type AdminAccessTokenType = string | undefined
+import { http } from '@/app/_utils/http'
 
 type UserData = {
 	id: string
@@ -15,12 +10,6 @@ type UserData = {
 	avatar: string | null
 }
 
-export const GetUserById = async (accessToken: AdminAccessTokenType, userId: string) => {
-	return await userApi
-		.get<UserData>(`/${userId}`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		.then((res) => res.data)
+export const GetUserById = async (userId: string) => {
+	return await http.get<UserData>(`/${userId}`).then((res) => res.data)
 }

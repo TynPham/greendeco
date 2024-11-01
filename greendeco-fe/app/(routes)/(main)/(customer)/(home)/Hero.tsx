@@ -5,15 +5,15 @@ import HeroImage from '@/app/_assets/images/homepage/hero.png'
 import PlantIcon from '@/app/_assets/images/homepage/plant.svg'
 export default function Hero() {
 	return (
-		<section className='h-screen w-full bg-primary-5555-20/40'>
+		<section className='w-full bg-primary-5555-20/40 py-60 md:h-screen'>
 			<div className='container h-full'>
-				<div className='grid h-full grid-cols-7'>
-					<div className='col-span-4 flex items-center justify-center px-comfortable'>
+				<div className='grid h-full grid-cols-12'>
+					<div className='col-span-12 flex items-center justify-center px-comfortable md:col-span-6 lg:col-span-7'>
 						<div className='flex-col-start gap-cozy'>
-							<h1 className='text-heading-1 font-semi-bold uppercase text-primary-418-80'>
+							<h1 className='text-heading-3 font-semi-bold uppercase text-primary-418-80 lg:text-heading-1'>
 								Welcome to GreenDeco
 							</h1>
-							<p className='text-[4.4rem] font-bold capitalize text-primary-5555'>
+							<p className='text-[3.5rem] font-bold capitalize text-primary-5555 lg:text-[4.4rem]'>
 								A beautiful plant is like having a friend around the house
 							</p>
 							<Link
@@ -24,7 +24,7 @@ export default function Hero() {
 							</Link>
 						</div>
 					</div>
-					<div className='relative col-span-3 pl-[40px]'>
+					<div className='relative hidden pl-[40px] md:col-span-6 md:block lg:col-span-5'>
 						<div className='absolute bottom-[24%] left-0 z-20 max-w-[60%] rounded-[16px] border-[3px] border-primary-625 bg-neutral-gray-1 p-cozy shadow-26'>
 							<div className='flex items-center gap-cozy'>
 								<div className='relative aspect-square h-[70px] rounded-[100%] bg-primary-5555'>

@@ -9,9 +9,12 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { useState } from 'react'
 import NotificationDisplayButton from './NotificationButton'
 import SearchDisplayButton from './SearchDisplayButton'
+import { Bars3Icon } from '@heroicons/react/24/solid'
+import AuthenticationDisplayButton from './AuthenticationDisplayButton'
 
 export default function Header() {
 	const [hidden, setHidden] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const { scrollY } = useScroll()
 
@@ -22,23 +25,25 @@ export default function Header() {
 		} else setHidden(false)
 	})
 	return (
-		<motion.header
-			variants={{
-				visible: { y: 0 },
-				hidden: { y: '-140%' },
-			}}
-			animate={hidden ? 'hidden' : 'visible'}
-			transition={{ duration: 0.35, ease: 'easeInOut' }}
-			className='sticky top-cozy z-50'
-		>
-			<div className='container'>
-				<div className='mx-[-20px] mt-[-60px] flex h-[60px] items-center gap-cozy'>
-					<Logo />
-					<NavBar />
-					<AuthenticationHandler />
+		<>
+			<motion.header
+				variants={{
+					visible: { y: 0 },
+					hidden: { y: '-140%' },
+				}}
+				animate={hidden ? 'hidden' : 'visible'}
+				transition={{ duration: 0.35, ease: 'easeInOut' }}
+				className='sticky top-cozy z-50'
+			>
+				<div className='container'>
+					<div className='mx-[10px] mt-[-60px] flex h-[60px] items-center gap-cozy md:mx-[-20px]'>
+						<Logo />
+						<NavBar />
+						<AuthenticationHandler />
+					</div>
 				</div>
-			</div>
-		</motion.header>
+			</motion.header>
+		</>
 	)
 }
 
@@ -59,6 +64,10 @@ function Logo() {
 	)
 }
 
+function ShowDialogButton() {
+	return <Bars3Icon className='aspect-square  h-32 text-primary-625' />
+}
+
 function NavBar() {
 	return (
 		<div className='flex-col-start relative h-full flex-1 justify-center rounded-[8px] border-[1px] border-primary-625 bg-white px-cozy shadow-18'>
@@ -68,6 +77,7 @@ function NavBar() {
 					<SearchDisplayButton />
 					<CartDisplayButton />
 					<NotificationDisplayButton />
+					<AuthenticationDisplayButton />
 				</div>
 			</div>
 		</div>

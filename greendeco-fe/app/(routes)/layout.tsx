@@ -10,7 +10,6 @@ import { cookies } from 'next/headers'
 import { ACCESS_TOKEN_COOKIE_NAME } from '../_configs/constants/cookies'
 import { User } from '../_types/user.type'
 import { getUserProfile } from '../_api/axios/user'
-import { clientToken } from '../_utils/http'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',

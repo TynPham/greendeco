@@ -37,7 +37,7 @@ export default function SizeFeature() {
 		<section className='section-home flex bg-primary-625-40/50'>
 			<div className='container h-full'>
 				<div className='grid h-full grid-cols-6 gap-comfortable'>
-					<div className=' flex-col-start col-span-2 min-h-[400px] justify-center gap-cozy '>
+					<div className='flex-col-start order-2 col-span-6 mx-24 min-h-[400px] justify-center gap-cozy md:order-1 md:col-span-2 md:mx-0'>
 						<h2 className='text-[3rem] text-primary-625'>
 							It Comes With Different Sizes!
 						</h2>
@@ -53,7 +53,7 @@ export default function SizeFeature() {
 							View More
 						</Link>
 					</div>
-					<div className='col-span-4 h-fit'>
+					<div className='order-1 col-span-6 h-fit md:order-2 md:col-span-4'>
 						<div className='flex-col-start items-center gap-comfortable'>
 							<ul className='flex h-[4rem] w-fit items-end justify-center border-b-[1px] border-primary-5555 pb-cozy'>
 								{sizeOptionList.map((opt) => (

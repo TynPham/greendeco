@@ -1,10 +1,8 @@
-import axios from 'axios'
-
-const PRODUCT_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}`
-const PLANT_CATEGORY_ID = `${process.env.NEXT_PUBLIC_PLANT_CATEGORY_ID}`
-
 import { ProductData, ProductListData, VariantData } from '../product'
 import { Sort, SortBy } from '@/app/_configs/constants/paramKeys'
+import { http } from '@/app/_utils/http'
+
+const PLANT_CATEGORY_ID = `${process.env.NEXT_PUBLIC_PLANT_CATEGORY_ID}`
 
 type AdminAccessTokenType = string | undefined
 
@@ -94,18 +92,9 @@ type CreateProductResponseData = {
 	id: ProductData['id']
 }
 
-export const adminProductApi = axios.create({
-	baseURL: PRODUCT_URL,
-})
-
-adminProductApi.defaults.headers.common['Content-Type'] = 'application/json'
-
-export const getProductListAsAdministrator = async (adminAccessToken: AdminAccessTokenType) => {
-	return await adminProductApi
+export const getProductListAsAdministrator = async () => {
+	return await http
 		.get<ProductListData>('/product/all', {
-			headers: {
-				Authorization: `Bearer ${adminAccessToken}`,
-			},
 			params: {
 				limit: 9999,
 				sort: Sort.Descending,
@@ -116,90 +105,50 @@ export const getProductListAsAdministrator = async (adminAccessToken: AdminAcces
 }
 
 export const createProduct = async (data: CreateProductRequestData) => {
-	const { productData, adminAccessToken } = data
+	const { productData } = data
 
-	return await adminProductApi.post<CreateProductResponseData>(
-		'/product',
-		{
-			category_id: PLANT_CATEGORY_ID,
-			...productData,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${adminAccessToken}`,
-			},
-		},
-	)
+	return await http.post<CreateProductResponseData>('/product', {
+		category_id: PLANT_CATEGORY_ID,
+		...productData,
+	})
 }
 
 export const updateProduct = async (data: UpdateProductRequestData) => {
-	const { productData, adminAccessToken } = data
+	const { productData } = data
 
 	const { id, ...restProductData } = productData
 
-	return await adminProductApi.put(
-		`/product/${id}`,
-		{
-			...restProductData,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${adminAccessToken}`,
-			},
-		},
-	)
+	return await http.put(`/product/${id}`, {
+		...restProductData,
+	})
 }
 
 export const deleteProduct = async (data: DeleteProductRequestData) => {
-	const { productId, adminAccessToken } = data
+	const { productId } = data
 
-	return await adminProductApi.delete(`/product/${productId}`, {
-		headers: {
-			Authorization: `Bearer ${adminAccessToken}`,
-		},
-	})
+	return await http.delete(`/product/${productId}`)
 }
 
 export const createVariant = async (data: CreateVariantRequestData) => {
-	const { variantData, adminAccessToken } = data
+	const { variantData } = data
 
-	return await adminProductApi.post<CreateProductResponseData>(
-		'/variant',
-		{
-			...variantData,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${adminAccessToken}`,
-			},
-		},
-	)
+	return await http.post<CreateProductResponseData>('/variant', {
+		...variantData,
+	})
 }
 
 export const updateVariant = async (data: UpdateVariantRequestData) => {
-	const { variantData, adminAccessToken } = data
+	const { variantData } = data
 
 	const { id, ...restVariantData } = variantData
 
-	return await adminProductApi.put(
-		`/variant/${id}`,
-		{
-			...restVariantData,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${adminAccessToken}`,
-			},
-		},
-	)
+	return await http.put(`/variant/${id}`, {
+		...restVariantData,
+	})
 }
 
 export const deleteVariant = async (data: DeleteVariantRequestData) => {
-	const { variantId, adminAccessToken } = data
+	const { variantId } = data
 
-	return await adminProductApi.delete(`/variant/${variantId}`, {
-		headers: {
-			Authorization: `Bearer ${adminAccessToken}`,
-		},
-	})
+	return await http.delete(`/variant/${variantId}`)
 }

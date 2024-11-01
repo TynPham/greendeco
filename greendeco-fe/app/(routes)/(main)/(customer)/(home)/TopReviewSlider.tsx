@@ -77,7 +77,7 @@ export default function TopReviewSlider() {
 							/>
 						</SwiperSlide>
 					))}
-					<div className='flex w-full justify-end gap-compact'>
+					<div className='mt-4 flex w-full justify-center gap-common'>
 						<NavigationButton
 							onClick={() => swiperRef.current?.slidePrev()}
 							direction='prev'

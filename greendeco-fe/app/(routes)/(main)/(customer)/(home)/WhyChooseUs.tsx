@@ -29,11 +29,11 @@ const reasons: ReasonType[] = [
 ]
 export default function WhyChooseUs() {
 	return (
-		<section className='p-[80px]'>
+		<section className='px-8 py-20 md:px-12 lg:px-20'>
 			<div className='container'>
-				<div className='grid grid-cols-2'>
+				<div className='grid grid-cols-1 gap-12 md:grid-cols-2 lg:gap-0'>
 					<div className='grid grid-cols-6'>
-						<div className='col-span-4 col-start-2'>
+						<div className='col-span-6 lg:col-span-4 lg:col-start-2'>
 							<SectionImage />
 						</div>
 					</div>
@@ -73,7 +73,7 @@ function Reason({ title, paragraph, icon }: ReasonType) {
 					style={{ objectFit: 'fill' }}
 				/>
 			</div>
-			<div>
+			<div className='flex-1'>
 				<h3 className='mb-[4px] text-heading-3 capitalize text-primary-5555'>{title}</h3>
 				<p className='text-body-md text-primary-418-60'>{paragraph}</p>
 			</div>
@@ -94,7 +94,7 @@ function SectionImage() {
 				height={0}
 				sizes='100vw'
 			/>
-			<div className='absolute  bottom-0 left-0 right-comfortable top-comfortable z-[-1] bg-primary-5555'></div>
+			<div className='absolute bottom-0 left-0 right-comfortable top-comfortable z-[-1] bg-primary-5555'></div>
 		</div>
 	)
 }

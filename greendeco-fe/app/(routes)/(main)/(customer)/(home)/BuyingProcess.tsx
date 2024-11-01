@@ -37,8 +37,10 @@ export default function BuyingProcess() {
 	return (
 		<section className='section-home bg-primary-5555-20/20'>
 			<div className='flex-col-start container items-center gap-comfortable'>
-				<h2 className='text-heading-1 text-primary-418'>Have Your Own Plants With 5 Simple Steps</h2>
-				<div className='flex  w-full items-center justify-center gap-comfortable'>
+				<h2 className='text-heading-3 text-primary-418 md:text-heading-2 lg:text-heading-1'>
+					Have Your Own Plants With 5 Simple Steps
+				</h2>
+				<div className='flex w-full flex-wrap items-center justify-center gap-comfortable'>
 					{buyingProcess.map((step, index, row) => (
 						<>
 							<BuyingStep

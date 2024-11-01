@@ -1,18 +1,17 @@
-import { ProductListData } from '@/app/_api/axios/product'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import clsx from 'clsx'
+import { ProductCardProps } from '.'
 import ProductCard from './ProductCard'
+import { useRef } from 'react'
+import { Swiper as SwiperType } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 
-import { Swiper as SwiperType } from 'swiper'
-import { useRef } from 'react'
-import clsx from 'clsx'
-
-export default function ProductCarousel({
-	productList,
-}: {
-	productList: ProductListData['items']
-}) {
+type ProductCardsGridProps = {
+	productList: ProductCardProps[]
+}
+export default function Product(props: ProductCardsGridProps) {
+	const { productList } = props
 	const swiperRef = useRef<SwiperType>()
 	return (
 		<>
@@ -22,14 +21,11 @@ export default function ProductCarousel({
 				slidesPerView={2}
 				spaceBetween={16}
 				breakpoints={{
-					768: {
+					1024: {
 						slidesPerView: 3,
 					},
-					1024: {
-						slidesPerView: 4,
-					},
 					1280: {
-						slidesPerView: 5,
+						slidesPerView: 3,
 					},
 				}}
 				onBeforeInit={(swiper) => {

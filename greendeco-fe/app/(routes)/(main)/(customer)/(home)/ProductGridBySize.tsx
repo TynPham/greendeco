@@ -1,16 +1,15 @@
 import { getProductList } from '@/app/_api/axios/product'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import ProductCarousel from '@/app/_components/product/ProductCarousel'
 import { UseQueryKeys } from '@/app/_configs/constants/queryKey'
 import { useQuery } from '@tanstack/react-query'
-import ProductCardsGrid from '@/app/_components/product/ProductGrid'
+import Product from '@/app/_components/product/Product'
 
 export default function ProductGridBySize({ size }: { size: 'S' | 'M' | 'L' | 'XL' }) {
 	const featureProductQuery = useQuery({
 		queryKey: [UseQueryKeys.Product, size],
 		queryFn: () =>
 			getProductList({
-				limit: 6,
+				limit: 10,
 				field: JSON.stringify({
 					size: size,
 				}),
@@ -22,15 +21,7 @@ export default function ProductGridBySize({ size }: { size: 'S' | 'M' | 'L' | 'X
 	return (
 		<>
 			{isLoading && <Loading />}
-			{data && isSuccess && (
-				<div className='w-[80%]'>
-					<ProductCardsGrid
-						columns={3}
-						productList={data.items}
-						gap='compact'
-					/>
-				</div>
-			)}
+			{data && isSuccess && <Product productList={data.items} />}
 		</>
 	)
 }

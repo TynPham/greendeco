@@ -1,9 +1,7 @@
 import { AccessTokenType } from '@/app/_types'
-import axios from 'axios'
 import { UserProfileResponseData } from './user'
 import { VariantData } from './product'
-
-const CART_URL = `${process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API}/cart`
+import { http } from '@/app/_utils/http'
 
 export type CartInfoData = {
 	id: string
@@ -73,91 +71,43 @@ type ClearItemCartResquestData = {
 	accessToken: AccessTokenType
 }
 
-export const cartApi = axios.create({
-	baseURL: CART_URL,
-})
+export const getCartInfoFromUser = async () => {
+	return await http.get<CartInfoFromUserResponseData>('/cart').then((res) => res.data)
+}
 
-cartApi.defaults.headers.common['Content-Type'] = 'application/json'
-
-export const getCartInfoFromUser = async (accessToken: AccessTokenType) => {
-	return await cartApi
-		.get<CartInfoFromUserResponseData>('', {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
+export const createNewCart = async () => {
+	return await http
+		.post<CreateNewCartResponseData>('/cart', {
+			//NOTE: In the future, the description will have username + Cart
+			description: 'User Cart',
 		})
 		.then((res) => res.data)
 }
 
-export const createNewCart = async (accessToken: AccessTokenType) => {
-	return await cartApi
-		.post<CreateNewCartResponseData>(
-			'',
-			{
-				//NOTE: In the future, the description will have username + Cart
-				description: 'User Cart',
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			},
-		)
-		.then((res) => res.data)
-}
-
-export const getCartItemListFromCartId = async (cartId: string, accessToken: AccessTokenType) => {
-	return await cartApi
-		.get<CartItemListResponseData>(`/${cartId}/product`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
+export const getCartItemListFromCartId = async (cartId: string) => {
+	return await http
+		.get<CartItemListResponseData>(`/cart/${cartId}/product`)
 		.then((res) => res.data)
 }
 
 export const addCartItem = async (data: AddItemRequestData) => {
-	const { itemData, accessToken } = data
-	return await cartApi.post<CartItemListResponseData>(
-		'/product',
-		{ ...itemData },
-		{
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		},
-	)
+	const { itemData } = data
+	return await http.post<CartItemListResponseData>('/cart/product', { ...itemData })
 }
 
 export const changeCartItemQuantity = async (data: ChangeItemQuantityRequestData) => {
-	const { itemId, quantity, accessToken } = data
-	return await cartApi.put(
-		`/product/${itemId}`,
-		{
-			quantity: quantity,
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		},
-	)
+	const { itemId, quantity } = data
+	return await http.put(`/cart/product/${itemId}`, {
+		quantity: quantity,
+	})
 }
 
 export const removeCartItem = async (data: RemoveItemCartRequestData) => {
-	const { itemId, accessToken } = data
-	return await cartApi.delete(`/product/${itemId}`, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+	const { itemId } = data
+	return await http.delete(`/cart/product/${itemId}`)
 }
 
 export const clearCartItemList = async (data: ClearItemCartResquestData) => {
-	const { cartId, accessToken } = data
-	return await cartApi.delete(`/${cartId}/clear`, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+	const { cartId } = data
+	return await http.delete(`/cart/${cartId}/clear`)
 }

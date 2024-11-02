@@ -10,6 +10,7 @@ import (
 	"greendeco-be/pkg/middlewares"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -135,7 +136,7 @@ func LoginForAdmin(c *fiber.Ctx) error {
 
 // @CreateAdminAccount() godoc
 // @Summary create new user
-// @Tags Auth
+// @Tags Admin
 // @Param todo body models.CreateUser true "New User"
 // @Accept json
 // @Produce json

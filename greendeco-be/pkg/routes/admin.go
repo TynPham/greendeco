@@ -3,6 +3,7 @@ package routes
 import (
 	"greendeco-be/app/controller"
 	"greendeco-be/pkg/middlewares"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -21,6 +22,7 @@ func (r *AdminRouters) RegisterRoutes() {
 
 func (r *AdminRouters) publicAdminRoute() {
 	r.app.Post("/login", controller.LoginForAdmin)
+	r.app.Post("/register", controller.CreateAdminAccount)
 }
 
 func (r *AdminRouters) privateAdminRoute() {

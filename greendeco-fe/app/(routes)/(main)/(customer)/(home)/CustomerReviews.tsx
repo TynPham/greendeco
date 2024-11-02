@@ -1,4 +1,3 @@
-import { StarIcon } from '@heroicons/react/24/solid'
 import TopReviewSlider from './TopReviewSlider'
 export default function CustomerReviews() {
 	return (

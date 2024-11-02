@@ -615,7 +615,7 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
       summary: create new user
       tags:
-      - Auth
+      - Admin
   /auth/forgot-password:
     post:
       consumes:

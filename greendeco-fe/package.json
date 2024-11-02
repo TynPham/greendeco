@@ -20,7 +20,14 @@
 		"start": "next start",
 		"prettier": "prettier --write .",
 		"prepare": "husky install .husky",
-		"lint": "next lint"
+		"lint": "next lint",
+		"check:prettier": "prettier --check .",
+		"check:lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+		"check:types": "tsc --noEmit",
+		"check:all": "yarn check:prettier && yarn check:lint && yarn check:types",
+		"fix:prettier": "prettier --write .",
+		"fix:lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+		"fix:all": "yarn fix:prettier && yarn fix:lint"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.1",

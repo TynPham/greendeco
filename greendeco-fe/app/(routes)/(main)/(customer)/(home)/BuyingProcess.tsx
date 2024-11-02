@@ -6,33 +6,47 @@ import Step4 from '@/app/_assets/images/homepage/buyingprocess/step4.svg'
 import Step5 from '@/app/_assets/images/homepage/buyingprocess/step5.svg'
 import Arrow1 from '@/app/_assets/images/homepage/buyingprocess/arrow1.svg'
 
-type BuyingStepType = {
+type BuyingStepProps = {
 	label: string
-	icon: any //NOTE: because icons are svgr, so the library recommend to use any type to avoid conflict
+	icon: typeof Step1
+	showArrow?: boolean
 }
 
-const buyingProcess: BuyingStepType[] = [
-	{
-		label: 'pick your plants',
-		icon: Step1,
-	},
-	{
-		label: 'choose a pot color',
-		icon: Step2,
-	},
-	{
-		label: 'put in your cart',
-		icon: Step3,
-	},
-	{
-		label: 'have them shipped',
-		icon: Step4,
-	},
-	{
-		label: 'watch them grow',
-		icon: Step5,
-	},
+const BUYING_STEPS: BuyingStepProps[] = [
+	{ label: 'pick your plants', icon: Step1 },
+	{ label: 'choose a pot color', icon: Step2 },
+	{ label: 'put in your cart', icon: Step3 },
+	{ label: 'have them shipped', icon: Step4 },
+	{ label: 'watch them grow', icon: Step5 },
 ]
+
+const BuyingStep = ({ label, icon, showArrow = false }: BuyingStepProps) => (
+	<div className='flex items-center gap-comfortable'>
+		<div className='flex-col-start items-center gap-cozy'>
+			<div className='aspect-square w-[100px] border-[1px] border-primary-5555-60 bg-neutral-gray-1 p-cozy shadow-26'>
+				<Image
+					src={icon}
+					alt={`Step: ${label}`}
+					width={0}
+					height={0}
+					sizes='100vw'
+				/>
+			</div>
+			<p className='text-body-md font-semi-bold capitalize text-primary-625'>{label}</p>
+		</div>
+		{showArrow && (
+			<div className='hidden lg:block'>
+				<Image
+					src={Arrow1}
+					alt='Next step'
+					width={24}
+					height={24}
+				/>
+			</div>
+		)}
+	</div>
+)
+
 export default function BuyingProcess() {
 	return (
 		<section className='section-home bg-primary-5555-20/20'>
@@ -41,33 +55,15 @@ export default function BuyingProcess() {
 					Have Your Own Plants With 5 Simple Steps
 				</h2>
 				<div className='flex w-full flex-wrap items-center justify-center gap-comfortable'>
-					{buyingProcess.map((step, index, row) => (
-						<>
-							<BuyingStep
-								key={step.label}
-								{...step}
-							/>
-						</>
+					{BUYING_STEPS.map((step, index) => (
+						<BuyingStep
+							key={step.label}
+							{...step}
+							showArrow={index < BUYING_STEPS.length - 1}
+						/>
 					))}
 				</div>
 			</div>
 		</section>
-	)
-}
-
-function BuyingStep({ label, icon }: BuyingStepType) {
-	return (
-		<div className='flex-col-start items-center gap-cozy'>
-			<div className='aspect-square w-[100px] border-[1px] border-primary-5555-60 bg-neutral-gray-1 p-cozy shadow-26'>
-				<Image
-					src={icon}
-					alt='buyingprocess'
-					width={0}
-					height={0}
-					sizes='100vw'
-				/>
-			</div>
-			<p className='text-body-md font-semi-bold capitalize text-primary-625'>{label}</p>
-		</div>
 	)
 }

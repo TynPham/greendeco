@@ -1,6 +1,6 @@
 import { ProductData, ProductListData, VariantData } from '../product'
 import { Sort, SortBy } from '@/app/_configs/constants/paramKeys'
-import { http } from '@/app/_utils/http'
+import { clientToken, http } from '@/app/_utils/http'
 
 const PLANT_CATEGORY_ID = `${process.env.NEXT_PUBLIC_PLANT_CATEGORY_ID}`
 

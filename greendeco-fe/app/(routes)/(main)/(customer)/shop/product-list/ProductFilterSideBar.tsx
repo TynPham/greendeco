@@ -19,7 +19,10 @@ type QueryParams = {
 function FilterMenu() {
 	const { queryParams, setQueryParams } = useQueryParams<QueryParams>()
 	const fieldQuery = queryParams?.get('field')
-	const object: FieldQuery = fieldQuery ? JSON.parse(fieldQuery) : {}
+	const object: FieldQuery = useMemo(
+		() => (fieldQuery ? JSON.parse(fieldQuery) : {}),
+		[fieldQuery],
+	)
 
 	const filterSearch = useCallback(
 		(field: FieldQuery) => {

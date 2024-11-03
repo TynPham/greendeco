@@ -16,10 +16,9 @@
 	},
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "yarn install --ignore-scripts && next build",
 		"start": "next start",
 		"prettier": "prettier --write .",
-		"prepare": "husky install .husky",
 		"lint": "next lint",
 		"check:prettier": "prettier --check .",
 		"check:lint": "eslint . --ext .js,.jsx,.ts,.tsx",

@@ -41,6 +41,11 @@ func Serve() {
 	// Ensure DB connection is closed when server shuts down
 	defer database.CloseDB()
 
+	// Migrate database when the first time running
+	// if err := database.GetDB().Migrate(); err != nil {
+	// 	log.Panic(err)
+	// }
+
 	validators.AddProductQueryDecoder()
 	validators.AddOrderQueryDecoder()
 

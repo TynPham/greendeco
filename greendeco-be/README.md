@@ -71,6 +71,18 @@ cp .env.example .env
 
 ### 4. Run app
 
+#### Migrate database when the first time running
+
+##### - Uncomment the following line in cmd/server/server.go for the first time to migrate database and running the app
+
+```go
+// if err := database.GetDB().Migrate(); err != nil {
+// 	log.Panic(err)
+// }
+```
+
+##### If you already have a database, you can comment above command
+
 #### Using docker
 
 ```bash

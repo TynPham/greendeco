@@ -37,7 +37,7 @@ func handler() http.HandlerFunc {
 
 	app.Use(logger.New())
 	corsApp := cors.ConfigDefault
-	corsApp.AllowCredentials = true
+	corsApp.AllowCredentials = false
 	corsApp.AllowHeaders = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
 	app.Use(cors.New(corsApp))
 	app.Get("/hello", func(c *fiber.Ctx) error {

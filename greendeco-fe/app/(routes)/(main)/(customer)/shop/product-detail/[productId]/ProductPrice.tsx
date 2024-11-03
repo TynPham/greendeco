@@ -1,5 +1,6 @@
+'use client'
+
 import Button from '@/app/_components/Button'
-import QuantityController from '@/app/_components/QuantityController'
 import { useVariantStore } from '@/app/_configs/store/useVariantStore'
 import { useCartMutation } from '@/app/_hooks/useCart'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'

@@ -1,3 +1,5 @@
+'use client'
+
 import { OrderState, StatusRequest, updateOrderStatusSendNoti } from '@/app/_api/axios/admin/order'
 import Button from '@/app/_components/Button'
 import { MultilineTextField } from '@/app/_components/form'

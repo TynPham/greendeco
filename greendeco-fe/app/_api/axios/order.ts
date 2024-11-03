@@ -1,3 +1,5 @@
+'use client'
+
 import axios, { AxiosError } from 'axios'
 import { CartInfoData } from './cart'
 import { getCookie } from 'cookies-next'

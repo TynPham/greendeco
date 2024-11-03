@@ -1,7 +1,9 @@
+'use client'
+
 import { useMutation } from '@tanstack/react-query'
 import { uploadImage } from '@/app/_api/axios/media'
 import { IMAGE_MAX_SIZE_IN_MB } from '@/app/_configs/constants/variables'
-import React, { Dispatch, useEffect, useState } from 'react'
+import React from 'react'
 import { EMPTY_STRING } from '@/app/_configs/constants/variables'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'

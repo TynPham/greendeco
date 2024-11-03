@@ -1,3 +1,5 @@
+'use client'
+
 import { useCartMutation, CartListFullDetail } from '@/app/_hooks/useCart'
 import CartItem from './CartItem'
 import Button from '../Button'

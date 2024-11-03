@@ -1,3 +1,5 @@
+'use client'
+
 import { ProductData, VariantData } from '@/app/_api/axios/product'
 import clsx from 'clsx'
 import VariantDetailDisplay from './VariantDetailDisplay'

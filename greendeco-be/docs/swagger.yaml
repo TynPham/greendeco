@@ -494,7 +494,7 @@ definitions:
     type: object
   models.UserToken:
     properties:
-      access_Token:
+      accessToken:
         type: string
       user:
         $ref: '#/definitions/models.User'

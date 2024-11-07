@@ -1,5 +1,5 @@
 {
-	"tabWidth": 4,
+	"tabWidth": 2,
 	"printWidth": 100,
 	"arrowParens": "always",
 	"bracketSameLine": false,
@@ -10,7 +10,7 @@
 	"quoteProps": "as-needed",
 	"trailingComma": "all",
 	"singleAttributePerLine": true,
-	"useTabs": true,
+	"useTabs": false,
 	"plugins": ["prettier-plugin-tailwindcss"],
 	"tailwindFunctions": ["clsx"]
 }

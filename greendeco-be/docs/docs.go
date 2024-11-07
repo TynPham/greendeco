@@ -4583,7 +4583,7 @@ const docTemplate = `{
         "models.UserToken": {
             "type": "object",
             "properties": {
-                "access_Token": {
+                "accessToken": {
                     "type": "string"
                 },
                 "user": {

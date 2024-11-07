@@ -40,7 +40,7 @@ GreenDeco is an e-commerce website that sells lovely plants. Main purpose of thi
 ## Prerequisites
 
 -   Node.js 16+
--   yarn or npm
+-   npm
 
 ## Project Structure
 
@@ -70,8 +70,6 @@ cd greendeco-fe
 ### 2. Install dependencies
 
 ```bash
-yarn install
-# or
 npm install
 ```
 
@@ -86,8 +84,6 @@ cp .env.example .env
 ### 4. Run the development server
 
 ```bash
-yarn dev
-# or
 npm run dev
 ```
 

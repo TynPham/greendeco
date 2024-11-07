@@ -1,10 +1,10 @@
 FROM node:20-alpine AS node-builder
 WORKDIR /build
-COPY web/package.json web/yarn.lock ./
-RUN yarn install
+COPY web/package.json web/package-lock.json ./
+RUN npm ci
 COPY web/ .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN yarn build
+RUN npm run build
 
 FROM golang:latest AS build
 WORKDIR /build

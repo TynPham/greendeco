@@ -39,7 +39,7 @@ type UserLogin struct {
 }
 
 type UserToken struct {
-	AccessToken string `json:"access_Token"`
+	AccessToken string `json:"accessToken"`
 	User        User   `json:"user"`
 }
 

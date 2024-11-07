@@ -70,7 +70,11 @@ export default function LoginForm() {
       notifyLoginSuccess()
       router.push(path.home)
     } catch (error) {
-      console.log(error)
+      if (error instanceof AxiosError) {
+        notifyLoginFail(error.response?.data.msg)
+      } else {
+        notifyLoginFail('Something went wrong')
+      }
     }
   }
 

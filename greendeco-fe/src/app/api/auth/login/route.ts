@@ -2,7 +2,7 @@ import authApis from '@/src/apiRequests/auth.api'
 import { LoginBodyType } from '@/src/app/_types/auth'
 import { HttpError } from '@/src/app/_utils/http'
 import { decodeToken } from '@/src/app/_utils/utils'
-import { HttpStatusCode } from 'axios'
+import { AxiosError, HttpStatusCode } from 'axios'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
@@ -25,8 +25,8 @@ export async function POST(request: Request) {
       status: HttpStatusCode.Ok,
     })
   } catch (error) {
-    if (error instanceof HttpError) {
-      return NextResponse.json(error.payload, {
+    if (error instanceof AxiosError) {
+      return NextResponse.json(error.response?.data, {
         status: error.status,
       })
     }

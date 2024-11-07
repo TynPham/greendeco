@@ -10,6 +10,8 @@ import { cookies } from 'next/headers'
 import { ACCESS_TOKEN_COOKIE_NAME } from '../_configs/constants/cookies'
 import { User } from '../_types/user.type'
 import { getUserProfile } from '../_api/axios/user'
+import { TokenType } from '@/src/constants/token'
+import UserApis from '@/src/apiRequests/user.api'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,19 +21,16 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies()
   let user: User | null = null
-  const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value ?? ''
+  const accessToken = cookieStore.get(TokenType.ACCESS_TOKEN)?.value ?? ''
   if (accessToken) {
-    const userResponse = await getUserProfile(accessToken)
-    user = userResponse
+    const userResponse = await UserApis.sGetUserProfile(accessToken)
+    user = userResponse.data
   }
   return (
     <html lang='en'>
       <body>
         <div id='__next'>
-          <AppContextProvider
-            initUser={user}
-            initToken={accessToken}
-          >
+          <AppContextProvider initUser={user}>
             <ToastContainer className='w-auto' />
             {children}
           </AppContextProvider>

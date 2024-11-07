@@ -16,11 +16,9 @@ export const AppContext = createContext<AppContextType | undefined>(initAppConte
 export default function AppContextProvider({
   children,
   initUser,
-  initToken,
 }: {
   children: React.ReactNode
   initUser: User | null
-  initToken: string | null
 }) {
   const [user, setUser] = useState(initUser)
 

@@ -17,7 +17,7 @@ type User struct {
 	LastName    string    `db:"last_name" json:"lastName"`
 	PhoneNumber string    `db:"phone_number" json:"phoneNumber"`
 	Avatar      *string   `db:"avatar" json:"avatar"`
-	IsAdmin     bool      `db:"admin" json:"-"`
+	IsAdmin     bool      `db:"admin" json:"isAdmin"`
 }
 
 func NewUser() *User {
@@ -39,7 +39,7 @@ type UserLogin struct {
 }
 
 type UserToken struct {
-	AccessToken string `json:"access_Token"`
+	AccessToken string `json:"accessToken"`
 	User        User   `json:"user"`
 }
 

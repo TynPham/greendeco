@@ -4540,6 +4540,9 @@ const docTemplate = `{
                 "identifier": {
                     "type": "string"
                 },
+                "isAdmin": {
+                    "type": "boolean"
+                },
                 "lastName": {
                     "type": "string"
                 },
@@ -4583,7 +4586,7 @@ const docTemplate = `{
         "models.UserToken": {
             "type": "object",
             "properties": {
-                "access_Token": {
+                "accessToken": {
                     "type": "string"
                 },
                 "user": {

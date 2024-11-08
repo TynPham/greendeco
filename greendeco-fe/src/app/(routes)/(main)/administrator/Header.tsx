@@ -12,6 +12,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
 import { ADMIN_QUERY_KEY } from '@/src/app/_configs/constants/queryKey'
 import { useRouter } from 'next/navigation'
+import { useLogoutMutation } from '@/src/queries/auth'
+import path from '@/src/constants/path'
 
 export const AdministratorHeader = () => {
   return (
@@ -61,12 +63,11 @@ function Logo() {
 }
 
 function LogoutButton() {
-  const queryClient = useQueryClient()
   const router = useRouter()
-  const handleLogOut = () => {
-    deleteCookie(ACCESS_TOKEN_COOKIE_NAME)
-    queryClient.removeQueries([ADMIN_QUERY_KEY])
-    router.push(ADMINISTRATOR_ROUTE.LOGIN.LINK)
+  const logoutMutation = useLogoutMutation()
+  const handleLogOut = async () => {
+    await logoutMutation.mutateAsync()
+    router.push(path.loginAdministrator)
   }
   return (
     <span

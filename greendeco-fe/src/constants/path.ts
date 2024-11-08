@@ -4,8 +4,13 @@ const path = {
   register: '/register',
   loginAdministrator: '/administrator/login',
   productAdministrator: '/administrator/product',
-  order: '/orders',
-  profile: '/profile',
+  orderAdministrator: '/administrator/order',
+  order: '/user/order',
+  profile: '/user/setting/profile',
+  purchased: '/user/purchased',
+  products: '/shop/product-list',
+  checkout: '/checkout',
+  payment: '/payment',
 }
 
 export default path

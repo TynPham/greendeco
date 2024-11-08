@@ -4,8 +4,16 @@ import path from './constants/path'
 import { decodeToken } from './app/_utils/utils'
 
 const authPaths = [path.login, path.register, path.loginAdministrator]
-const privatePaths = [path.order, path.profile, path.productAdministrator]
-const adminPaths = [path.productAdministrator]
+const privatePaths = [
+  path.order,
+  path.profile,
+  path.purchased,
+  path.productAdministrator,
+  path.orderAdministrator,
+  path.checkout,
+  path.payment,
+]
+const adminPaths = [path.productAdministrator, path.orderAdministrator]
 export function middleware(request: NextRequest) {
   const cookiesStore = request.cookies
   const pathname = request.nextUrl.pathname
@@ -39,5 +47,8 @@ export const config = {
     '/user/:path*',
     '/payment/:path*',
     '/profile/:path*',
+    '/purchased/:path*',
+    '/checkout/:path*',
+    '/shop/:path*',
   ],
 }

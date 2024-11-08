@@ -2,12 +2,8 @@
 
 import Image from 'next/image'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
-import { UserProfileResponseData, getUserProfile } from '@/src/app/_api/axios/user'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { UserProfileResponseData } from '@/src/app/_api/axios/user'
 import { ArrowLeftOnRectangleIcon, ChevronDownIcon, Cog8ToothIcon } from '@heroicons/react/24/solid'
-import { isError, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteCookie, getCookie } from 'cookies-next'
 import Button from '../Button'
 import { useRouter } from 'next/navigation'
 import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
@@ -16,6 +12,8 @@ import clsx from 'clsx'
 import useClickOutside from '@/src/app/_hooks/useClickOutside'
 import { useAppContext } from '@/src/app/_configs/store/useAppContext'
 import { User } from '@/src/app/_types/user.type'
+import { useLogoutMutation } from '@/src/queries/auth'
+import path from '@/src/constants/path'
 
 export default function AuthenticationHandler() {
   const router = useRouter()
@@ -38,18 +36,18 @@ export default function AuthenticationHandler() {
 
 function UserSettingMenu({ user }: { user: User }) {
   const [isOpen, setIsOpen] = useState(false)
-  const queryClient = useQueryClient()
   const settingMenuRef = useRef<any>()
+
+  const logoutMutation = useLogoutMutation()
 
   useClickOutside(settingMenuRef, () => {
     setIsOpen(false)
   })
   const router = useRouter()
 
-  const handleLogOut = () => {
-    deleteCookie(ACCESS_TOKEN_COOKIE_NAME)
-    queryClient.removeQueries([UseQueryKeys.User])
-    router.push('/login')
+  const handleLogOut = async () => {
+    await logoutMutation.mutateAsync()
+    router.push(path.login)
   }
 
   const { scrollY } = useScroll()

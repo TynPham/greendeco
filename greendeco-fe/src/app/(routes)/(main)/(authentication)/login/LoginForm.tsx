@@ -19,7 +19,6 @@ import path from '@/src/constants/path'
 import { useLoginMutation } from '@/src/queries/auth'
 
 export default function LoginForm() {
-  const queryClient = useQueryClient()
   const router = useRouter()
   const { setUser } = useAppContext()
 
@@ -42,24 +41,6 @@ export default function LoginForm() {
   })
 
   const loginMutation = useLoginMutation()
-
-  //   const loginMutation2 = useMutation({
-  //     //NOTE: The callback used for the mutation
-  //     mutationFn: loginAccount,
-  //     //NOTE: Execuse after receiving suscess responses
-  //     onSuccess: (data) => {
-  //       reset()
-  //       setUser(data.user)
-  //       notifyLoginSuccess()
-  //       router.push(path.home)
-  //     },
-  //     //NOTE: Execuse after receving failure responses
-  //     onError: (e) => {
-  //       if (e instanceof AxiosError) {
-  //         notifyLoginFail(e.response?.data.msg)
-  //       }
-  //     },
-  //   })
 
   const onSubmitHandler: SubmitHandler<LoginFormInputType> = async (values) => {
     if (loginMutation.isLoading) return

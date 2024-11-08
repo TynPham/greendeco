@@ -4540,6 +4540,9 @@ const docTemplate = `{
                 "identifier": {
                     "type": "string"
                 },
+                "isAdmin": {
+                    "type": "boolean"
+                },
                 "lastName": {
                     "type": "string"
                 },

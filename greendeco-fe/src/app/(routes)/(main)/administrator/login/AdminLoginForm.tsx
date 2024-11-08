@@ -1,28 +1,24 @@
 'use client'
 import { TextField } from '@/src/app/_components/form'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Button from '@/src/app/_components/Button'
 import { LoginFormInputType, LoginSchema } from '@/src/app/_configs/schemas/authentication'
-import { loginAdminAccount } from '@/src/app/_api/axios/adminAuthentication'
 import { notifyLoginFail, notifyLoginSuccess } from './Notifications'
-import { setCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
 import { AxiosError } from 'axios'
-import { ADMIN_QUERY_KEY } from '@/src/app/_configs/constants/queryKey'
 import { useRouter } from 'next/navigation'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
+import { useLoginAdminMutation } from '@/src/queries/auth'
+import path from '@/src/constants/path'
+import { useAppContext } from '@/src/app/_configs/store/useAppContext'
 
 export default function AdminLoginForm() {
   const router = useRouter()
-  const queryClient = useQueryClient()
+  const { setUser } = useAppContext()
   const defaultInputValues: LoginFormInputType = {
     email: '',
     password: '',
   }
 
-  //NOTE: Validation with useForm
   const {
     reset,
     register,
@@ -35,32 +31,23 @@ export default function AdminLoginForm() {
     defaultValues: defaultInputValues,
   })
 
-  const loginMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: loginAdminAccount,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: (data) => {
-      reset()
-      notifyLoginSuccess()
-      setCookie(ACCESS_TOKEN_COOKIE_NAME, data.access_Token)
-      queryClient.invalidateQueries([ADMIN_QUERY_KEY])
-      router.replace(ADMINISTRATOR_ROUTE.PRODUCT.LINK)
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyLoginFail()
-      }
-    },
-  })
+  const loginAdminMutation = useLoginAdminMutation()
 
-  const onSubmitHandler: SubmitHandler<LoginFormInputType> = (values, e) => {
-    e?.preventDefault()
-    //NOTE: Execute the Mutation
-    loginMutation.mutate({
-      email: values.email,
-      password: values.password,
-    })
+  const onSubmitHandler: SubmitHandler<LoginFormInputType> = async (values) => {
+    if (loginAdminMutation.isLoading) return
+    try {
+      const res = await loginAdminMutation.mutateAsync(values)
+      reset()
+      setUser(res.data.user)
+      notifyLoginSuccess()
+      router.push(path.productAdministrator)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        notifyLoginFail(error.response?.data.msg)
+      } else {
+        notifyLoginFail('Something went wrong')
+      }
+    }
   }
 
   return (
@@ -91,9 +78,9 @@ export default function AdminLoginForm() {
         </div>
         <Button
           type='submit'
-          disabled={loginMutation.isLoading}
+          disabled={loginAdminMutation.isLoading}
         >
-          {loginMutation.isLoading ? 'Sending...' : 'Login'}
+          {loginAdminMutation.isLoading ? 'Sending...' : 'Login'}
         </Button>
       </form>
     </>

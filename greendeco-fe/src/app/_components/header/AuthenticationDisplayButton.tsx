@@ -4,6 +4,8 @@ import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
 import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
 import { useAppContext } from '@/src/app/_configs/store/useAppContext'
 import useClickOutside from '@/src/app/_hooks/useClickOutside'
+import path from '@/src/constants/path'
+import { useLogoutMutation } from '@/src/queries/auth'
 import { ArrowLeftOnRectangleIcon, Cog8ToothIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
@@ -40,18 +42,18 @@ export default function AuthenticationDisplayButton() {
 
 function UserSettingMenu() {
   const [isOpen, setIsOpen] = useState(false)
-  const queryClient = useQueryClient()
   const settingMenuRef = useRef<any>()
+
+  const logoutMutation = useLogoutMutation()
 
   useClickOutside(settingMenuRef, () => {
     setIsOpen(false)
   })
   const router = useRouter()
 
-  const handleLogOut = () => {
-    deleteCookie(ACCESS_TOKEN_COOKIE_NAME)
-    queryClient.removeQueries([UseQueryKeys.User])
-    router.push('/login')
+  const handleLogOut = async () => {
+    await logoutMutation.mutateAsync()
+    router.push(path.login)
   }
 
   const { scrollY } = useScroll()

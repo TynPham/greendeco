@@ -131,6 +131,7 @@ func LoginForAdmin(c *fiber.Ctx) error {
 
 	return c.JSON(models.UserToken{
 		AccessToken: token,
+		User:        *userExist,
 	})
 }
 

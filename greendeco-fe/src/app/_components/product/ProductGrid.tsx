@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { ProductCardProps } from '.'
 import ProductCard from './ProductCard'
-import { motion, Variants, AnimatePresence } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 
 type ProductCardsGridProps = {
   productList: ProductCardProps[]

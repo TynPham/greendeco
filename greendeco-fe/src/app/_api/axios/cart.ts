@@ -42,7 +42,6 @@ export type CartItemListResponseData = {
 
 type AddItemRequestData = {
   itemData: ItemAddData
-  accessToken: AccessTokenType
 }
 
 type ItemAddData = {

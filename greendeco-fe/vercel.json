@@ -1,9 +1,10 @@
 {
   "git": {
     "deploymentEnabled": {
+      "main": true,
       "dev": true,
-      "feature/*": false,
-      "fix/*": false
+      "fix/**": false,
+      "feature/**": false
     }
   }
 }

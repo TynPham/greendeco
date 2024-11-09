@@ -12,7 +12,6 @@ import ProductListPagination from './ProductListPagination'
 
 export default function ProductListPage() {
   const { queryObject } = useQueryParams<FilterParams>()
-  console.log(queryObject)
 
   const productListQuery = useQuery({
     queryKey: ['product', queryObject],
@@ -21,7 +20,6 @@ export default function ProductListPage() {
         limit: 20,
         ...queryObject,
       }),
-    refetchOnWindowFocus: false,
   })
 
   return (

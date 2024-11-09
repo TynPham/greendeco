@@ -6,4 +6,9 @@ export type User = {
   identifier: string
   lastName: string
   phoneNumber: string
+  isAdmin: boolean
+}
+
+export type UserProfileResponseData = User & {
+  id: string
 }

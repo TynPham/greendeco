@@ -22,6 +22,8 @@ import { useRouter } from 'next/navigation'
 import useCartDialog from './dialog/useCartDialog'
 import { CONFLICT_STATUS, NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '../_configs/constants/status'
 import { UseQueryKeys } from '../_configs/constants/queryKey'
+import cartApis from '@/src/apiRequests/cart.api'
+import productApis from '@/src/apiRequests/product'
 
 export type CartItemWithFullVariantInfo = {
   id: CartItemData['id']
@@ -43,7 +45,7 @@ export type CartListFullDetail = {
 //NOTE: Go through the cartList to get Variant full information by Id
 export const handleGetCartFullDetail = async (cartList: CartItemListResponseData) => {
   const fullInfoCartList = cartList.items.map(async (item) => {
-    const variantInfo = await getVariantById(item.variant).then((data) => data)
+    const variantInfo = await productApis.getVariantById(item.variant).then((data) => data.data)
     const itemWithVariantInfo: CartItemWithFullVariantInfo = {
       ...item,
       variant: variantInfo.items,
@@ -62,15 +64,14 @@ export const handleGetCartFullDetail = async (cartList: CartItemListResponseData
 }
 
 export function useCartQuery() {
-  const router = useRouter()
-
   //NOTE: Handle getCartId - if there isn't any cart -> create new one
   const handleGetCartId = async () => {
-    return await getCartInfoFromUser()
-      .then((data) => data.items.id)
+    return await cartApis
+      .getCartUser()
+      .then((data) => data.data.items.id)
       .catch((e: AxiosError) => {
         if (e.response?.status === NOT_FOUND_STATUS) {
-          return createNewCart().then((newCartId) => newCartId.id)
+          return cartApis.createNewCart().then((newCartId) => newCartId.data.id)
         }
       })
       .then((cartId) => {
@@ -85,11 +86,11 @@ export function useCartQuery() {
   const getCartListWithFullDetail = async () => {
     return await handleGetCartId()
       .then((cartId) => {
-        if (cartId) return getCartItemListFromCartId(cartId)
+        if (cartId) return cartApis.getCartItemListFromCartId(cartId)
       })
       .then((cartListWithoutVariantInfo) => {
-        if (cartListWithoutVariantInfo) {
-          return handleGetCartFullDetail(cartListWithoutVariantInfo)
+        if (cartListWithoutVariantInfo?.data) {
+          return handleGetCartFullDetail(cartListWithoutVariantInfo.data)
         }
       })
   }
@@ -164,16 +165,13 @@ export function useCartMutation() {
     quantity: CartItemData['quantity'],
     variant_id: VariantData['id'],
   ) => {
-    const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-    if (cart_id && accessToken) {
+    if (cart_id) {
       addCartItemMutation.mutate({
         itemData: {
           variant_id: variant_id,
           cart_id: cart_id,
           quantity: quantity,
         },
-        accessToken: accessToken,
       })
     } else {
       router.replace('/login')

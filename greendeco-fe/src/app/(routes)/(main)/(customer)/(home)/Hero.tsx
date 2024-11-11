@@ -5,7 +5,7 @@ import HeroImage from '@/src/app/_assets/images/homepage/hero.png'
 import PlantIcon from '@/src/app/_assets/images/homepage/plant.svg'
 
 const HeroStats = () => (
-  <div className='absolute bottom-[24%] left-0 z-20 max-w-[60%] rounded-[16px] border-[3px] border-primary-625 bg-neutral-gray-1 p-cozy shadow-26'>
+  <div className='z-20 rounded-[16px] border-[3px] border-primary-625 bg-neutral-gray-1 p-cozy shadow-26 md:absolute md:-left-40 md:bottom-52'>
     <div className='flex items-center gap-cozy'>
       <div className='relative aspect-square h-[70px] rounded-[100%] bg-primary-5555'>
         <Image
@@ -45,22 +45,22 @@ const HeroContent = () => (
 
 export default function Hero() {
   return (
-    <section className='w-full bg-primary-5555-20/40 py-60 md:h-screen'>
-      <div className='container h-full'>
-        <div className='grid h-full grid-cols-12'>
-          <div className='col-span-12 flex items-center justify-center px-comfortable md:col-span-6 lg:col-span-7'>
+    <section className='w-full bg-primary-5555-20/40 pb-32 pt-60 md:h-screen lg:pb-60'>
+      <div className='container h-full px-10 2xl:px-40'>
+        <div className='grid h-full grid-cols-6 gap-16'>
+          <div className='col-span-6 flex items-center justify-center md:col-span-3 xl:col-span-4'>
             <HeroContent />
           </div>
 
-          <div className='relative hidden pl-[40px] md:col-span-6 md:block lg:col-span-5'>
+          <div className='relative col-span-6 md:col-span-3 xl:col-span-2'>
             <HeroStats />
-            <div className='flex h-full w-full items-end bg-primary-5555'>
+            <div className='hidden h-full w-full items-end bg-primary-5555 md:flex'>
               <div className='relative h-full w-full'>
                 <Image
                   src={HeroImage}
                   alt='Decorative plants showcase'
                   fill
-                  style={{ objectFit: 'cover' }}
+                  className='object-cover'
                 />
               </div>
             </div>

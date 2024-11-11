@@ -4,7 +4,9 @@
       "main": true,
       "dev": true,
       "fix/**": false,
-      "feature/**": false
+      "feature/**": false,
+      "hotfix/**": false,
+      "enhance/**": false
     }
   }
 }

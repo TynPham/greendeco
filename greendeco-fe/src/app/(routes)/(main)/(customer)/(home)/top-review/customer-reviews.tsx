@@ -1,4 +1,4 @@
-import TopReviewSlider from './TopReviewSlider'
+import TopReview from './top-review'
 export default function CustomerReviews() {
   return (
     <section className='section-home bg-primary-580-20'>
@@ -7,7 +7,7 @@ export default function CustomerReviews() {
           Huge love from our customers 😍
         </h2>
         <div>
-          <TopReviewSlider />
+          <TopReview />
         </div>
       </div>
     </section>

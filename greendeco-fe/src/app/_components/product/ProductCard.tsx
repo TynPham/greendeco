@@ -1,18 +1,18 @@
 import Image from 'next/image'
-import { StarIcon } from '@heroicons/react/24/solid'
-import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 import { ProductData } from '@/src/app/_api/axios/product'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import path from '@/src/constants/path'
 
 export type ProductCardProps = Pick<ProductData, 'id' | 'name' | 'images' | 'price'>
 
+// Convert to Server Component
 export default function ProductCard({ product }: { product: ProductCardProps }) {
-  const productRouter = useRouter()
   const { id, name, images, price } = product
+
   return (
-    <span
-      className='group block w-full overflow-hidden rounded-[8px] bg-white hover:cursor-pointer  '
-      onClick={() => productRouter.push(`/shop/product-detail/${id}`)}
+    <Link
+      href={`${path.products}/${id}`}
+      className='group block w-full overflow-hidden rounded-[8px] bg-white'
     >
       <CardImage imageUrl={images[0]} />
       <div className='flex w-full p-cozy'>
@@ -21,7 +21,20 @@ export default function ProductCard({ product }: { product: ProductCardProps }) 
           price={price}
         />
       </div>
-    </span>
+    </Link>
+  )
+}
+
+function CardImage({ imageUrl }: { imageUrl: string }) {
+  return (
+    <div className='relative aspect-square w-full overflow-hidden'>
+      <Image
+        src={imageUrl}
+        alt='product image'
+        fill
+        className='object-fill transition-transform duration-300 group-hover:scale-110'
+      />
+    </div>
   )
 }
 
@@ -38,20 +51,6 @@ function CardDetail({
         {name}
       </span>
       <div className='text-body-sm font-semi-bold text-primary-418'>$ {price}</div>
-    </div>
-  )
-}
-function CardImage({ imageUrl }: { imageUrl: string }) {
-  return (
-    <div className='h-[240px] w-full overflow-hidden'>
-      <Image
-        src={imageUrl}
-        alt='product image'
-        className='duration-200 ease-in-out group-hover:scale-105'
-        width={0}
-        height={0}
-        sizes='100vw'
-      ></Image>
     </div>
   )
 }

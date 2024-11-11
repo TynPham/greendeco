@@ -20,3 +20,44 @@ export type VariantInfoResponseData = {
   page_size: number
   prev: boolean
 }
+
+export type ProductData = {
+  id: string
+  category: string
+  name: string
+  price: string
+  size: string
+  available: boolean
+  is_publish: boolean
+  type: string
+  images: string[]
+  detail: string
+  description: string
+  light: string
+  difficulty: string
+  water: string
+  created_at: string
+  default_variant: string
+  currency: string
+}
+
+export type ProductListData = {
+  items: ProductData[]
+  next: boolean
+  page: number
+  page_size: number
+  prev: boolean
+}
+
+export type ProductSize = 'S' | 'M' | 'L' | 'XL'
+
+export type FieldParams = {
+  name?: string
+  size?: string
+  difficulty?: string
+  price?: string
+  available?: boolean
+  type?: string
+  water?: string
+  light?: string
+} | null

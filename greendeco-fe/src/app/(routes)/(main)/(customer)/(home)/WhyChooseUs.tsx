@@ -9,7 +9,7 @@ interface ReasonProps {
   icon: string
 }
 
-const REASONS: ReasonProps[] = [
+const REASONS: readonly ReasonProps[] = [
   {
     title: 'Hand Planted',
     description: 'These lovely plants can be planted in organic soil with easy guide.',
@@ -25,39 +25,49 @@ const REASONS: ReasonProps[] = [
     description: 'We sell these greenery that have unique shapes, colors and texture.',
     icon: FascinatingIcon,
   },
-]
+] as const
 
-const ReasonCard = ({ title, description, icon }: ReasonProps) => (
-  <div className='flex gap-comfortable'>
-    <div className='relative aspect-square h-20 w-20 rounded-full bg-primary-5555 p-cozy shadow-30'>
+function ReasonCard({ title, description, icon }: ReasonProps) {
+  return (
+    <div className='flex gap-comfortable'>
+      <div className='relative aspect-square h-20 w-20 rounded-full bg-primary-5555 p-cozy shadow-30'>
+        <Image
+          src={icon}
+          alt={`${title} icon`}
+          className='p-4'
+          fill
+          sizes='80px'
+          style={{ objectFit: 'fill' }}
+        />
+      </div>
+      <div className='flex-1'>
+        <h3 className='mb-1 text-heading-3 capitalize text-primary-5555'>{title}</h3>
+        <p className='text-body-md text-primary-418-60'>{description}</p>
+      </div>
+    </div>
+  )
+}
+
+function FeatureImage() {
+  return (
+    <div className='relative pb-comfortable pl-comfortable'>
       <Image
-        src={icon}
-        alt={`${title} icon`}
-        className='p-4'
-        fill
-        style={{ objectFit: 'fill' }}
+        src='https://efljxeomgkqexvgroecx.supabase.co/storage/v1/object/public/greendeco_storage/text.webp'
+        className='z-20 shadow-26'
+        alt='Why choose GreenDeco'
+        width={600}
+        height={400}
+        quality={90}
+        priority
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+      />
+      <div
+        className='absolute bottom-0 left-0 right-comfortable top-comfortable z-[-1] bg-primary-5555'
+        aria-hidden='true'
       />
     </div>
-    <div className='flex-1'>
-      <h3 className='mb-1 text-heading-3 capitalize text-primary-5555'>{title}</h3>
-      <p className='text-body-md text-primary-418-60'>{description}</p>
-    </div>
-  </div>
-)
-
-const FeatureImage = () => (
-  <div className='relative pb-comfortable pl-comfortable'>
-    <Image
-      src='https://firebasestorage.googleapis.com/v0/b/greendeco-2726b.appspot.com/o/text.webp?alt=media&token=4a72eac5-ca37-4676-9b42-e20cd47098c6'
-      className='z-20 shadow-26'
-      alt='Why choose GreenDeco'
-      width={0}
-      height={0}
-      sizes='100vw'
-    />
-    <div className='absolute bottom-0 left-0 right-comfortable top-comfortable z-[-1] bg-primary-5555' />
-  </div>
-)
+  )
+}
 
 export default function WhyChooseUs() {
   return (

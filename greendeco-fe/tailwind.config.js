@@ -17,6 +17,11 @@ module.exports = {
           xl: '3rem',
           '2xl': '4rem',
         },
+        screens: {
+          md: '1024px',
+          lg: '1280px',
+          xl: '1536px',
+        },
       },
       backgroundColor: {
         'light-green': '#ECF4F1',

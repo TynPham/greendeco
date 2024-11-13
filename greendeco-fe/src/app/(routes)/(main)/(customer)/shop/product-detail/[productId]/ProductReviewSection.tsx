@@ -109,7 +109,7 @@ function ReviewItem(props: ReviewItemData) {
           </span>
           <span className='flex items-center gap-[2px] text-body-xsm'>
             Rated <span className='text-body-lg font-bold text-primary-625'>{star}</span> /5
-            <StarIcon className='aspect-square w-[24px] translate-y-[-1px] text-primary-625' />
+            <StarIcon className='aspect-square w-[24px] -translate-y-px text-primary-625' />
           </span>
         </span>
       </div>
@@ -184,7 +184,7 @@ function ReviewSorter({
 
   return (
     <select
-      className='cursor-pointer rounded-[4px] border-[1px] border-primary-418 bg-transparent p-compact text-body-xsm font-semi-bold text-primary-418-80 disabled:pointer-events-none disabled:bg-neutral-gray-3'
+      className='cursor-pointer rounded-[4px] border border-primary-418 bg-transparent p-compact text-body-xsm font-semi-bold text-primary-418-80 disabled:pointer-events-none disabled:bg-neutral-gray-3'
       disabled={disabled}
       onChange={onSelect}
     >
@@ -254,18 +254,18 @@ function SortByStarMenu({
           />
           <span className='pointer-events-none flex items-center gap-[4px] '>
             {grade}
-            <StarIcon className='aspect-square w-[14px] translate-y-[-1px] text-primary-625' />
+            <StarIcon className='aspect-square w-[14px] -translate-y-px text-primary-625' />
           </span>
         </span>
       ))}
 
       {currentRating && currentRating > 0 && (
         <span
-          className='flex translate-y-[-1px] cursor-pointer items-center gap-[2px] text-body-xsm text-primary-625'
+          className='flex -translate-y-px cursor-pointer items-center gap-[2px] text-body-xsm text-primary-625'
           onClick={handleResetRating}
         >
           Reset
-          <XMarkIcon className='aspect-square w-[16px] translate-y-[1px]' />
+          <XMarkIcon className='aspect-square w-[16px] translate-y-px' />
         </span>
       )}
     </div>

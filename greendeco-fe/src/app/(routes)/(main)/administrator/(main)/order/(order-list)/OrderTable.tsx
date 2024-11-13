@@ -87,20 +87,20 @@ export default function OrderTable({ order }: { order: OrderTableData[] }) {
   })
 
   return (
-    <div className='w-full border-[1px] border-primary-625-40 '>
-      <div className='w-full border-b-[1px] border-primary-625-60 p-3 text-2xl text-primary-418-60 '>
+    <div className='w-full border border-primary-625-40 '>
+      <div className='w-full border-b border-primary-625-60 p-3 text-2xl text-primary-418-60 '>
         {order.length} Order(s) in queue
       </div>
       <table className='w-full'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
-              className='border-b-[1px] border-primary-625-80'
+              className='border-b border-primary-625-80'
               key={headerGroup.id}
             >
               {headerGroup.headers.map((header) => (
                 <th
-                  className='border-r-[1px] border-primary-625 bg-primary-5555-20 p-compact text-body-sm text-primary-625 last:border-0'
+                  className='border-r border-primary-625 bg-primary-5555-20 p-compact text-body-sm text-primary-625 last:border-0'
                   colSpan={header.colSpan}
                   style={{
                     width: header.getSize() !== 150 ? header.getSize() : undefined,
@@ -118,12 +118,12 @@ export default function OrderTable({ order }: { order: OrderTableData[] }) {
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr
-              className='border-b-[1px] border-primary-625 last:border-0 hover:bg-primary-5555-20/50'
+              className='border-b border-primary-625 last:border-0 hover:bg-primary-5555-20/50'
               key={row.id}
             >
               {row.getVisibleCells().map((cell) => (
                 <td
-                  className='border-r-[1px] border-primary-625 p-compact text-body-sm last:border-0'
+                  className='border-r border-primary-625 p-compact text-body-sm last:border-0'
                   key={cell.id}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -29,7 +29,7 @@ const SWIPER_CONFIG = {
   initialSlide: 1,
   centeredSlides: true,
   speed: 800,
-} as const
+}
 
 // Customer Info Component
 function CustomerInfo({
@@ -81,7 +81,7 @@ function ReviewItem({ active, review }: { active?: boolean; review: ReviewItemDa
   return (
     <div
       className={clsx(
-        'flex-col-start w-full gap-compact rounded-[16px] border-[2px] border-primary-5555 bg-neutral-gray-1 p-comfortable transition-all duration-[0.8s] ease-in-out',
+        'flex-col-start w-full gap-compact rounded-[16px] border-2 border-primary-5555 bg-neutral-gray-1 p-comfortable transition-all duration-[0.8s] ease-in-out',
         { 'scale-90 opacity-30': !active },
       )}
     >

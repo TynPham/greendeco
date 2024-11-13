@@ -11,7 +11,7 @@ export default function QuantityController({
   increase,
 }: QuantityControllerProps) {
   return (
-    <div className='flex h-fit items-center rounded-[4px] border-[1px] border-primary-625-40 text-body-xsm'>
+    <div className='flex h-fit items-center rounded-[4px] border border-primary-625-40 text-body-xsm'>
       <button
         className='rounded-[4px] p-[8px] hover:bg-primary-5555/10'
         onClick={decrease}

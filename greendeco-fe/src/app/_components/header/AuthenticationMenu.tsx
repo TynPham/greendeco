@@ -24,7 +24,7 @@ export default function AuthenticationHandler() {
       {user && <UserSettingMenu user={user} />}
       {!user && (
         <Button
-          className='h-full w-full'
+          className='size-full'
           onClick={() => router.push('/login')}
         >
           Login
@@ -63,7 +63,7 @@ function UserSettingMenu({ user }: { user: User }) {
     <div
       ref={settingMenuRef}
       onClick={() => setIsOpen(!isOpen)}
-      className='relative h-full w-full'
+      className='relative size-full'
     >
       <MenuButton {...user} />
 
@@ -80,16 +80,16 @@ function UserSettingMenu({ user }: { user: User }) {
               translateY: '-16px',
             }}
             transition={{ ease: 'easeInOut', duration: 0.2 }}
-            className='absolute inset-x-0 top-[calc(100%+8px)] z-30 rounded-[8px] border-[1px] border-primary-5555-40 bg-white p-compact'
+            className='absolute inset-x-0 top-[calc(100%+8px)] z-30 rounded-[8px] border border-primary-5555-40 bg-white p-compact'
           >
             <MenuItem onClick={() => router.push('/user/setting/profile')}>
-              <div className='flex h-full w-full items-center gap-compact'>
+              <div className='flex size-full items-center gap-compact'>
                 <Cog8ToothIcon className='aspect-square h-[16px]' />
                 user setting
               </div>
             </MenuItem>
             <MenuItem onClick={() => handleLogOut()}>
-              <div className='flex h-full w-full items-center gap-compact'>
+              <div className='flex size-full items-center gap-compact'>
                 <ArrowLeftOnRectangleIcon className='aspect-square h-[16px]' />
                 log out
               </div>

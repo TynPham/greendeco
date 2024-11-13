@@ -51,7 +51,7 @@ function UserAvatar({
 
   return (
     <div className='flex gap-comfortable'>
-      <div className='relative flex aspect-square w-[180px] items-center justify-center overflow-hidden rounded-[100%] border-[1px] border-primary-418-20'>
+      <div className='relative flex aspect-square w-[180px] items-center justify-center overflow-hidden rounded-[100%] border border-primary-418-20'>
         {imageUploadMutation.isLoading && <LoadingAvatar />}
         <Image
           width={0}

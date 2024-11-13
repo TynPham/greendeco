@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import { Swiper as SwiperType } from 'swiper'

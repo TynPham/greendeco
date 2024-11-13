@@ -41,7 +41,7 @@ function SideBarButton() {
 
 function Logo() {
   return (
-    <span className='absolute inset-y-0 left-[50%] translate-x-[-50%]  '>
+    <span className='absolute inset-y-0 left-1/2 -translate-x-1/2'>
       <Link
         href={'/'}
         className='relative inline-block h-full w-[180px]  overflow-hidden  '
@@ -68,7 +68,7 @@ function LogoutButton() {
   return (
     <span
       onClick={handleLogOut}
-      className='cursor-pointer rounded-[100%] border-[1px] border-neutral-gray-5 bg-neutral-gray-3 p-compact'
+      className='cursor-pointer rounded-[100%] border border-neutral-gray-5 bg-neutral-gray-3 p-compact'
     >
       <ArrowLeftOnRectangleIcon className='aspect-square h-[24px] text-black' />
     </span>

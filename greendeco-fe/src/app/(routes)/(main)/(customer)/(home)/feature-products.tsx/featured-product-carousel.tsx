@@ -11,7 +11,7 @@ const BREAKPOINTS = {
   768: { slidesPerView: 2 },
   1024: { slidesPerView: 3 },
   1280: { slidesPerView: 5 },
-} as const
+}
 
 export default function FeaturedProductCarousel({ type }: { type: 'new' | 'topRated' | 'cheap' }) {
   const featureProductParams = useMemo(() => FEATURE_PRODUCT_PARAMS, [])

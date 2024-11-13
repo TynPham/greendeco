@@ -21,7 +21,7 @@ export default function PurchasedProductList({ productList }: { productList: Pro
 const Item = ({ product }: { product: ProductData }) => {
   const { images, name, id } = product
   return (
-    <div className='flex w-full gap-compact overflow-hidden rounded-[16px] border-[1px] border-primary-580-60 bg-neutral-gray-1 shadow-18'>
+    <div className='flex w-full gap-compact overflow-hidden rounded-[16px] border border-primary-580-60 bg-neutral-gray-1 shadow-18'>
       <ItemImage imageSrc={images[0]} />
       <div className='flex-col-start flex-1 justify-between p-cozy '>
         <ItemDetail name={name} />

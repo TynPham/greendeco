@@ -29,7 +29,7 @@ const ImageUploadItem = React.memo(function ImageUploadInput({
   setImage,
 }: VariantImageProps) {
   return (
-    <div className=' relative aspect-square h-full overflow-hidden rounded-[4px] border-[4px] border-primary-625-20 hover:border-primary-625'>
+    <div className=' relative aspect-square h-full overflow-hidden rounded-[4px] border-4 border-primary-625-20 hover:border-primary-625'>
       {image && image !== EMPTY_STRING ? (
         <Image
           width={0}
@@ -39,7 +39,7 @@ const ImageUploadItem = React.memo(function ImageUploadInput({
           alt='product image'
         ></Image>
       ) : (
-        <span className='flex-center h-full w-full bg-neutral-gray-4'>
+        <span className='flex-center size-full bg-neutral-gray-4'>
           <PhotoIcon className='aspect-square h-[30px]' />
         </span>
       )}

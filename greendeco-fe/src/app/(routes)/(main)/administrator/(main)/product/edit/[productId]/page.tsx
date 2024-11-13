@@ -27,7 +27,7 @@ export default function EditProductPage({
         {isSuccess && data && (
           <>
             <h1>Edit Product</h1>
-            <div className='mt-comfortable border-x-[1px] border-x-primary-625-60 px-comfortable'>
+            <div className='mt-comfortable border-x border-x-primary-625-60 px-comfortable'>
               <EditFormContainer {...data.items} />
             </div>
           </>

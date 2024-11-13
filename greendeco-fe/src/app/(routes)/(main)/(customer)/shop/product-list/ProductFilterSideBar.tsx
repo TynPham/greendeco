@@ -67,7 +67,7 @@ function FilterMenu() {
           <select
             onChange={handleOptionChange}
             name={key}
-            className='col-span-4 rounded-[4px] border-[1px] border-primary-625 bg-transparent px-cozy py-compact text-body-md text-primary-5555'
+            className='col-span-4 rounded-[4px] border border-primary-625 bg-transparent px-cozy py-compact text-body-md text-primary-5555'
           >
             <option value=''>All</option>
             {value.map((opt) => (

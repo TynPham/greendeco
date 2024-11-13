@@ -38,7 +38,7 @@ const userNavigationList: UserNavigation[] = [
 
 export default React.memo(function UserSidebarNavigation() {
   return (
-    <ul className='flex-col-start sticky top-away-from-header gap-compact rounded-[8px] border-y-[1px] border-l-[1px] border-primary-625-20  bg-white py-comfortable pl-comfortable shadow-38'>
+    <ul className='flex-col-start sticky top-away-from-header gap-compact rounded-[8px] border-y border-l border-primary-625-20  bg-white py-comfortable pl-comfortable shadow-38'>
       {userNavigationList.map((nav) => (
         <li key={nav.label}>
           <Navigation

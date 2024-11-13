@@ -54,8 +54,8 @@ export default function Hero() {
 
           <div className='relative col-span-6 md:col-span-3 xl:col-span-2'>
             <HeroStats />
-            <div className='hidden h-full w-full items-end bg-primary-5555 md:flex'>
-              <div className='relative h-full w-full'>
+            <div className='hidden size-full items-end bg-primary-5555 md:flex'>
+              <div className='relative size-full'>
                 <Image
                   src={HeroImage}
                   alt='Decorative plants showcase'

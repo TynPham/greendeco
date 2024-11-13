@@ -19,7 +19,7 @@ export default function OrderInformationWrapper({ order }: { order: OrderFullDet
           <b className=' font-semi-bold'>Subtotal Price:</b>
           <p>$ {order.price.total}</p>
         </div>
-        <div className='flex items-center justify-between border-t-[2px] border-primary-5555 pt-cozy text-body-lg'>
+        <div className='flex items-center justify-between border-t-2 border-primary-5555 pt-cozy text-body-lg'>
           <b className='text-primary-5555'>Order Actual Price:</b>
           <b>$ {order.price.actual_price}</b>
         </div>

@@ -17,7 +17,7 @@ export default function VariantDetailDisplay({ variant }: { variant: VariantData
 
 function VariantImage({ image }: { image: VariantData['image'] }) {
   return (
-    <div className='relative aspect-square h-fit overflow-hidden rounded-[4px] border-[1px] border-primary-625-20 '>
+    <div className='relative aspect-square h-fit overflow-hidden rounded-[4px] border border-primary-625-20 '>
       <Image
         fill
         style={{ objectFit: 'contain' }}

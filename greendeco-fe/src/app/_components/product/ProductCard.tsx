@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: ProductCardProps }) 
 
   return (
     <Link
-      href={`${path.products}/${id}`}
+      href={`${path.productDetail}/${id}`}
       className='group block w-full overflow-hidden rounded-[8px] bg-white'
     >
       <CardImage imageUrl={images[0]} />
@@ -46,7 +46,7 @@ function CardDetail({
   price: ProductCardProps['price']
 }) {
   return (
-    <div className='flex h-full w-full justify-between gap-cozy'>
+    <div className='flex size-full justify-between gap-cozy'>
       <span className='flex-1 cursor-pointer truncate text-body-sm font-semi-bold text-primary-625 group-hover:underline'>
         {name}
       </span>

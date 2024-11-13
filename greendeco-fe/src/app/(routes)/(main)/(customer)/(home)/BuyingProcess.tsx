@@ -23,7 +23,7 @@ const BUYING_STEPS: BuyingStepProps[] = [
 const BuyingStep = ({ label, icon, showArrow = false }: BuyingStepProps) => (
   <div className='flex items-center gap-comfortable'>
     <div className='flex-col-start items-center gap-cozy'>
-      <div className='aspect-square w-[100px] border-[1px] border-primary-5555-60 bg-neutral-gray-1 p-cozy shadow-26'>
+      <div className='aspect-square w-[100px] border border-primary-5555-60 bg-neutral-gray-1 p-cozy shadow-26'>
         <Image
           src={icon}
           alt={`Step: ${label}`}

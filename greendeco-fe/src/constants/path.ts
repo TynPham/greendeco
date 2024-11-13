@@ -9,6 +9,7 @@ const path = {
   profile: '/user/setting/profile',
   purchased: '/user/purchased',
   products: '/shop/product-list',
+  productDetail: '/shop/product-detail',
   checkout: '/checkout',
   payment: '/payment',
 }

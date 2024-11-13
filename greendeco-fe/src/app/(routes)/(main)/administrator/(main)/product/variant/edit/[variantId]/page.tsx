@@ -27,7 +27,7 @@ export default function VariantManagement({
         <>
           <h1>Edit Variant </h1>
           {data && data.items && (
-            <div className='mt-cozy border-x-[1px] border-primary-625-80 px-comfortable'>
+            <div className='mt-cozy border-x border-primary-625-80 px-comfortable'>
               <EditVariantForm {...data.items} />
             </div>
           )}

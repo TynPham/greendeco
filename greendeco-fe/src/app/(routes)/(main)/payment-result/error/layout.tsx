@@ -12,9 +12,7 @@ export default function PaymentSuccessLayout({ children }: { children: React.Rea
   return (
     <>
       <main className='h-screen max-h-screen w-screen  '>
-        <div className='flex-col-start h-full w-full items-center bg-status-error/70 '>
-          {children}
-        </div>
+        <div className='flex-col-start size-full items-center bg-status-error/70 '>{children}</div>
       </main>
       <Footer />
     </>

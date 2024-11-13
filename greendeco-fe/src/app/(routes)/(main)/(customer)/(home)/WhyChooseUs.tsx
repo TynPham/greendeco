@@ -25,12 +25,12 @@ const REASONS: readonly ReasonProps[] = [
     description: 'We sell these greenery that have unique shapes, colors and texture.',
     icon: FascinatingIcon,
   },
-] as const
+]
 
 function ReasonCard({ title, description, icon }: ReasonProps) {
   return (
     <div className='flex gap-comfortable'>
-      <div className='relative aspect-square h-20 w-20 rounded-full bg-primary-5555 p-cozy shadow-30'>
+      <div className='relative aspect-square size-20 rounded-full bg-primary-5555 p-cozy shadow-30'>
         <Image
           src={icon}
           alt={`${title} icon`}

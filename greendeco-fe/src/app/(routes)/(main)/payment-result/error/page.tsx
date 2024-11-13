@@ -11,7 +11,7 @@ import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
 export default function PaymentPage() {
   return (
     <div className='flex-center container h-full'>
-      <div className='flex-col-start h-full w-full items-center justify-center gap-comfortable'>
+      <div className='flex-col-start size-full items-center justify-center gap-comfortable'>
         <div className='flex-col-start w-full items-center gap-cozy'>
           <ExclamationTriangleIcon className='aspect-square h-[200px]  text-neutral-gray-1'></ExclamationTriangleIcon>
           <div className='text-center text-neutral-gray-1'>
@@ -22,7 +22,7 @@ export default function PaymentPage() {
           </div>
         </div>
 
-        <div className='flex-col-start w-[50%] gap-cozy rounded-[16px] bg-neutral-gray-1 p-cozy shadow-38'>
+        <div className='flex-col-start w-1/2 gap-cozy rounded-[16px] bg-neutral-gray-1 p-cozy shadow-38'>
           <div className='flex items-center gap-cozy'>
             <Link
               href={'/'}
@@ -55,7 +55,7 @@ function Logo() {
   return (
     <Link
       href={'/'}
-      className='relative inline-block h-[40px] w-[40%]  overflow-hidden  '
+      className='relative inline-block h-[40px] w-2/5  overflow-hidden  '
     >
       <Image
         src={BrandLogoFullWhite}

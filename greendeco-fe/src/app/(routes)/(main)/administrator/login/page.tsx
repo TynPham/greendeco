@@ -5,9 +5,9 @@ import Image from 'next/image'
 
 export default function RegisterPage() {
   return (
-    <div className='flex w-[50%] items-center justify-center'>
-      <div className='flex h-full w-full flex-col justify-center gap-comfortable rounded-[8px] bg-white p-comfortable shadow-15'>
-        <div className='border-b-[1px] border-primary-625-60 py-cozy'>
+    <div className='flex w-1/2 items-center justify-center'>
+      <div className='flex size-full flex-col justify-center gap-comfortable rounded-[8px] bg-white p-comfortable shadow-15'>
+        <div className='border-b border-primary-625-60 py-cozy'>
           <div className='relative inline-block h-full w-[180px] overflow-hidden'>
             <Image
               src={BrandLogoFullGreen}

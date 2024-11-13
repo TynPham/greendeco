@@ -8,7 +8,7 @@ import formatDate from '@/src/app/_hooks/useFormatDate'
 
 export default function ProductDetail({ product }: { product: ProductData }) {
   return (
-    <div className='grid grid-cols-2 gap-cozy border-x-[1px] border-primary-625-40 px-comfortable'>
+    <div className='grid grid-cols-2 gap-cozy border-x border-primary-625-40 px-comfortable'>
       <ProductDetailDisplay {...product} />
       <div className='flex-col-start gap-cozy'>
         <ImageGrid images={product.images} />

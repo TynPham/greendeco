@@ -64,7 +64,7 @@ function ContentWrapper({ order }: { order: OrderFullDetailData }) {
 
   return (
     <div className=''>
-      <div className='flex items-center justify-between gap-cozy border-b-[1px] border-primary-5555-80 pb-cozy'>
+      <div className='flex items-center justify-between gap-cozy border-b border-primary-5555-80 pb-cozy'>
         <h1 className='font-semi-bold text-primary-418'>Manage Order Detail</h1>
         <span
           className='text-xl underline hover:cursor-pointer hover:font-bold'
@@ -103,7 +103,7 @@ function ContentWrapper({ order }: { order: OrderFullDetailData }) {
 function UserWrapper({ order }: { order: OrderData }) {
   const { user_name, user_phone_number, user_email, shipping_address } = order
   return (
-    <div className='flex-col-start  divide-y divide-primary-418-60 rounded-[8px] border-[2px] border-primary-625-60 p-cozy shadow-18'>
+    <div className='flex-col-start  divide-y divide-primary-418-60 rounded-[8px] border-2 border-primary-625-60 p-cozy shadow-18'>
       <div className='flex-col-start gap-[4px] pb-cozy text-body-sm '>
         <h2 className='mb-[4px] text-body-lg font-semi-bold text-primary-625'>Customer</h2>
         <span className='flex items-center gap-compact'>
@@ -149,16 +149,16 @@ function OrderDetail({ id, created_at, state, paid_at }: OrderData) {
           <span className='flex items-center font-semi-bold'>Payment Status:</span>
           <span className='col-span-3'>
             {paid_at ? (
-              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border-[1px] border-status-success bg-status-success px-cozy py-compact font-semi-bold text-neutral-gray-1'>
+              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border border-status-success bg-status-success px-cozy py-compact font-semi-bold text-neutral-gray-1'>
                 Payment Received <BanknotesIcon className='aspect-square h-[16px]'></BanknotesIcon>
                 <span>at {formatDate(new Date(paid_at))}</span>
               </span>
             ) : state === 'cancelled' ? (
-              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border-[1px] border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
+              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
                 No need to be fulfilled
               </span>
             ) : (
-              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border-[1px] border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
+              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
                 Waiting for Payment
               </span>
             )}

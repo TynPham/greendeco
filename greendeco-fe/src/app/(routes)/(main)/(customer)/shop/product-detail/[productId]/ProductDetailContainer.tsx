@@ -10,7 +10,7 @@ export default function DetailContainer({ product, variantList }: DetailContaine
   const { name, description, size, difficulty, light, water } = product
   return (
     <div className='flex-col-start sticky top-comfortable h-fit gap-cozy rounded-[8px]  bg-primary-580-20 p-comfortable shadow-18'>
-      <div className='flex items-center justify-between gap-cozy border-b-[1px] border-primary-5555-80 pb-cozy'>
+      <div className='flex items-center justify-between gap-cozy border-b border-primary-5555-80 pb-cozy'>
         <h1 className='text-heading text-primary-625'>{name}</h1>
         {/* <HeartIcon className='aspect-square w-[36px]' /> */}
       </div>

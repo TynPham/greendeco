@@ -116,7 +116,7 @@ export default function EditVariantForm(variant: VariantData) {
                 className='items-center'
               >
                 <input
-                  className=' h-[40px] w-[40px]'
+                  className=' size-[40px]'
                   type='color'
                   {...register('color')}
                 />

@@ -22,7 +22,7 @@ export default function AdministratorSidebar() {
       ref={adminSidebarRef}
       className='sticky left-0 top-0  h-full max-h-screen w-[30vw]  bg-primary-625 p-comfortable pr-0'
     >
-      <div className='relative flex h-full w-full items-center'>
+      <div className='relative flex size-full items-center'>
         <span
           onClick={() => closeDialog()}
           className='absolute left-0 top-0  flex items-center gap-compact self-start text-body-sm text-neutral-gray-1 hover:cursor-pointer'

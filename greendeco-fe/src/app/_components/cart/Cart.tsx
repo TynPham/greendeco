@@ -42,8 +42,7 @@ export default function Cart() {
             onClick={() => closeDialog()}
             className='flex cursor-pointer items-center gap-compact text-body-xsm text-primary-5555-60 hover:text-primary-5555'
           >
-            Continue Shopping{' '}
-            <ArrowRightIcon className='aspect-square h-[14px] translate-y-[1px]' />
+            Continue Shopping <ArrowRightIcon className='aspect-square h-[14px] translate-y-px' />
           </span>
         </div>
         <p className='text-body-md text-primary-5555-80'>All of your finest choices.</p>

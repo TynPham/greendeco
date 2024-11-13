@@ -31,7 +31,7 @@ export default function SearchDisplayButton() {
     <div ref={searchRef}>
       <button
         onClick={handleToggleSearchForm}
-        className='group rounded-xl border-[1px] border-primary-5555-40 bg-primary-5555-20/40 px-[8px] py-[4px] text-primary-625 transition duration-75 ease-in hover:bg-primary-625 hover:text-neutral-gray-1'
+        className='group rounded-xl border border-primary-5555-40 bg-primary-5555-20/40 px-[8px] py-[4px] text-primary-625 transition duration-75 ease-in hover:bg-primary-625 hover:text-neutral-gray-1'
       >
         <MagnifyingGlassIcon className='aspect-square h-[24px] ' />
       </button>
@@ -50,7 +50,7 @@ export default function SearchDisplayButton() {
               translateY: '-16px',
             }}
             transition={{ ease: 'easeInOut', duration: 0.2 }}
-            className='absolute top-[calc(100%+8px)] w-[60%] justify-center overflow-y-auto rounded-xl bg-white shadow-38 '
+            className='absolute top-[calc(100%+8px)] w-3/5 justify-center overflow-y-auto rounded-xl bg-white shadow-38 '
           >
             <ProductSearchForm />
           </motion.div>

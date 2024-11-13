@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function OrderProductList({ productList }: { productList: OrderProductData[] }) {
   return (
     <div className='flex-col-start'>
-      <h2 className='border-b-[1px] border-primary-5555-80 pb-cozy text-body-lg font-semi-bold'>
+      <h2 className='border-b border-primary-5555-80 pb-cozy text-body-lg font-semi-bold'>
         Order Item List
       </h2>
       <ul className='flex-col-start divide-y divide-primary-5555-40 overflow-y-auto rounded-[4px] '>
@@ -42,7 +42,7 @@ function OrderItemInfo({ product }: { product: OrderProductData }) {
           {variant_name}
         </span>
         <span className=' col-span-2 flex items-center  justify-center '>
-          <span className='w-full rounded-[4px] border-[1px] border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
+          <span className='w-full rounded-[4px] border border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
             {`${quantity} x ${variant_price} ${VARIANT_CURRENCY}`}
           </span>
         </span>

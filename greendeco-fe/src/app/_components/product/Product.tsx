@@ -61,7 +61,7 @@ function NavigationButton({
   return (
     <button
       className={clsx(
-        'group absolute top-[50%] z-20 aspect-square translate-y-[-50%] rounded-[50%] border-[2px] border-primary-5555 bg-neutral-gray-1 py-compact  text-primary-5555',
+        'group absolute top-1/2 z-20 aspect-square -translate-y-1/2 rounded-full border-2 border-primary-5555 bg-neutral-gray-1 py-compact  text-primary-5555',
         {
           'right-[-16px] pl-compact pr-cozy': direction === 'next',
           'left-[-16px] pl-cozy pr-compact': direction === 'prev',

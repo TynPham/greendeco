@@ -26,7 +26,7 @@ export default function OrderDetailContainer({ order }: { order: OrderData }) {
         </div>
       </div>
       {order.state === OrderState.Cancelled && (
-        <div className='mt-cozy flex items-center gap-compact rounded-[8px] border-[2px] border-status-error/80 p-cozy text-body-md font-semi-bold text-status-error/80'>
+        <div className='mt-cozy flex items-center gap-compact rounded-[8px] border-2 border-status-error/80 p-cozy text-body-md font-semi-bold text-status-error/80'>
           <ExclamationCircleIcon className='aspect-square h-[32px]'></ExclamationCircleIcon>
           <span>Cancel Reason: {getReason(order.description)}</span>
         </div>
@@ -66,7 +66,7 @@ function OrderDetail({ id, created_at, state, paid_at }: OrderData) {
           <span className='col-span-3'>
             <span
               className={clsx(
-                'rounded-[16px] border-[1px] px-cozy py-compact font-semi-bold capitalize text-white',
+                'rounded-[16px] border px-cozy py-compact font-semi-bold capitalize text-white',
                 {
                   'bg-order-status-draft': state === OrderState.Draft,
                   'bg-order-status-processing': state === OrderState.Processing,
@@ -83,11 +83,11 @@ function OrderDetail({ id, created_at, state, paid_at }: OrderData) {
           <span className='flex items-center font-semi-bold'>Payment Status:</span>
           <span className='col-span-3'>
             {paid_at ? (
-              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border-[1px] border-status-success bg-status-success px-cozy py-compact font-semi-bold text-neutral-gray-1'>
+              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border border-status-success bg-status-success px-cozy py-compact font-semi-bold text-neutral-gray-1'>
                 Payment Received <BanknotesIcon className='aspect-square h-[16px]'></BanknotesIcon>
               </span>
             ) : (
-              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border-[1px] border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
+              <span className='flex w-fit items-center gap-[4px] rounded-[16px] border border-status-success  px-cozy py-compact font-semi-bold text-status-success'>
                 Waiting for Payment
               </span>
             )}
@@ -105,7 +105,7 @@ function CustomerAndShippingDetail({
   shipping_address,
 }: OrderData) {
   return (
-    <div className='flex-col-start  divide-y divide-primary-418-60 rounded-[8px] border-[2px] border-primary-625-60 p-cozy shadow-18'>
+    <div className='flex-col-start  divide-y divide-primary-418-60 rounded-[8px] border-2 border-primary-625-60 p-cozy shadow-18'>
       <div className='flex-col-start gap-[4px] pb-cozy text-body-sm '>
         <h2 className='mb-[4px] text-body-lg font-semi-bold text-primary-625'>Customer</h2>
         <span className='flex items-center gap-compact'>

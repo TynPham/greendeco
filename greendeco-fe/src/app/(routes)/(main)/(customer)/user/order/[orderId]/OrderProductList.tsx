@@ -11,7 +11,7 @@ export default function OrderProductList({
   return (
     <>
       <h2 className='py-cozy text-body-lg font-semi-bold'>Product(s)</h2>
-      <ul className='flex-col-start divide-y divide-primary-625-40 border-y-[2px] border-primary-625 p-cozy'>
+      <ul className='flex-col-start divide-y divide-primary-625-40 border-y-2 border-primary-625 p-cozy'>
         {productList.map((product) => (
           <li
             key={product.id}
@@ -41,7 +41,7 @@ function OrderProductItem({ product }: { product: OrderProductData }) {
         {variant_name}
       </span>
       <span className=' col-span-2 flex items-center  justify-center '>
-        <span className='w-full rounded-[4px] border-[1px] border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
+        <span className='w-full rounded-[4px] border border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
           {`${quantity} x ${variant_price} ${VARIANT_CURRENCY}`}
         </span>
       </span>

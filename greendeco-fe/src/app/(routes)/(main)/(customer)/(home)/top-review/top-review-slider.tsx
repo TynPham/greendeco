@@ -11,12 +11,10 @@ import Image from 'next/image'
 import { Swiper as SwiperType } from 'swiper'
 import { useRef, useState } from 'react'
 import clsx from 'clsx'
-import { useQuery } from '@tanstack/react-query'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
 import { ReviewItemData, getAllReviews } from '@/src/app/_api/axios/reviews'
-import { Sort, SortBy } from '@/src/app/_configs/constants/paramKeys'
 import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
 import formatDate from '@/src/app/_hooks/useFormatDate'
+import { ReviewListResponseData } from '@/src/app/_types/review.type'
 
 // Constants
 const SWIPER_CONFIG = {
@@ -31,14 +29,7 @@ const SWIPER_CONFIG = {
   initialSlide: 1,
   centeredSlides: true,
   speed: 800,
-} as const
-
-const REVIEW_QUERY_PARAMS = {
-  limit: 5,
-  sort: Sort.Descending,
-  sortBy: SortBy.CreatedAt,
-  star: 5,
-} as const
+}
 
 // Customer Info Component
 function CustomerInfo({
@@ -90,7 +81,7 @@ function ReviewItem({ active, review }: { active?: boolean; review: ReviewItemDa
   return (
     <div
       className={clsx(
-        'flex-col-start w-full gap-compact rounded-[16px] border-[2px] border-primary-5555 bg-neutral-gray-1 p-comfortable transition-all duration-[0.8s] ease-in-out',
+        'flex-col-start w-full gap-compact rounded-[16px] border-2 border-primary-5555 bg-neutral-gray-1 p-comfortable transition-all duration-[0.8s] ease-in-out',
         { 'scale-90 opacity-30': !active },
       )}
     >
@@ -136,16 +127,11 @@ function NavigationButton({
 }
 
 // Main Component
-export default function TopReviewSlider() {
+export default function TopReviewSlider({ reviews }: { reviews?: ReviewListResponseData }) {
   const swiperRef = useRef<SwiperType>()
   const [activeIndex, setActiveIndex] = useState<number>()
 
-  const { data } = useQuery({
-    queryKey: [UseQueryKeys.Review],
-    queryFn: () => getAllReviews(REVIEW_QUERY_PARAMS),
-  })
-
-  if (!data) return null
+  if (!reviews) return null
 
   return (
     <Swiper
@@ -159,7 +145,7 @@ export default function TopReviewSlider() {
       }}
       draggable
     >
-      {data.items.map((review, i) => (
+      {reviews.items.map((review, i) => (
         <SwiperSlide key={review.id}>
           <ReviewItem
             active={i === activeIndex}

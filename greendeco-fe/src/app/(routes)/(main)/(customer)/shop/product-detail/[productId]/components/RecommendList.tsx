@@ -11,7 +11,7 @@ export const RecommendList = () => {
 
 const RecommendItem = () => {
   return (
-    <span className='flex overflow-hidden rounded-[8px] border-[1px] border-primary-580-40'>
+    <span className='flex overflow-hidden rounded-[8px] border border-primary-580-40'>
       <span className='relative aspect-square w-[80px]'>
         <Image
           fill
@@ -27,7 +27,7 @@ const RecommendItem = () => {
           <span className='text-body-sm'>Watering Can</span>
           <span className='text-body-sm'>$ 14</span>
         </div>
-        <span className='flex items-center justify-center rounded-[4px] border-[1px] border-primary-5555 p-[4px]'>
+        <span className='flex items-center justify-center rounded-[4px] border border-primary-5555 p-[4px]'>
           <PlusIcon className='aspect-square w-[24px] text-primary-5555' />
         </span>
       </span>

@@ -54,7 +54,7 @@ function Logo() {
   return (
     <Link
       href={'/'}
-      className='relative inline-block h-[40px] w-[25%]  overflow-hidden  '
+      className='relative inline-block h-[40px] w-1/4  overflow-hidden  '
     >
       <Image
         src={BrandLogoFullWhite}
@@ -69,7 +69,7 @@ function Logo() {
 
 function Contact() {
   return (
-    <div className='mt-comfortable flex flex-col items-center justify-between gap-common border-t-[1px] border-primary-5555-20  md:flex-row md:py-comfortable'>
+    <div className='mt-comfortable flex flex-col items-center justify-between gap-common border-t border-primary-5555-20  md:flex-row md:py-comfortable'>
       <Logo />
       <span className='text-body-sm text-white'>© 2024 DTU GreenDeco. All Rights Reserved.</span>
       <div className='flex items-center gap-compact'>

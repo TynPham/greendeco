@@ -9,12 +9,10 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { useState } from 'react'
 import NotificationDisplayButton from './NotificationButton'
 import SearchDisplayButton from './SearchDisplayButton'
-import { Bars3Icon } from '@heroicons/react/24/solid'
 import AuthenticationDisplayButton from './AuthenticationDisplayButton'
 
 export default function Header() {
   const [hidden, setHidden] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
 
   const { scrollY } = useScroll()
 
@@ -35,8 +33,8 @@ export default function Header() {
         transition={{ duration: 0.35, ease: 'easeInOut' }}
         className='sticky top-cozy z-50'
       >
-        <div className='container'>
-          <div className='mx-[10px] mt-[-60px] flex h-[60px] items-center gap-cozy md:mx-[-20px]'>
+        <div className='container px-10'>
+          <div className='mt-[-60px] flex h-[60px] items-center gap-cozy'>
             <Logo />
             <NavBar />
             <AuthenticationHandler />
@@ -51,7 +49,7 @@ function Logo() {
   return (
     <Link
       href={'/'}
-      className='relative aspect-square h-full  overflow-hidden rounded-[8px] bg-primary-625 p-compact shadow-18'
+      className='relative aspect-square h-full shrink-0 overflow-hidden rounded-[8px] bg-primary-625 p-compact shadow-18'
     >
       <Image
         src={BrandLogoSmall}
@@ -64,13 +62,9 @@ function Logo() {
   )
 }
 
-function ShowDialogButton() {
-  return <Bars3Icon className='aspect-square  h-32 text-primary-625' />
-}
-
 function NavBar() {
   return (
-    <div className='flex-col-start relative h-full flex-1 justify-center rounded-[8px] border-[1px] border-primary-625 bg-white px-cozy shadow-18'>
+    <div className='flex-col-start relative h-full flex-1 justify-center rounded-[8px] border border-primary-625 bg-white px-cozy shadow-18'>
       <div className='flex items-center justify-between'>
         <NavigationList />
         <div className='flex items-center gap-compact'>
@@ -95,7 +89,7 @@ function NavigationList() {
           Plants
         </Link>
       </li>
-      <li>
+      <li className='hidden sm:block'>
         <Link
           href={'/'}
           className='px-cozy text-primary-625'

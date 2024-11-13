@@ -71,17 +71,17 @@ export default function ProductTable({ product }: { product: ProductData[] }) {
   })
 
   return (
-    <div className='w-full overflow-hidden rounded-[8px] border-[1px] border-primary-625-40 '>
+    <div className='w-full overflow-hidden rounded-[8px] border border-primary-625-40 '>
       <table className='w-full'>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
-              className='border-b-[1px] border-primary-625-80'
+              className='border-b border-primary-625-80'
               key={headerGroup.id}
             >
               {headerGroup.headers.map((header) => (
                 <th
-                  className='border-r-[1px] border-primary-625 bg-primary-5555-20 p-compact text-body-sm text-primary-625 last:border-0'
+                  className='border-r border-primary-625 bg-primary-5555-20 p-compact text-body-sm text-primary-625 last:border-0'
                   key={header.id}
                 >
                   {header.isPlaceholder
@@ -95,12 +95,12 @@ export default function ProductTable({ product }: { product: ProductData[] }) {
         <tbody>
           {table.getRowModel().rows.map((row) => (
             <tr
-              className='border-b-[1px] border-primary-625 last:border-0 hover:bg-primary-5555-20/50'
+              className='border-b border-primary-625 last:border-0 hover:bg-primary-5555-20/50'
               key={row.id}
             >
               {row.getVisibleCells().map((cell) => (
                 <td
-                  className='border-r-[1px] border-primary-625 p-compact text-body-sm last:border-0'
+                  className='border-r border-primary-625 p-compact text-body-sm last:border-0'
                   key={cell.id}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -19,7 +19,7 @@ export default function UserOrderList({ orderList }: { orderList: OrderListData[
 
 const OrderItem = ({ order }: { order: OrderData }) => {
   return (
-    <div className='flex items-center justify-between rounded-[4px] border-[2px] border-primary-418-20 bg-neutral-gray-1 p-cozy shadow-38'>
+    <div className='flex items-center justify-between rounded-[4px] border-2 border-primary-418-20 bg-neutral-gray-1 p-cozy shadow-38'>
       <div className='flex items-center gap-cozy'>
         <span className='text-body-md text-primary-5555-80'>
           Order: <span className='font-semi-bold text-primary-418'>{order.id}</span>

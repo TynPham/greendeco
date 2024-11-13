@@ -17,7 +17,7 @@ export default function ImageGallery({ productImages }: { productImages: Product
         <ActiveImage imageUrl={activeImage} />
       </div>
       <div className='flex h-full items-center justify-center'>
-        <div className='aspect-square h-[75%]'>
+        <div className='aspect-square h-3/4'>
           <ImagesGrid
             activeImage={activeImage}
             imageOnClick={setActiveImage}
@@ -31,7 +31,7 @@ export default function ImageGallery({ productImages }: { productImages: Product
 
 function ActiveImage({ imageUrl }: { imageUrl: string }) {
   return (
-    <div className='relative h-full w-full'>
+    <div className='relative size-full'>
       <Image
         fill
         src={imageUrl}

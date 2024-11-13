@@ -7,10 +7,6 @@ import { ArrowLeftOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import useSidebar from '@/src/app/_hooks/dialog/useAdminSidebarDialog'
 import useActivePath from '@/src/app/_hooks/useActivePath'
 import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
-import { deleteCookie } from 'cookies-next'
-import { useQueryClient } from '@tanstack/react-query'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { ADMIN_QUERY_KEY } from '@/src/app/_configs/constants/queryKey'
 import { useRouter } from 'next/navigation'
 import { useLogoutMutation } from '@/src/queries/auth'
 import path from '@/src/constants/path'
@@ -45,7 +41,7 @@ function SideBarButton() {
 
 function Logo() {
   return (
-    <span className='absolute inset-y-0 left-[50%] translate-x-[-50%]  '>
+    <span className='absolute inset-y-0 left-1/2 -translate-x-1/2'>
       <Link
         href={'/'}
         className='relative inline-block h-full w-[180px]  overflow-hidden  '
@@ -72,7 +68,7 @@ function LogoutButton() {
   return (
     <span
       onClick={handleLogOut}
-      className='cursor-pointer rounded-[100%] border-[1px] border-neutral-gray-5 bg-neutral-gray-3 p-compact'
+      className='cursor-pointer rounded-[100%] border border-neutral-gray-5 bg-neutral-gray-3 p-compact'
     >
       <ArrowLeftOnRectangleIcon className='aspect-square h-[24px] text-black' />
     </span>

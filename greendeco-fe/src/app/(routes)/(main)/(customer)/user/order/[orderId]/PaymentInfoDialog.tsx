@@ -16,7 +16,7 @@ export default function PaymentInfoDialog({ orderId }: { orderId: OrderData['id'
     closeDialog()
   })
   return (
-    <div className='flex-center sticky top-0 z-50 h-full max-h-screen w-full '>
+    <div className='flex-center sticky top-0 z-50 size-full max-h-screen '>
       <div
         ref={paymentInfoDialogRef}
         className='flex-col-start relative items-center gap-cozy rounded-[16px] bg-primary-625 p-comfortable'

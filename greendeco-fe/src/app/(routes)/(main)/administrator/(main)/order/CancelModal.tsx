@@ -90,7 +90,7 @@ export default function CancelModal({ order }: CancelModalType) {
     })
   }
   return (
-    <div className='container sticky top-0 flex h-full max-h-screen w-full items-center justify-center'>
+    <div className='container sticky top-0 flex size-full max-h-screen items-center justify-center'>
       <div
         ref={orderCancelModalRef}
         className='w-[40vw] overflow-hidden rounded-[16px] border border-order-status-cancelled'

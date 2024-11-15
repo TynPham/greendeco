@@ -69,7 +69,7 @@ http.interceptors.response.use(
   function (response) {
     if (isClient) {
       const url = response.config.url ?? ''
-      if (['/api/auth/login'].includes(url)) {
+      if (['/api/auth/login', '/api/auth/admin/login'].includes(url)) {
         const { accessToken } = response.data as LoginResType
         setAccessTokenToLocalStorage(accessToken)
       } else if (['/api/auth/logout'].includes(url)) {

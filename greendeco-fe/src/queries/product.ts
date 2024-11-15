@@ -8,3 +8,10 @@ export const useGetProductList = (params?: FilterParams) => {
     queryFn: () => productApis.getProductList(params),
   })
 }
+
+export const useGetProductListAsAdministrator = () => {
+  return useQuery({
+    queryKey: ['product', 'admin'],
+    queryFn: () => productApis.getProductListAsAdministrator(),
+  })
+}

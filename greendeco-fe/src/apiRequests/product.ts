@@ -1,4 +1,4 @@
-import { FilterParams } from '../app/_types'
+import { FilterParams, Sort, SortBy } from '../app/_types'
 import { FieldParams, ProductListData, VariantInfoResponseData } from '../app/_types/product.type'
 import { http } from '../app/_utils/http'
 
@@ -24,6 +24,16 @@ const productApis = {
 
     return http.get<ProductListData>('/product', {
       params: { ...paramAfterJSON },
+    })
+  },
+
+  getProductListAsAdministrator: () => {
+    return http.get<ProductListData>('/product/all', {
+      params: {
+        limit: 9999,
+        sort: Sort.Descending,
+        sortBy: SortBy.CreatedAt,
+      },
     })
   },
 }

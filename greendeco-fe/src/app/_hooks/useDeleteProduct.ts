@@ -20,7 +20,7 @@ export default function useDeleteProduct() {
     },
     onError: () => {
       router.replace('/administrator/login')
-    },
+    }
   })
 
   return deleteProductMutation

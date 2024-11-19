@@ -8,7 +8,7 @@ import FeaturedProductCarousel from './featured-product-carousel'
 export const PRODUCT_TABS: TabOption[] = [
   { type: 'new', label: 'New Release' },
   { type: 'topRated', label: 'Top Rated' },
-  { type: 'cheap', label: 'Student Friendly' },
+  { type: 'cheap', label: 'Student Friendly' }
 ]
 
 export function FeaturedProductsContent() {

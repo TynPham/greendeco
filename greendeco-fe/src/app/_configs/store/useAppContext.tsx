@@ -8,14 +8,14 @@ type AppContextType = {
 }
 const initAppContext: AppContextType = {
   user: '',
-  setUser: () => {},
+  setUser: () => {}
 }
 
 export const AppContext = createContext<AppContextType | undefined>(initAppContext)
 
 export default function AppContextProvider({
   children,
-  initUser,
+  initUser
 }: {
   children: React.ReactNode
   initUser: User | null

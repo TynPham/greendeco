@@ -3,18 +3,18 @@ import { toast, ToastOptions } from 'react-toastify'
 
 export const notifySuccess = () => {
   toast.success(<UpdateSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 export const notifyError = (errorMessage?: string) => {
   toast.error(<UpdateErrorMessage message={errorMessage ? errorMessage : undefined} />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 export const notifyGetProfileError = (errorMessage?: string, options?: ToastOptions) => {
   toast.error(<GetProfileErrorMessage message={errorMessage ? errorMessage : undefined} />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 

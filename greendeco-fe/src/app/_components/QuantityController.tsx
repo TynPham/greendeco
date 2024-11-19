@@ -8,7 +8,7 @@ type QuantityControllerProps = {
 export default function QuantityController({
   quantity = 1,
   decrease,
-  increase,
+  increase
 }: QuantityControllerProps) {
   return (
     <div className='flex h-fit items-center rounded-[4px] border border-primary-625-40 text-body-xsm'>

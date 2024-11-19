@@ -1,30 +1,37 @@
 import { DefaultSortMenu, SortOptionType } from '@/src/app/_components/SortMenu'
-import type { ChangeEvent } from 'react'
+import { FilterMenu } from './ProductFilterSideBar'
 
 const options: SortOptionType[] = [
   {
     label: 'Newest',
     value: {
       sort: 'desc',
-      sortBy: 'created_at',
-    },
+      sortBy: 'created_at'
+    }
   },
   {
     label: 'Price Increase',
     value: {
       sort: 'asc',
-      sortBy: 'price',
-    },
+      sortBy: 'price'
+    }
   },
   {
     label: 'Price Decrease',
     value: {
       sort: 'desc',
-      sortBy: 'price',
-    },
-  },
+      sortBy: 'price'
+    }
+  }
 ]
 
 export const ProductSortMenu = () => {
-  return <DefaultSortMenu options={options} />
+  return (
+    <div className='flex flex-wrap items-center gap-4'>
+      <div className='xl:hidden'>
+        <FilterMenu />
+      </div>
+      <DefaultSortMenu options={options} />
+    </div>
+  )
 }

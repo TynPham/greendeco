@@ -5,7 +5,7 @@ import Footer from '@/src/app/_components/footer'
 
 export const metadata: Metadata = {
   title: 'Payment Unsuccessful',
-  description: 'Do not worry, you can make payment later in your order detail',
+  description: 'Do not worry, you can make payment later in your order detail'
 }
 
 export default function PaymentSuccessLayout({ children }: { children: React.ReactNode }) {

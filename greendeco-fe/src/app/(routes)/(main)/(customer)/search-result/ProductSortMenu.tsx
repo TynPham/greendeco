@@ -6,23 +6,23 @@ const options: SortOptionType[] = [
     label: 'Newest',
     value: {
       sort: 'desc',
-      sortBy: 'created_at',
-    },
+      sortBy: 'created_at'
+    }
   },
   {
     label: 'Price Increase',
     value: {
       sort: 'asc',
-      sortBy: 'price',
-    },
+      sortBy: 'price'
+    }
   },
   {
     label: 'Price Decrease',
     value: {
       sort: 'desc',
-      sortBy: 'price',
-    },
-  },
+      sortBy: 'price'
+    }
+  }
 ]
 
 export const ProductSortMenu = () => {

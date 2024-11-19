@@ -18,7 +18,7 @@ export const createNotification = async (title: string, message: string, descrip
     .post<CreateNotification>('/notification/', {
       title: title,
       message: message,
-      description: description,
+      description: description
     })
     .then((response) => response.data)
 }
@@ -26,6 +26,6 @@ export const createNotification = async (title: string, message: string, descrip
 export const sendNotification = async (notificationId: string, userList: string[]) => {
   return await http.post(`/notification/send`, {
     users: userList,
-    notification_id: notificationId,
+    notification_id: notificationId
   })
 }

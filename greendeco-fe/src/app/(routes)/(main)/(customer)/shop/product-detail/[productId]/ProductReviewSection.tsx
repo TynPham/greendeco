@@ -6,7 +6,7 @@ import {
   ReviewItemData,
   ReviewListResponseData,
   ReviewSortParams,
-  getReviewListByProductId,
+  getReviewListByProductId
 } from '@/src/app/_api/axios/reviews'
 import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
 import { MutatingDots } from 'react-loader-spinner'
@@ -19,31 +19,33 @@ export default function ReviewSection({ productId }: { productId: ProductData['i
     limit: 5,
     offSet: 1,
     sort: Sort.Descending,
-    sortBy: SortBy.CreatedAt,
+    sortBy: SortBy.CreatedAt
   })
 
   const useReviewQuery = useQuery({
     queryKey: [UseQueryKeys.Review, productId, reviewSortParams],
-    queryFn: () => getReviewListByProductId(productId, reviewSortParams),
+    queryFn: () => getReviewListByProductId(productId, reviewSortParams)
   })
 
   const { data, isLoading, isSuccess, isError } = useReviewQuery
   return (
     <div className='rounded-[8px] bg-white p-comfortable shadow-38'>
-      <h3 className='text-heading-3 text-primary-625'>Comments & Ratings</h3>
+      <div className='flex items-center justify-between gap-4'>
+        <h3 className='text-heading-3 text-primary-625'>Comments & Ratings</h3>
+        <ReviewSorter
+          disabled={reviewSortParams.star && reviewSortParams.star > 0 ? true : false}
+          currentSortOption={{
+            sort: reviewSortParams.sort,
+            sortBy: reviewSortParams.sortBy
+          }}
+          setSortOption={setReviewSortParams}
+        />
+      </div>
       <div className='flex-col-start mt-compact gap-cozy'>
         <div className='flex items-center justify-between'>
           <SortByStarMenu
             currentRating={reviewSortParams.star}
             setRating={setReviewSortParams}
-          />
-          <ReviewSorter
-            disabled={reviewSortParams.star && reviewSortParams.star > 0 ? true : false}
-            currentSortOption={{
-              sort: reviewSortParams.sort,
-              sortBy: reviewSortParams.sortBy,
-            }}
-            setSortOption={setReviewSortParams}
           />
         </div>
         {isLoading && (
@@ -153,7 +155,7 @@ type SortOptionsType = {
 function ReviewSorter({
   currentSortOption,
   setSortOption,
-  disabled,
+  disabled
 }: {
   currentSortOption: {
     sort: ReviewSortParams['sort']
@@ -165,16 +167,16 @@ function ReviewSorter({
   const sortOptionList: SortOptionsType[] = [
     {
       sort: Sort.Descending,
-      sortBy: SortBy.CreatedAt,
+      sortBy: SortBy.CreatedAt
     },
     {
       sort: Sort.Ascending,
-      sortBy: SortBy.Star,
+      sortBy: SortBy.Star
     },
     {
       sort: Sort.Descending,
-      sortBy: SortBy.Star,
-    },
+      sortBy: SortBy.Star
+    }
   ]
 
   const onSelect = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -209,7 +211,7 @@ function ReviewSorter({
 
 function SortByStarMenu({
   currentRating,
-  setRating,
+  setRating
 }: {
   currentRating: ReviewSortParams['star']
   setRating: Dispatch<SetStateAction<ReviewSortParams>>
@@ -223,7 +225,7 @@ function SortByStarMenu({
       ...prev,
       star: parseInt(event.target.value),
       sort: Sort.Descending,
-      sortBy: SortBy.CreatedAt,
+      sortBy: SortBy.CreatedAt
     }))
   }
 

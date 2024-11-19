@@ -26,7 +26,7 @@ export default function VariantImage({ image, setImage }: VariantImageProps) {
 //ImageUploadItem
 const ImageUploadItem = React.memo(function ImageUploadInput({
   image,
-  setImage,
+  setImage
 }: VariantImageProps) {
   return (
     <div className=' relative aspect-square h-full overflow-hidden rounded-[4px] border-4 border-primary-625-20 hover:border-primary-625'>
@@ -49,7 +49,7 @@ const ImageUploadItem = React.memo(function ImageUploadInput({
 })
 
 const UploadInput = React.memo(function UploadInput({
-  setImage,
+  setImage
 }: {
   setImage: Dispatch<SetStateAction<string | undefined>>
 }) {
@@ -59,7 +59,7 @@ const UploadInput = React.memo(function UploadInput({
     //NOTE: Execuse after receiving suscess responses
     onSuccess: (data) => {
       setImage(data)
-    },
+    }
   })
 
   function handleImageChange(imageFile: File) {

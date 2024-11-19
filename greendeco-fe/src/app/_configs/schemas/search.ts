@@ -3,11 +3,11 @@ import { MIN_SEARCH_VALUE } from '../constants/variables'
 
 export const ProductSearchSchema = z
   .object({
-    search: z.string().min(MIN_SEARCH_VALUE, `Must have at least ${MIN_SEARCH_VALUE} characters`),
+    search: z.string().min(MIN_SEARCH_VALUE, `Must have at least ${MIN_SEARCH_VALUE} characters`)
   })
   .refine((data) => isCharacterOnly(data.search), {
     path: ['search'],
-    message: 'Only contain characters',
+    message: 'Only contain characters'
   })
 
 export type ProductSearchFormInputType = z.infer<typeof ProductSearchSchema>

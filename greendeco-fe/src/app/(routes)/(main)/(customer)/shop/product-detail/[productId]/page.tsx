@@ -10,7 +10,7 @@ import { useVariantStore } from '@/src/app/_configs/store/useVariantStore'
 import ProductDetailLoading from './loading'
 
 export default function ProductDetailPage({
-  params,
+  params
 }: {
   params: {
     productId: string
@@ -18,7 +18,7 @@ export default function ProductDetailPage({
 }) {
   const productDetailQuery = useQuery({
     queryKey: ['product', params.productId],
-    queryFn: () => getProductDetailById(params.productId),
+    queryFn: () => getProductDetailById(params.productId)
   })
 
   const { data, isLoading, isSuccess, isError } = productDetailQuery
@@ -48,7 +48,7 @@ function ContentWrapper(props: ProductDetailData) {
           product={product}
           variantList={variants}
         />
-        <div className='flex-col-start gap-cozy'>
+        <div className='flex-col-start col-span-2 gap-cozy md:col-span-1'>
           <Price />
           <ReviewSection productId={product.id} />
         </div>

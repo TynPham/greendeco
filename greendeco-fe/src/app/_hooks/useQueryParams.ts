@@ -45,6 +45,6 @@ export default function useQueryParams<T>() {
     queryParams: searchParams,
     queryObject: urlQueryObject,
     setQueryParams,
-    directToPathWithQueryParams,
+    directToPathWithQueryParams
   }
 }

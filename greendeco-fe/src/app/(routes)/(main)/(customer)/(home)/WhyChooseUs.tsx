@@ -13,18 +13,18 @@ const REASONS: readonly ReasonProps[] = [
   {
     title: 'Hand Planted',
     description: 'These lovely plants can be planted in organic soil with easy guide.',
-    icon: HandPlantedIcon,
+    icon: HandPlantedIcon
   },
   {
     title: 'Easy Care',
     description: "They aren't fussy and will thrive for years with bright light or natural light.",
-    icon: EasyCareIcon,
+    icon: EasyCareIcon
   },
   {
     title: 'Fascinating',
     description: 'We sell these greenery that have unique shapes, colors and texture.',
-    icon: FascinatingIcon,
-  },
+    icon: FascinatingIcon
+  }
 ]
 
 function ReasonCard({ title, description, icon }: ReasonProps) {

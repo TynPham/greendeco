@@ -12,14 +12,14 @@ import {
   ExclamationTriangleIcon,
   PhoneIcon,
   TruckIcon,
-  UserCircleIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/navigation'
 import formatDate from '@/src/app/_hooks/useFormatDate'
 import OrderProductList from './OrderProductList'
 
 export default function OrderDetailManagementPage({
-  params,
+  params
 }: {
   params: {
     orderId: string
@@ -28,7 +28,7 @@ export default function OrderDetailManagementPage({
   const { orderId } = params
   const orderQuery = useQuery({
     queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order, orderId],
-    queryFn: () => getOrderFullDetailAsAdministratorById(orderId),
+    queryFn: () => getOrderFullDetailAsAdministratorById(orderId)
   })
 
   const { data, isSuccess, isLoading, isError } = orderQuery
@@ -59,7 +59,7 @@ function ContentWrapper({ order }: { order: OrderFullDetailData }) {
   const orderDropDown: OrderState = {
     owner_id: order.order.owner_id,
     order_id: order.order.id,
-    state: order.order.state,
+    state: order.order.state
   }
 
   return (

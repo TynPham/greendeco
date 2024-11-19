@@ -10,12 +10,12 @@ type NotificationContent = {
 export default function createNotificationMessage(
   orderId: OrderData['id'],
   state: OrderState,
-  cancelReason?: string,
+  cancelReason?: string
 ) {
   if (state === 'cancelled') {
     const content: NotificationContent = {
       title: 'Your Order Has Been Cancelled',
-      message: `Order ${orderId} has been cancelled with reason: ${cancelReason}`,
+      message: `Order ${orderId} has been cancelled with reason: ${cancelReason}`
     }
     return content
   } else {
@@ -27,7 +27,7 @@ export default function createNotificationMessage(
           : ''
     const content: NotificationContent = {
       title: 'Your Order Has Been Updated',
-      message: updateMessage,
+      message: updateMessage
     }
     return content
   }

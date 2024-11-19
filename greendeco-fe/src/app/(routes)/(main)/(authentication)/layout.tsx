@@ -7,13 +7,13 @@ import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 
 export const metadata: Metadata = {
   title: 'Create An Account',
-  description: 'Be a member by creating an account',
+  description: 'Be a member by creating an account'
 }
 export default function AuthenticationLayout({ children }: { children: ReactNode }) {
   return (
     <div className='flex-center h-screen w-screen bg-primary-5555-20'>
-      <div className='container grid h-full grid-cols-2 overflow-hidden  bg-white  p-cozy  shadow-30'>
-        <div className='relative flex h-full flex-col gap-cozy overflow-auto p-comfortable'>
+      <div className='container grid h-full grid-cols-2 overflow-hidden bg-white p-cozy shadow-30'>
+        <div className='relative col-span-2 flex h-full flex-col gap-cozy overflow-auto p-4 sm:p-comfortable lg:col-span-1'>
           <Link
             className='flex items-center gap-compact text-body-sm'
             href={'/'}
@@ -21,9 +21,9 @@ export default function AuthenticationLayout({ children }: { children: ReactNode
             <ArrowLeftIcon className='aspect-square h-[16px]' />
             Back to Shopping
           </Link>
-          <div className='mx-auto h-full w-[70%] max-w-full'>{children}</div>
+          <div className='mx-auto size-full xl:w-[70%]'>{children}</div>
         </div>
-        <div className='aspect-auto h-full overflow-hidden rounded-lg'>
+        <div className='hidden aspect-auto h-full overflow-hidden rounded-lg lg:col-span-1 lg:block'>
           <Image
             width={0}
             height={0}

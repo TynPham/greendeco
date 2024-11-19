@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function RegisterPage() {
   return (
     <>
-      <div className='flex-col-start gap-common'>
+      <div className='flex h-full flex-col justify-center gap-common'>
         <div>
           <span className='mb-compact block text-body-lg'>
             Welcome to <span className=' text-heading-2 font-bold'>GreenDeco</span> 👋

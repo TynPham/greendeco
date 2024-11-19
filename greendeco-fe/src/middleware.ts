@@ -11,7 +11,7 @@ const privatePaths = [
   path.productAdministrator,
   path.orderAdministrator,
   path.checkout,
-  path.payment,
+  path.payment
 ]
 const adminPaths = [path.productAdministrator, path.orderAdministrator]
 export function middleware(request: NextRequest) {
@@ -49,6 +49,6 @@ export const config = {
     '/profile/:path*',
     '/purchased/:path*',
     '/checkout/:path*',
-    '/shop/:path*',
-  ],
+    '/shop/:path*'
+  ]
 }

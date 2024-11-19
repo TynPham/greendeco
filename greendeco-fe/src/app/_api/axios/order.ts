@@ -10,7 +10,7 @@ import {
   ProductData,
   VariantData,
   fieldJSONParse,
-  getProductBaseById,
+  getProductBaseById
 } from './product'
 import { BAD_REQUEST_STATUS } from '@/src/app/_configs/constants/status'
 import { http } from '@/src/app/_utils/http'
@@ -97,11 +97,11 @@ export const createOrder = async (data: Omit<CreateOrderData, 'cart_id'>) => {
 
   const orderData: CreateOrderData = {
     cart_id: cartId,
-    ...data,
+    ...data
   }
 
   return await http.post<CreateOrderResponseData>('/order', {
-    ...orderData,
+    ...orderData
   })
 }
 
@@ -113,7 +113,7 @@ export const getOrderListByUser = async (params?: FilterParams) => {
 
   return await http
     .get<OrderListData>('/order', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
     .then((res) => res.data)
 }
@@ -144,14 +144,14 @@ export const getOrderProductWithImageListById = async (id: OrderData['id']) => {
             if (product) {
               const orderWithImage: OrderProductData = {
                 ...orderItem,
-                product_image: product.items.images[0],
+                product_image: product.items.images[0]
               }
               return orderWithImage
             } else {
               return orderItem
             }
           })
-      }),
+      })
     ).then((orderProductWithImageList) => {
       return orderProductWithImageList
     })
@@ -162,12 +162,12 @@ export const getOrderFullDetailById = async (orderId: OrderData['id']) => {
   return await Promise.all([
     getOrderDetailById(orderId),
     getOrderProductWithImageListById(orderId),
-    getOrderPrice(orderId),
+    getOrderPrice(orderId)
   ]).then(([order, productList, price]) => {
     const orderFullDetail: OrderFullDetailData = {
       order: order.items,
       productList: productList,
-      price: price,
+      price: price
     }
     return orderFullDetail
   })

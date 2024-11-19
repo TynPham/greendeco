@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ResetPasswordFormInputType,
-  ResetPasswordSchema,
+  ResetPasswordSchema
 } from '@/src/app/_configs/schemas/authentication'
 import { useMutation } from '@tanstack/react-query'
 import { resetPassword } from '@/src/app/_api/axios/authentication'
@@ -17,7 +17,7 @@ export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswor
   const router = useRouter()
   const defaultInputValues: ResetPasswordFormInputType = {
     password: '',
-    passwordConfirm: '',
+    passwordConfirm: ''
   }
 
   //NOTE: Validation with useForm
@@ -25,12 +25,12 @@ export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswor
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ResetPasswordFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ResetPasswordSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const resetPasswordMutation = useMutation({
@@ -45,10 +45,10 @@ export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswor
     onError: (e) => {
       if (e instanceof AxiosError) {
         notifyResetPasswordFail(e.response?.data.msg || e.message, {
-          onClose: () => router.push('/forgot-password'),
+          onClose: () => router.push('/forgot-password')
         })
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<ResetPasswordFormInputType> = (values, e) => {
@@ -56,7 +56,7 @@ export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswor
     //NOTE: Execute the Mutation
     resetPasswordMutation.mutate({
       password: values.password,
-      token: resetPasswordToken,
+      token: resetPasswordToken
     })
   }
 

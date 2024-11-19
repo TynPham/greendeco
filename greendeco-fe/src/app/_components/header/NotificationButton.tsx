@@ -49,15 +49,15 @@ export default function NotificationDisplayButton() {
             <motion.div
               initial={{
                 translateY: '-16px',
-                opacity: 0,
+                opacity: 0
               }}
               animate={{ opacity: 1, translateY: 0 }}
               exit={{
                 opacity: 0,
-                translateY: '-16px',
+                translateY: '-16px'
               }}
               transition={{ ease: 'easeInOut', duration: 0.2 }}
-              className='absolute right-0 top-[calc(100%+8px)] max-h-[60vh] w-[24vw] overflow-y-auto rounded-xl bg-white shadow-38 '
+              className='fixed left-6 top-32 max-h-[60vh] w-[90vw] overflow-y-auto rounded-xl bg-white shadow-38 sm:absolute sm:left-auto sm:right-0 sm:top-20 sm:w-[450px]'
             >
               <div className='bg-primary-625-20/40 p-compact text-heading-3 font-bold text-primary-5555'>
                 Notification

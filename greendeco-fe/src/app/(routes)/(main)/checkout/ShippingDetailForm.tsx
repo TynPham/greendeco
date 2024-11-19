@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ShippingAddressSchema,
-  ShippingAddressFormInputType,
+  ShippingAddressFormInputType
 } from '@/src/app/_configs/schemas/shippingAddress'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateOrderResponseData, createOrder } from '@/src/app/_api/axios/order'
@@ -22,7 +22,7 @@ export default function ShippingDetailForm() {
     city: '',
     district: '',
     ward: '',
-    address: '',
+    address: ''
   }
 
   //NOTE: Validation with useForm
@@ -30,12 +30,12 @@ export default function ShippingDetailForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ShippingAddressFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ShippingAddressSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const handleCreateOrderSuccess = (data: CreateOrderResponseData) => {
@@ -44,7 +44,7 @@ export default function ShippingDetailForm() {
     router.replace(`/payment/${id}`)
     deleteCookie('cartId')
     queryClient.invalidateQueries([UseQueryKeys.User, 'cart'], {
-      exact: true,
+      exact: true
     })
   }
 
@@ -64,7 +64,7 @@ export default function ShippingDetailForm() {
           router.push('/login')
         }
       }
-    },
+    }
   })
 
   const handleJoiningValues = (values: ShippingAddressFormInputType) => {
@@ -85,7 +85,7 @@ export default function ShippingDetailForm() {
     console.log(shippingAddress)
 
     createOrderMutation.mutate({
-      shipping_address: shippingAddress,
+      shipping_address: shippingAddress
     })
   }
   return (

@@ -1,22 +1,18 @@
 'use client'
 import { TextField } from '@/src/app/_components/form'
 import Link from 'next/link'
-import { AxiosError } from 'axios'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Button from '@/src/app/_components/Button'
 import { LoginFormInputType, LoginSchema } from '@/src/app/_configs/schemas/authentication'
-import { loginAccount } from '@/src/app/_api/axios/authentication'
-import { notifyLoginFail, notifyLoginSuccess } from '../Notification'
-import { setCookie } from '@/src/app/_hooks/useCookie'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { notifyLoginSuccess } from '../Notification'
 import { useRouter } from 'next/navigation'
 import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
 import { useAppContext } from '@/src/app/_configs/store/useAppContext'
 import path from '@/src/constants/path'
 import { useLoginMutation } from '@/src/queries/auth'
+import { handleErrorApi } from '@/src/app/_utils/utils'
+import { toast } from 'react-toastify'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -24,7 +20,7 @@ export default function LoginForm() {
 
   const defaultInputValues: LoginFormInputType = {
     email: '',
-    password: '',
+    password: ''
   }
 
   //NOTE: Validation with useForm
@@ -33,11 +29,12 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setError
   } = useForm<LoginFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(LoginSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const loginMutation = useLoginMutation()
@@ -48,14 +45,10 @@ export default function LoginForm() {
       const res = await loginMutation.mutateAsync(values)
       reset()
       setUser(res.data.user)
-      notifyLoginSuccess()
+      toast.success('Login Successfully')
       router.push(path.home)
     } catch (error) {
-      if (error instanceof AxiosError) {
-        notifyLoginFail(error.response?.data.msg)
-      } else {
-        notifyLoginFail('Something went wrong')
-      }
+      handleErrorApi({ error, setError })
     }
   }
 
@@ -64,6 +57,7 @@ export default function LoginForm() {
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className='flex w-full flex-col gap-cozy text-body-sm'
+        noValidate
       >
         <div>
           <TextField

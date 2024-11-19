@@ -4,8 +4,8 @@ import { http } from '../app/_utils/http'
 const reviewApis = {
   getAllReviews: (params?: ReviewSortParams) =>
     http.get<ReviewListResponseData>('/review/all', {
-      params,
-    }),
+      params
+    })
 }
 
 export default reviewApis

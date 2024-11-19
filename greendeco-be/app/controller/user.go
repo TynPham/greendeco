@@ -41,7 +41,7 @@ func CreateUser(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(user); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -118,7 +118,7 @@ func Login(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(user); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(&models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(&models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -213,7 +213,7 @@ func ForgotPassword(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(reqEmail); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -315,7 +315,7 @@ func UpdatePassword(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(req); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -372,14 +372,14 @@ func UpdateUserInformation(c *fiber.Ctx) error {
 	validate := validators.NewValidator()
 	if userUpdate.Avatar != nil {
 		if err := validate.Struct(userUpdate); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+			return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 				Message: "invalid input found",
 				Errors:  validators.ValidatorErrors(err),
 			})
 		}
 	} else {
 		if err := validate.StructExcept(userUpdate, "avatar"); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+			return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 				Message: "invalid input found",
 				Errors:  validators.ValidatorErrors(err),
 			})

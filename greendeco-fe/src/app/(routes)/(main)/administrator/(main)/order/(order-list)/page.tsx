@@ -15,8 +15,8 @@ export default function OrderManagementPage() {
     queryFn: () =>
       getOrderListTable({
         limit: 9999,
-        ...queryObject,
-      }),
+        ...queryObject
+      })
   })
   const { data, isLoading } = orderQuery
   const dataMemo = React.useMemo(() => data, [data])

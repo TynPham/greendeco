@@ -8,19 +8,19 @@ import { type } from 'os'
 const defaultParams: FilterParams = {
   limit: 10,
   sort: Sort.Descending,
-  sortBy: SortBy.CreatedAt,
+  sortBy: SortBy.CreatedAt
 }
 
 export default function useNotification({
   params = {
-    ...defaultParams,
-  },
+    ...defaultParams
+  }
 }: {
   params?: FilterParams
 }) {
   const userNotificationQuery = useQuery({
     queryKey: [UseQueryKeys.User, UseQueryKeys.Notification],
-    queryFn: () => getNotificationFromUser(params),
+    queryFn: () => getNotificationFromUser(params)
   })
 
   return { userNotificationQuery: userNotificationQuery }

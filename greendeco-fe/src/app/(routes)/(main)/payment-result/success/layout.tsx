@@ -5,7 +5,7 @@ import Footer from '@/src/app/_components/footer'
 
 export const metadata: Metadata = {
   title: 'Thank you for shopping at GreenDeco!',
-  description: 'Thank you for choosing us. Have a nice day',
+  description: 'Thank you for choosing us. Have a nice day'
 }
 
 export default function PaymentSuccessLayout({ children }: { children: React.ReactNode }) {

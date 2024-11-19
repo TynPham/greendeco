@@ -14,19 +14,19 @@ type QueryParams = {
 export default function ProductSearchForm() {
   const { directToPathWithQueryParams } = useQueryParams<QueryParams>()
   const defaultInputValues: ProductSearchFormInputType = {
-    search: '',
+    search: ''
   }
 
   //NOTE: Validation with useForm
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid }
   } = useForm<ProductSearchFormInputType>({
     mode: 'all',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ProductSearchSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const onSubmitHandler: SubmitHandler<ProductSearchFormInputType> = (value, e) => {
@@ -34,7 +34,7 @@ export default function ProductSearchForm() {
     //NOTE: Execute the Mutation
     directToPathWithQueryParams(
       { field: JSON.stringify({ name: value.search }) },
-      SHOP_ROUTE.SEARCH.LINK,
+      SHOP_ROUTE.SEARCH.LINK
     )
   }
   return (
@@ -45,7 +45,7 @@ export default function ProductSearchForm() {
       <div className='flex-col-start w-full gap-[4px]'>
         <form
           onSubmit={handleSubmit(onSubmitHandler)}
-          className='flex w-full items-center gap-cozy text-body-sm'
+          className='flex w-full flex-wrap items-center gap-cozy text-body-sm'
         >
           <TextField
             className='flex-1 text-body-lg'
@@ -57,7 +57,7 @@ export default function ProductSearchForm() {
           <Button
             disabled={!isDirty || !isValid}
             type='submit'
-            className='rounded-[8px] px-comfortable font-semi-bold'
+            className='w-full rounded-[8px] px-comfortable font-semi-bold sm:w-fit'
           >
             Search
           </Button>

@@ -21,8 +21,8 @@ export default function OrderHistoryPage() {
         limit: 10,
         sort: Sort.Descending,
         sortBy: SortBy.CreatedAt,
-        ...queryObject,
-      }),
+        ...queryObject
+      })
   })
 
   const { data, isLoading, isError } = userOrderListQuery

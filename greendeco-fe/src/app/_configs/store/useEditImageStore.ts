@@ -17,7 +17,7 @@ type ImagesStore = ReturnType<typeof createImagesStore>
 
 export const createImagesStore = (initProps?: Partial<ImagesProps>) => {
   const DEFAULT_PROPS: ImagesProps = {
-    images: [...initialImageUploadState],
+    images: [...initialImageUploadState]
   }
 
   return createStore<ImagesState>()((set, get) => ({
@@ -27,7 +27,7 @@ export const createImagesStore = (initProps?: Partial<ImagesProps>) => {
     replaceImages: (image, position) => {
       const newImages = replaceImage(get().images, image, position)
       set({ images: newImages })
-    },
+    }
   }))
 }
 

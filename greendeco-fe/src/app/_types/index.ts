@@ -16,11 +16,11 @@ export type FilterParams = {
 
 export enum Sort {
   Ascending = 'asc',
-  Descending = 'desc',
+  Descending = 'desc'
 }
 
 export enum SortBy {
   CreatedAt = 'created_at',
   Price = 'price',
-  Star = 'star',
+  Star = 'star'
 }

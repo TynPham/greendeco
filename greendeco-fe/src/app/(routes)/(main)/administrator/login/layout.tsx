@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'GreenDeco Admin Login',
-  description: 'GreenDeco Administration Login',
+  description: 'GreenDeco Administration Login'
 }
 
 export default function ProductListLayout({ children }: { children: React.ReactNode }) {

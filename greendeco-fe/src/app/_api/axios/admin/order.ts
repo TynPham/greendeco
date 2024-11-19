@@ -6,7 +6,7 @@ import {
   OrderProductList,
   getOrderDetailById,
   getOrderPrice,
-  getOrderProductWithImageListById,
+  getOrderProductWithImageListById
 } from '../order'
 import { FilterParams, fieldJSONParse } from '../product'
 import { OrderState as StateOfOrder } from '@/src/app/_configs/constants/paramKeys'
@@ -46,7 +46,7 @@ export const getOrderListAsAdministrator = async (params?: FilterParams) => {
   }
   return await http
     .get<OrderListData>('/order/all/', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
     .then((res) => res.data)
 }
@@ -65,20 +65,20 @@ export const getOrderListTable = async (params?: FilterParams) => {
         owner_info: {
           order_id: order.id,
           user_name: order.user_name,
-          userPhoneNumber: order.user_phone_number,
+          userPhoneNumber: order.user_phone_number
         },
         order_state: {
           order_id: order.id,
           state: order.state,
-          owner_id: order.owner_id,
+          owner_id: order.owner_id
         },
         OrderPrice: { ...price },
         OrderData: {
-          ...order,
-        },
+          ...order
+        }
       }
       return row
-    }),
+    })
   )
 }
 
@@ -101,7 +101,7 @@ export const updateOrderStatus = async ({ orderId, state, description }: OrderSt
   return await http
     .put(`/order/${orderId}`, {
       state: state,
-      description: description,
+      description: description
     })
     .then((res) => res.data)
 }
@@ -122,11 +122,11 @@ export const updateOrderProcessStatus = async ({
   paid_at,
   title,
   message,
-  userId,
+  userId
 }: ProcessStatusRequest) => {
   await http.put(`/order/${orderId}`, {
     paid_at: paid_at,
-    state: StateOfOrder.Processing,
+    state: StateOfOrder.Processing
   })
 
   const newNoti = await createNotification(title, message, orderId)
@@ -148,13 +148,13 @@ export const updateOrderStatusSendNoti = async ({
   title,
   message,
   userId,
-  state,
+  state
 }: StatusRequest) => {
   const orderStatusRequest: OrderStatusRequest = {
     orderId: orderId,
     adminAccessToken: adminAccessToken,
     state: state,
-    description: message,
+    description: message
   }
   await updateOrderStatus(orderStatusRequest)
   const newNoti = await createNotification(title, message, orderId)
@@ -165,12 +165,12 @@ export const getOrderFullDetailAsAdministratorById = async (orderId: OrderData['
   return await Promise.all([
     getOrderDetailById(orderId),
     getOrderProductWithImageListById(orderId),
-    getOrderPrice(orderId),
+    getOrderPrice(orderId)
   ]).then(([order, productList, price]) => {
     const orderFullDetail: OrderFullDetailData = {
       order: order.items,
       productList: productList,
-      price: price,
+      price: price
     }
     return orderFullDetail
   })

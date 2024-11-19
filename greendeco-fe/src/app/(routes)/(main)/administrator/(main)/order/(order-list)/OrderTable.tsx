@@ -4,7 +4,7 @@ import {
   createColumnHelper,
   useReactTable,
   getCoreRowModel,
-  flexRender,
+  flexRender
 } from '@tanstack/react-table'
 import Link from 'next/link'
 import { ADMINISTRATOR_ROUTE, VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
@@ -31,7 +31,7 @@ const columns = [
         </p>
       </div>
     ),
-    header: () => <span>Order Detail</span>,
+    header: () => <span>Order Detail</span>
   }),
 
   columHelper.accessor('OrderData', {
@@ -39,7 +39,7 @@ const columns = [
     cell: (info) => (
       <span className='inline-block w-full text-center'>{info.getValue().shipping_address}</span>
     ),
-    header: () => <span>Shipping Address</span>,
+    header: () => <span>Shipping Address</span>
   }),
 
   columHelper.accessor('OrderPrice.total', {
@@ -49,7 +49,7 @@ const columns = [
       </span>
     ),
     header: () => <span>Price</span>,
-    size: 120,
+    size: 120
   }),
 
   columHelper.accessor('OrderData.created_at', {
@@ -59,7 +59,7 @@ const columns = [
         {formatDate(new Date(info.getValue()))}
       </span>
     ),
-    header: () => <span>Date Created</span>,
+    header: () => <span>Date Created</span>
   }),
 
   columHelper.accessor('order_state', {
@@ -67,8 +67,8 @@ const columns = [
     cell: (info) => {
       return <ActionWrapper order={info.getValue()} />
     },
-    header: () => <span>Actions</span>,
-  }),
+    header: () => <span>Actions</span>
+  })
 ]
 
 const ActionWrapper = ({ order }: { order: OrderState }) => {
@@ -83,7 +83,7 @@ export default function OrderTable({ order }: { order: OrderTableData[] }) {
   const table = useReactTable({
     data: order,
     columns,
-    getCoreRowModel: getCoreRowModel(),
+    getCoreRowModel: getCoreRowModel()
   })
 
   return (
@@ -103,7 +103,7 @@ export default function OrderTable({ order }: { order: OrderTableData[] }) {
                   className='border-r border-primary-625 bg-primary-5555-20 p-compact text-body-sm text-primary-625 last:border-0'
                   colSpan={header.colSpan}
                   style={{
-                    width: header.getSize() !== 150 ? header.getSize() : undefined,
+                    width: header.getSize() !== 150 ? header.getSize() : undefined
                   }}
                   key={header.id}
                 >

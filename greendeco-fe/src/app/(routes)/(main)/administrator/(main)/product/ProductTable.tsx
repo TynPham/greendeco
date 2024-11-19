@@ -5,7 +5,7 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  useReactTable,
+  useReactTable
 } from '@tanstack/react-table'
 import { ProductData } from '@/src/app/_api/axios/product'
 import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
@@ -13,7 +13,7 @@ import {
   CheckCircleIcon,
   PencilSquareIcon,
   TrashIcon,
-  XCircleIcon,
+  XCircleIcon
 } from '@heroicons/react/24/solid'
 import useConfirmDeleteProductDialog from '@/src/app/_hooks/dialog/useConfirmDeleteDialog'
 
@@ -22,11 +22,11 @@ const columnHelper = createColumnHelper<ProductData>()
 const columns = [
   columnHelper.accessor('name', {
     cell: (info) => <span className='font-semi-bold'>{info.getValue()}</span>,
-    header: () => <span>Product Name</span>,
+    header: () => <span>Product Name</span>
   }),
   columnHelper.accessor('type', {
     cell: (info) => <span className='inline-block w-full text-center'>{info.getValue()}</span>,
-    header: () => <span>Type</span>,
+    header: () => <span>Type</span>
   }),
   columnHelper.accessor('available', {
     id: 'available',
@@ -35,7 +35,7 @@ const columns = [
         <ResultIndicator result={info.getValue()} />
       </span>
     ),
-    header: () => <span>Available</span>,
+    header: () => <span>Available</span>
   }),
   columnHelper.accessor('is_publish', {
     cell: (info) => (
@@ -43,7 +43,7 @@ const columns = [
         <ResultIndicator result={info.getValue()} />
       </span>
     ),
-    header: () => <span>Published</span>,
+    header: () => <span>Published</span>
   }),
   columnHelper.accessor('created_at', {
     cell: (info) => (
@@ -51,7 +51,7 @@ const columns = [
         {formatDate(new Date(info.getValue()))}
       </span>
     ),
-    header: () => <span>Create Date</span>,
+    header: () => <span>Create Date</span>
   }),
   columnHelper.accessor('id', {
     id: 'Action',
@@ -59,15 +59,15 @@ const columns = [
       const id = info.getValue()
       return <ActionWrapper productId={id} />
     },
-    header: () => <span>Actions</span>,
-  }),
+    header: () => <span>Actions</span>
+  })
 ]
 
 export default function ProductTable({ product }: { product: ProductData[] }) {
   const table = useReactTable({
     data: product,
     columns,
-    getCoreRowModel: getCoreRowModel(),
+    getCoreRowModel: getCoreRowModel()
   })
 
   return (

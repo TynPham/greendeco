@@ -28,7 +28,7 @@ export default function Rating(props: RatingProps) {
         <span
           className={clsx(
             starWrapperClassName,
-            'flex h-[40px]  w-full items-center justify-center gap-compact',
+            'flex h-[40px]  w-full items-center justify-center gap-compact'
           )}
         >
           {ratingGrades.map((star) => {
@@ -48,7 +48,7 @@ export default function Rating(props: RatingProps) {
                 <StarIcon
                   className={clsx('aspect-square h-full cursor-pointer', {
                     'text-status-success': star <= rating,
-                    'text-neutral-gray-4': star > rating,
+                    'text-neutral-gray-4': star > rating
                   })}
                 />
               </label>

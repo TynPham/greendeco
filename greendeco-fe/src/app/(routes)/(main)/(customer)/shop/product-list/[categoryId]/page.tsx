@@ -1,5 +1,5 @@
 export default function ProductListWithCategoryPage({
-  params,
+  params
 }: {
   params: { categoryId: string }
 }) {

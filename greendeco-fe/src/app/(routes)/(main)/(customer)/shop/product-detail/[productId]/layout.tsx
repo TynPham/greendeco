@@ -8,12 +8,12 @@ export const generateMetadata = async (props: {
   const { params } = props
   const productName = await getProductDetailById(params.productId).then((res) => res.product.name)
   return {
-    title: productName,
+    title: productName
   }
 }
 export default function ProductDetailLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='w-screen bg-light-green pt-away-from-header'>
+    <div className='bg-light-green pb-16 pt-away-from-header'>
       <div className='container'>{children}</div>
     </div>
   )

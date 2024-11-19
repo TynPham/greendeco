@@ -24,7 +24,7 @@ export default function CartItem({ cartItem }: { cartItem: CartItemWithFullVaria
         <div className='flex items-center justify-between'>
           <div
             className={clsx({
-              'pointer-events-none opacity-90': changeQuantity.loading,
+              'pointer-events-none opacity-90': changeQuantity.loading
             })}
           >
             <QuantityController
@@ -47,7 +47,7 @@ export default function CartItem({ cartItem }: { cartItem: CartItemWithFullVaria
 
 function ItemImage({
   imageSrc,
-  name,
+  name
 }: {
   imageSrc: VariantData['image']
   name: VariantData['name']

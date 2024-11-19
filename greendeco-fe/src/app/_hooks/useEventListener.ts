@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 export default function useEventListener(
   eventType: any,
   callback: Function,
-  element: Window | Document = window,
+  element: Window | Document = window
 ) {
   const callbackRef = useRef(callback)
 

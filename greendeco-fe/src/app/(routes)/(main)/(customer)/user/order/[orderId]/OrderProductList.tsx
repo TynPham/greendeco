@@ -4,7 +4,7 @@ import { VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
 import { NOT_FOUND_IMAGE } from '@/src/app/_configs/constants/images'
 
 export default function OrderProductList({
-  productList,
+  productList
 }: {
   productList: OrderFullDetailData['productList']
 }) {
@@ -29,7 +29,7 @@ function OrderProductItem({ product }: { product: OrderProductData }) {
   const { variant_name, product_image, variant_price, quantity } = product
   return (
     <div className='grid grid-cols-10 gap-cozy'>
-      <span className='col-span-6  flex items-center gap-comfortable text-body-md font-semi-bold text-primary-625'>
+      <div className='col-span-10 flex items-center gap-comfortable text-body-md font-semi-bold text-primary-625 sm:col-span-6'>
         <div className='relative aspect-square h-[60px] overflow-hidden rounded-[8px]'>
           <Image
             src={product_image ? product_image : NOT_FOUND_IMAGE}
@@ -39,15 +39,17 @@ function OrderProductItem({ product }: { product: OrderProductData }) {
           />
         </div>
         {variant_name}
-      </span>
-      <span className=' col-span-2 flex items-center  justify-center '>
-        <span className='w-full rounded-[4px] border border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
-          {`${quantity} x ${variant_price} ${VARIANT_CURRENCY}`}
+      </div>
+      <div className='col-span-10 flex items-center justify-between gap-4 sm:col-span-4 sm:justify-end'>
+        <span className='flex items-center  justify-center '>
+          <span className='w-full rounded-[4px] border border-primary-625 px-cozy py-compact text-center text-body-sm text-neutral-gray-10'>
+            {`${quantity} x ${variant_price} ${VARIANT_CURRENCY}`}
+          </span>
         </span>
-      </span>
-      <span className='  col-span-2 flex items-center justify-center text-body-sm font-bold text-primary-418'>
-        {`${quantity * parseInt(variant_price)} ${VARIANT_CURRENCY}`}
-      </span>
+        <span className=' flex items-center justify-center text-body-sm font-bold text-primary-418'>
+          {`${quantity * parseInt(variant_price)} ${VARIANT_CURRENCY}`}
+        </span>
+      </div>
     </div>
   )
 }

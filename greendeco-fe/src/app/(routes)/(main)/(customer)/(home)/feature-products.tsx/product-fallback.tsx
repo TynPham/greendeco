@@ -6,7 +6,7 @@ const breakpoints = [
   { className: 'hidden xl:grid', count: 5 },
   { className: 'hidden lg:grid xl:hidden', count: 3 },
   { className: 'hidden md:grid lg:hidden', count: 2 },
-  { className: 'grid md:hidden', count: 1 },
+  { className: 'grid md:hidden', count: 1 }
 ]
 
 export default function ProductFallback() {

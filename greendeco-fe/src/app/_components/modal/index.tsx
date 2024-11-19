@@ -10,11 +10,11 @@ export default function ModalProvider({ children }: { children: React.ReactNode 
         {activeDialog && (
           <motion.div
             initial={{
-              opacity: 0,
+              opacity: 0
             }}
             animate={{ opacity: 1 }}
             exit={{
-              opacity: 0,
+              opacity: 0
             }}
             transition={{ ease: 'easeIn', duration: 0.25 }}
             className='absolute inset-0 z-[100] bg-primary-418/40'

@@ -22,7 +22,7 @@ export default function UserReviewPage() {
           router.push('/login')
         }
       }
-    },
+    }
   })
 
   const { data, isLoading, isError } = purchasedProductQuery

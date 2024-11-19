@@ -10,6 +10,7 @@ import { useState } from 'react'
 import NotificationDisplayButton from './NotificationButton'
 import SearchDisplayButton from './SearchDisplayButton'
 import AuthenticationDisplayButton from './AuthenticationDisplayButton'
+import { useAppContext } from '@/src/app/_configs/store/useAppContext'
 
 export default function Header() {
   const [hidden, setHidden] = useState(false)
@@ -27,14 +28,14 @@ export default function Header() {
       <motion.header
         variants={{
           visible: { y: 0 },
-          hidden: { y: '-140%' },
+          hidden: { y: '-140%' }
         }}
         animate={hidden ? 'hidden' : 'visible'}
         transition={{ duration: 0.35, ease: 'easeInOut' }}
         className='sticky top-cozy z-50'
       >
-        <div className='container px-10'>
-          <div className='mt-[-60px] flex h-[60px] items-center gap-cozy'>
+        <div className='container px-2 sm:px-10'>
+          <div className='mt-[-60px] flex h-[60px] items-center gap-2 sm:gap-cozy'>
             <Logo />
             <NavBar />
             <AuthenticationHandler />
@@ -63,14 +64,15 @@ function Logo() {
 }
 
 function NavBar() {
+  const { user } = useAppContext()
   return (
-    <div className='flex-col-start relative h-full flex-1 justify-center rounded-[8px] border border-primary-625 bg-white px-cozy shadow-18'>
+    <div className='flex-col-start relative h-full flex-1 justify-center rounded-[8px] border border-primary-625 bg-white px-4 shadow-18 sm:px-cozy'>
       <div className='flex items-center justify-between'>
         <NavigationList />
         <div className='flex items-center gap-compact'>
           <SearchDisplayButton />
-          <CartDisplayButton />
-          <NotificationDisplayButton />
+          {user && <CartDisplayButton />}
+          {user && <NotificationDisplayButton />}
           <AuthenticationDisplayButton />
         </div>
       </div>

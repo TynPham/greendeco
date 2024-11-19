@@ -5,7 +5,7 @@ export default function LabelProvider({
   label,
   className,
   children,
-  direction = 'horizontal',
+  direction = 'horizontal'
 }: {
   className?: string
   direction?: 'horizontal' | 'vertical'
@@ -16,7 +16,7 @@ export default function LabelProvider({
     <div
       className={clsx('flex  gap-compact', className, {
         'flex-col': direction === 'vertical',
-        'flex-row': direction === 'horizontal',
+        'flex-row': direction === 'horizontal'
       })}
     >
       <label className='font-bold'>{label}</label>

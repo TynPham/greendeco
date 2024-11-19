@@ -5,7 +5,7 @@ import { FunnelIcon } from '@heroicons/react/24/solid'
 import {
   DIFFICULTY_OPTIONS,
   SIZE_OPTIONS,
-  TYPE_OPTIONS,
+  TYPE_OPTIONS
 } from '@/src/app/_configs/constants/variables'
 
 type FieldQuery = {
@@ -20,7 +20,7 @@ type QueryParams = {
   field: string | null
 }
 
-function FilterMenu() {
+export function FilterMenu() {
   const { queryParams, setQueryParams } = useQueryParams<QueryParams>()
   const fieldQuery = queryParams?.get('field')
   const object: FieldQuery = useMemo(() => (fieldQuery ? JSON.parse(fieldQuery) : {}), [fieldQuery])
@@ -41,13 +41,13 @@ function FilterMenu() {
 
       setQueryParams({ field: JSON.stringify(object), offSet: 1 })
     },
-    [setQueryParams, object],
+    [setQueryParams, object]
   )
 
   const filterOptions = {
     size: useMemo(() => SIZE_OPTIONS, []),
     difficulty: useMemo(() => DIFFICULTY_OPTIONS, []),
-    type: useMemo(() => TYPE_OPTIONS, []),
+    type: useMemo(() => TYPE_OPTIONS, [])
   }
 
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -55,19 +55,19 @@ function FilterMenu() {
   }
 
   return (
-    <div className='flex-col-start gap-cozy'>
+    <div className='flex flex-wrap gap-4 xl:flex-col'>
       {Object.entries(filterOptions).map(([key, value]) => (
         <div
           key={key}
-          className='grid grid-cols-6 gap-compact'
+          className='relative flex items-center gap-8 xl:gap-2'
         >
-          <span className='col-span-2 flex items-center text-body-sm  capitalize text-primary-5555'>
+          <span className='absolute -top-5 left-4 min-w-max shrink-0 rounded-[4px] bg-white px-2 text-body-sm capitalize text-primary-5555 xl:static xl:block xl:min-w-28 xl:bg-transparent'>
             {key}
           </span>
           <select
             onChange={handleOptionChange}
             name={key}
-            className='col-span-4 rounded-[4px] border border-primary-625 bg-transparent px-cozy py-compact text-body-md text-primary-5555'
+            className='flex-1 rounded-[4px] border border-primary-625 bg-transparent px-cozy py-compact text-body-md text-primary-5555'
           >
             <option value=''>All</option>
             {value.map((opt) => (

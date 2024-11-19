@@ -3,7 +3,7 @@
 import {
   OrderState,
   ProcessStatusRequest,
-  updateOrderProcessStatus,
+  updateOrderProcessStatus
 } from '@/src/app/_api/axios/admin/order'
 import Button from '@/src/app/_components/Button'
 import { TextField } from '@/src/app/_components/form'
@@ -37,13 +37,13 @@ export default function PickUpDateModal({ order }: PickUpdateModalType) {
     closeDialog()
   })
   const defaultInputValues: OrderUpdateSchemaType = {
-    paid_at: '',
+    paid_at: ''
   }
   const { register, handleSubmit, reset } = useForm<ProcessStatusRequest>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(OrderUpdateSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const updateStatusMutation = useMutation({
@@ -58,7 +58,7 @@ export default function PickUpDateModal({ order }: PickUpdateModalType) {
       if (e instanceof AxiosError) {
         notifyError(e.response?.data.msg)
       }
-    },
+    }
   })
 
   const handleOnSubmit: SubmitHandler<ProcessStatusRequest> = (values, e) => {
@@ -66,7 +66,7 @@ export default function PickUpDateModal({ order }: PickUpdateModalType) {
 
     const notificationMessage = createNotificationMessage(
       order.order_id,
-      ORDER_STATE_FIELD.processing.state,
+      ORDER_STATE_FIELD.processing.state
     )
 
     updateStatusMutation.mutate({
@@ -77,7 +77,7 @@ export default function PickUpDateModal({ order }: PickUpdateModalType) {
       //NOTE: chnage the message and tilte data for processing status
       message: notificationMessage.message,
       title: notificationMessage.title,
-      userId: order.owner_id,
+      userId: order.owner_id
     })
   }
 

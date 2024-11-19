@@ -98,8 +98,8 @@ export const getProductListAsAdministrator = async () => {
       params: {
         limit: 9999,
         sort: Sort.Descending,
-        sortBy: SortBy.CreatedAt,
-      },
+        sortBy: SortBy.CreatedAt
+      }
     })
     .then((res) => res.data)
 }
@@ -109,7 +109,7 @@ export const createProduct = async (data: CreateProductRequestData) => {
 
   return await http.post<CreateProductResponseData>('/product', {
     category_id: PLANT_CATEGORY_ID,
-    ...productData,
+    ...productData
   })
 }
 
@@ -119,7 +119,7 @@ export const updateProduct = async (data: UpdateProductRequestData) => {
   const { id, ...restProductData } = productData
 
   return await http.put(`/product/${id}`, {
-    ...restProductData,
+    ...restProductData
   })
 }
 
@@ -133,7 +133,7 @@ export const createVariant = async (data: CreateVariantRequestData) => {
   const { variantData } = data
 
   return await http.post<CreateProductResponseData>('/variant', {
-    ...variantData,
+    ...variantData
   })
 }
 
@@ -143,7 +143,7 @@ export const updateVariant = async (data: UpdateVariantRequestData) => {
   const { id, ...restVariantData } = variantData
 
   return await http.put(`/variant/${id}`, {
-    ...restVariantData,
+    ...restVariantData
   })
 }
 

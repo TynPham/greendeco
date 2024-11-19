@@ -21,9 +21,9 @@ export default function ProductListPage() {
     queryFn: () =>
       getProductListWithSearch({
         limit: 20,
-        ...queryObject,
+        ...queryObject
       }),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: false
   })
 
   const { data, isError, isLoading, isSuccess } = productListQuery
@@ -56,11 +56,7 @@ export default function ProductListPage() {
         <>
           {data.page_size > 0 ? (
             <>
-              <ProductCardsGrid
-                productList={data.items}
-                columns={5}
-                gap='cozy'
-              />
+              <ProductCardsGrid productList={data.items} />
               <ProductListPagination
                 next={data.next}
                 prev={data.prev}

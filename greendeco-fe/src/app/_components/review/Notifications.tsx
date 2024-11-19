@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 export const notifySendReviewSuccess = () => {
   toast.success(<ReviewSendSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 

@@ -22,11 +22,11 @@ export default function Product(props: ProductCardsGridProps) {
         spaceBetween={16}
         breakpoints={{
           1024: {
-            slidesPerView: 3,
+            slidesPerView: 3
           },
           1280: {
-            slidesPerView: 3,
-          },
+            slidesPerView: 3
+          }
         }}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
@@ -53,7 +53,7 @@ export default function Product(props: ProductCardsGridProps) {
 
 function NavigationButton({
   direction,
-  onClick,
+  onClick
 }: {
   direction: 'next' | 'prev'
   onClick: () => void
@@ -64,8 +64,8 @@ function NavigationButton({
         'group absolute top-1/2 z-20 aspect-square -translate-y-1/2 rounded-full border-2 border-primary-5555 bg-neutral-gray-1 py-compact  text-primary-5555',
         {
           'right-[-16px] pl-compact pr-cozy': direction === 'next',
-          'left-[-16px] pl-cozy pr-compact': direction === 'prev',
-        },
+          'left-[-16px] pl-cozy pr-compact': direction === 'prev'
+        }
       )}
       onClick={onClick}
     >

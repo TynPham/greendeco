@@ -17,7 +17,7 @@ import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
 export default function VariantDisplay({
   variantList,
   productId,
-  productName,
+  productName
 }: {
   variantList: VariantData[]
   productId: ProductData['id']
@@ -51,8 +51,8 @@ export default function VariantDisplay({
               pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/variant/create`,
               query: {
                 productId: productId,
-                productName: productName,
-              },
+                productName: productName
+              }
             }}
           >
             Create A New Variant
@@ -63,8 +63,8 @@ export default function VariantDisplay({
             href={{
               pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/variant/edit/${currentVariant.id}`,
               query: {
-                productName: productName,
-              },
+                productName: productName
+              }
             }}
           >
             Edit Variant
@@ -81,7 +81,7 @@ export default function VariantDisplay({
 const VariantListItem = ({
   active = false,
   color,
-  color_name,
+  color_name
 }: {
   active?: boolean
   color: VariantData['color']
@@ -91,19 +91,19 @@ const VariantListItem = ({
     <div
       className={clsx('group flex items-center gap-[8px]  ', {
         'hover:cursor-pointer': !active,
-        'pointer-events-none': active,
+        'pointer-events-none': active
       })}
     >
       <span
         className={clsx('h-[30px] w-[40px] rounded-[4px]', {
-          'border-[4px] border-primary-625': active,
+          'border-[4px] border-primary-625': active
         })}
         style={{ backgroundColor: color }}
       ></span>
       <p
         className={clsx('text-body-sm capitalize text-primary-418', {
           'group-hover:font-semi-bold': !active,
-          'font-bold': active,
+          'font-bold': active
         })}
       >
         {color_name}
@@ -118,14 +118,14 @@ const DeleteVariantButton = ({ variantId }: { variantId: VariantData['id'] }) =>
     mutationFn: deleteVariant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [UseQueryKeys.Variant, ADMIN_QUERY_KEY] })
-    },
+    }
   })
 
   const handleDeleteVariant = () => {
     const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
     deleteVariantMutation.mutate({
       variantId: variantId,
-      adminAccessToken: adminAccessToken,
+      adminAccessToken: adminAccessToken
     })
   }
   return (

@@ -6,6 +6,7 @@ import (
 	"greendeco-be/pkg/middlewares"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -31,7 +32,7 @@ func CreateNotification(c *fiber.Ctx) error {
 
 	validator := validators.NewValidator()
 	if err := validator.Struct(newNotification); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -243,7 +244,7 @@ func UpdateNotification(c *fiber.Ctx) error {
 
 	validator := validators.NewValidator()
 	if err := validator.Struct(updateNoti); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

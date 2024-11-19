@@ -47,7 +47,7 @@ func CreateVariant(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(newVariant); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -210,7 +210,7 @@ func UpdateVariant(c *fiber.Ctx) error {
 
 	validator := validators.NewValidator()
 	if err := validator.Struct(updateVariant); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

@@ -50,7 +50,7 @@ function ItemDetail({ name }: { name: ProductData['name'] }) {
 function ItemButtons({ productId }: { productId: ProductData['id'] }) {
   const router = useRouter()
   const { openCreateProductReviewDialog } = useCreateProductReviewDialog({
-    productId: productId,
+    productId: productId
   })
 
   return (

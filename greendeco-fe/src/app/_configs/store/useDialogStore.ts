@@ -11,5 +11,5 @@ type ModalState = {
 export const useDialogStore = create<ModalState>()((set) => ({
   activeDialog: undefined,
   openDialog: (dialog) => set({ activeDialog: dialog }),
-  closeDialog: () => set({ activeDialog: undefined }),
+  closeDialog: () => set({ activeDialog: undefined })
 }))

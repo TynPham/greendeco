@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Purchased Products',
-  description: 'Where you can view your purchased product and leave a review if you want',
+  description: 'Where you can view your purchased product and leave a review if you want'
 }
 
 export default function UserPurchasedProductPageLayout({ children }: { children: ReactNode }) {

@@ -4,7 +4,7 @@ import Block from '@/src/app/_components/Block'
 
 export const metadata: Metadata = {
   title: 'Order Detail',
-  description: 'Where admin can view list of orders',
+  description: 'Where admin can view list of orders'
 }
 
 export default function OrderAdminDetailLayout({ children }: { children: React.ReactNode }) {

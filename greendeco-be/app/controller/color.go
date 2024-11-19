@@ -6,6 +6,7 @@ import (
 	"greendeco-be/pkg/middlewares"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -44,7 +45,7 @@ func CreateColor(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(newColor); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -166,7 +167,7 @@ func UpdateColorById(c *fiber.Ctx) error {
 
 	validator := validators.NewValidator()
 	if err := validator.Struct(updateColor); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import LoginForm from './LoginForm'
 import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
 
-export default function RegisterPage() {
+export default function LoginPage() {
   return (
     <>
       <div className='flex h-full flex-col items-center justify-center gap-common'>

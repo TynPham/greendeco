@@ -9,14 +9,14 @@ import { VariantDetailLoading } from '../loading/VariantLoading'
 
 export default function ProductVariantInfo({
   productName,
-  productId,
+  productId
 }: {
   productName: ProductData['name']
   productId: ProductData['id']
 }) {
   const variantQuery = useQuery({
     queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, productId],
-    queryFn: () => getVariantsByProductId(productId),
+    queryFn: () => getVariantsByProductId(productId)
   })
 
   const { data, isSuccess, isError, isLoading } = variantQuery
@@ -43,7 +43,7 @@ export default function ProductVariantInfo({
 
 function CreateNewVariantMessage({
   productId,
-  productName,
+  productName
 }: {
   productId: ProductData['id']
   productName: ProductData['name']
@@ -62,8 +62,8 @@ function CreateNewVariantMessage({
           pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/variant/create`,
           query: {
             productId: productId,
-            productName: productName,
-          },
+            productName: productName
+          }
         }}
       >
         Create A New Variant

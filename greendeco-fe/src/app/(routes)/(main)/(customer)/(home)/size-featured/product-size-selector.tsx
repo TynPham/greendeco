@@ -12,12 +12,12 @@ export const SIZE_OPTIONS: readonly SizeOptionType[] = [
   { label: 'Small', size: 'S' },
   { label: 'Medium', size: 'M' },
   { label: 'Large', size: 'L' },
-  { label: 'Extra Large', size: 'XL' },
+  { label: 'Extra Large', size: 'XL' }
 ]
 
 const SizeOption = memo(function SizeOptionInternal({
   label,
-  active,
+  active
 }: {
   label: string
   active: boolean
@@ -26,7 +26,7 @@ const SizeOption = memo(function SizeOptionInternal({
     <span
       className={clsx('text-nowrap text-primary-5555 transition-all duration-200 ease-in-out', {
         'text-heading-1 font-semi-bold': active,
-        'text-body-md font-regular': !active,
+        'text-body-md font-regular': !active
       })}
     >
       {label}
@@ -36,7 +36,7 @@ const SizeOption = memo(function SizeOptionInternal({
 
 export function ProductSizeSelector({
   activeSize,
-  onSizeChange,
+  onSizeChange
 }: {
   activeSize: ProductSize
   onSizeChange: (size: ProductSize) => void

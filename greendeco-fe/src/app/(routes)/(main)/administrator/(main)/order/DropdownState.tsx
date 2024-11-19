@@ -3,7 +3,7 @@
 import {
   OrderState,
   updateOrderStatus,
-  updateOrderStatusSendNoti,
+  updateOrderStatusSendNoti
 } from '@/src/app/_api/axios/admin/order'
 import { Dropdown } from '@/src/app/_components/dropdown'
 import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
@@ -33,7 +33,7 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
     draft: [states.processing.state, states.cancelled.state],
     processing: [states.completed.state, states.cancelled.state],
     completed: [],
-    cancelled: [],
+    cancelled: []
   }
 
   const updateOrderStatusComplete = useMutation({
@@ -46,7 +46,7 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
       if (e instanceof AxiosError) {
         notifyError(e.response?.data.msg)
       }
-    },
+    }
   })
 
   const handleOnSelect = (value: string) => {
@@ -63,7 +63,7 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
     if (value === states.completed.state) {
       const notificationMessage = createNotificationMessage(
         order.order_id,
-        ORDER_STATE_FIELD.completed.state,
+        ORDER_STATE_FIELD.completed.state
       )
 
       updateOrderStatusComplete.mutate({
@@ -73,7 +73,7 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
         //NOTE: full fill message, title for processing state
         message: notificationMessage.message,
         title: notificationMessage.title,
-        userId: order.owner_id,
+        userId: order.owner_id
       })
     }
   }

@@ -3,13 +3,13 @@
 import {
   OrderState,
   StatusRequest,
-  updateOrderStatusSendNoti,
+  updateOrderStatusSendNoti
 } from '@/src/app/_api/axios/admin/order'
 import Button from '@/src/app/_components/Button'
 import { MultilineTextField } from '@/src/app/_components/form'
 import {
   CreateNotificationInputType,
-  CreateNotificationSchema,
+  CreateNotificationSchema
 } from '@/src/app/_configs/schemas/notification'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -42,18 +42,18 @@ export default function CancelModal({ order }: CancelModalType) {
   const defaultInputValues: CreateNotificationInputType = {
     // Change the title for notification
     title: 'Cancel Order ' + order.order_id,
-    message: '',
+    message: ''
   }
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<StatusRequest>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(CreateNotificationSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const updateCancelStatusMutation = useMutation({
@@ -67,7 +67,7 @@ export default function CancelModal({ order }: CancelModalType) {
       if (e instanceof AxiosError) {
         notifyError(e.response?.data.msg)
       }
-    },
+    }
   })
 
   const handleOnSubmitCancel: SubmitHandler<StatusRequest> = (values, e) => {
@@ -76,7 +76,7 @@ export default function CancelModal({ order }: CancelModalType) {
     const notifcationMessage = createNotificationMessage(
       order.order_id,
       ORDER_STATE_FIELD.cancelled.state,
-      values.message,
+      values.message
     )
 
     updateCancelStatusMutation.mutate({
@@ -86,7 +86,7 @@ export default function CancelModal({ order }: CancelModalType) {
       message: notifcationMessage.message,
       // title for cancel message
       title: notifcationMessage.title,
-      state: ORDER_STATE_FIELD.cancelled.state,
+      state: ORDER_STATE_FIELD.cancelled.state
     })
   }
   return (

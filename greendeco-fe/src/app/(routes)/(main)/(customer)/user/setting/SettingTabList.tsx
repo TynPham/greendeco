@@ -12,16 +12,16 @@ type SettingTab = {
 const settingTabList: SettingTab[] = [
   {
     path: 'profile',
-    label: 'Profile',
+    label: 'Profile'
   },
   {
     path: 'changepassword',
-    label: 'Change Password',
+    label: 'Change Password'
   },
   {
     path: 'address',
-    label: 'Shipping Address',
-  },
+    label: 'Shipping Address'
+  }
 ]
 
 export default React.memo(function SettingTabList() {
@@ -52,7 +52,7 @@ const Tab = React.memo(function Tab({ label, path }: SettingTab) {
         ' bg-primary-625  text-neutral-gray-1 hover:bg-white/30 ':
           currentPath.includes(path) === false,
         'pointer-events-none cursor-auto cursor-pointer bg-white text-primary-625':
-          currentPath.includes(path),
+          currentPath.includes(path)
       })}
     >
       <label className='cursor-pointer text-body-sm uppercase'>{label}</label>

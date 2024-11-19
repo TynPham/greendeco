@@ -12,12 +12,12 @@ export default function ImageGallery({ productImages }: { productImages: Product
     setActiveImage(activeVariant.image)
   }, [activeVariant])
   return (
-    <div className='grid h-[480px] grid-cols-2 gap-cozy'>
-      <div className='flex items-center justify-center rounded-[8px]  bg-white  shadow-18'>
+    <div className='grid grid-cols-2 gap-cozy'>
+      <div className='order-2 col-span-2 flex min-h-[300px] items-center justify-center rounded-[8px] bg-white shadow-18 sm:order-1 sm:col-span-1'>
         <ActiveImage imageUrl={activeImage} />
       </div>
-      <div className='flex h-full items-center justify-center'>
-        <div className='aspect-square h-3/4'>
+      <div className='order-1 col-span-2 flex h-full items-center justify-center  sm:order-2 sm:col-span-1'>
+        <div className='aspect-square'>
           <ImagesGrid
             activeImage={activeImage}
             imageOnClick={setActiveImage}
@@ -31,14 +31,13 @@ export default function ImageGallery({ productImages }: { productImages: Product
 
 function ActiveImage({ imageUrl }: { imageUrl: string }) {
   return (
-    <div className='relative size-full'>
+    <div className='relative size-full overflow-hidden rounded-lg'>
       <Image
         fill
         src={imageUrl}
         alt='plants art'
-        className='opacity-0 transition-opacity duration-[.5s]'
+        className='!object-cover opacity-0 transition-opacity duration-[.5s] sm:!object-contain'
         onLoadingComplete={(image) => image.classList.remove('opacity-0')}
-        style={{ objectFit: 'contain' }}
       />
     </div>
   )
@@ -47,7 +46,7 @@ function ActiveImage({ imageUrl }: { imageUrl: string }) {
 const ImagesGrid = React.memo(function ImagesGrid({
   activeImage,
   imagesList,
-  imageOnClick,
+  imageOnClick
 }: {
   activeImage: string
   imagesList: string[]
@@ -56,14 +55,14 @@ const ImagesGrid = React.memo(function ImagesGrid({
   return (
     <div className='grid grid-cols-2 gap-compact'>
       {imagesList.map((image) => (
-        <span
+        <div
           onClick={() => imageOnClick(image)}
           className={clsx(
-            'relative aspect-square h-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] hover:border-primary-5555-40',
+            'relative aspect-square size-52 cursor-pointer overflow-hidden rounded-[16px] border-[3px] hover:border-primary-5555-40 xl:size-80',
             {
               'pointer-events-none border-primary-5555': image === activeImage,
-              'border-transparent': image !== activeImage,
-            },
+              'border-transparent': image !== activeImage
+            }
           )}
           key={image}
         >
@@ -74,7 +73,7 @@ const ImagesGrid = React.memo(function ImagesGrid({
             className='opacity-0 transition-opacity duration-[.5s]'
             onLoadingComplete={(image) => image.classList.remove('opacity-0')}
           />
-        </span>
+        </div>
       ))}
     </div>
   )

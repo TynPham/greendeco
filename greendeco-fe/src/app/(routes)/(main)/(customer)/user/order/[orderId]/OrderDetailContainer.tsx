@@ -9,7 +9,7 @@ import {
   PhoneIcon,
   TruckIcon,
   BanknotesIcon,
-  ExclamationCircleIcon,
+  ExclamationCircleIcon
 } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Button from '@/src/app/_components/Button'
@@ -18,10 +18,10 @@ export default function OrderDetailContainer({ order }: { order: OrderData }) {
   return (
     <>
       <div className='grid grid-cols-3 gap-cozy'>
-        <div className='col-span-2'>
+        <div className='col-span-3 xl:col-span-2'>
           <OrderDetail {...order} />
         </div>
-        <div>
+        <div className=' col-span-3 xl:col-span-1'>
           <CustomerAndShippingDetail {...order} />
         </div>
       </div>
@@ -71,8 +71,8 @@ function OrderDetail({ id, created_at, state, paid_at }: OrderData) {
                   'bg-order-status-draft': state === OrderState.Draft,
                   'bg-order-status-processing': state === OrderState.Processing,
                   'bg-order-status-completed': state === OrderState.Completed,
-                  'bg-order-status-cancelled': state === OrderState.Cancelled,
-                },
+                  'bg-order-status-cancelled': state === OrderState.Cancelled
+                }
               )}
             >
               {state}
@@ -102,7 +102,7 @@ function CustomerAndShippingDetail({
   user_name,
   user_phone_number,
   user_email,
-  shipping_address,
+  shipping_address
 }: OrderData) {
   return (
     <div className='flex-col-start  divide-y divide-primary-418-60 rounded-[8px] border-2 border-primary-625-60 p-cozy shadow-18'>

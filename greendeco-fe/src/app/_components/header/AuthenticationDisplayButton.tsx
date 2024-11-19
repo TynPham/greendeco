@@ -79,12 +79,12 @@ function UserSettingMenu() {
           <motion.ul
             initial={{
               translateY: '-16px',
-              opacity: 0,
+              opacity: 0
             }}
             animate={{ opacity: 1, translateY: 0 }}
             exit={{
               opacity: 0,
-              translateY: '-16px',
+              translateY: '-16px'
             }}
             transition={{ ease: 'easeInOut', duration: 0.2 }}
             className='absolute -left-60 right-0 top-[calc(100%+8px)] z-30 rounded-[8px] border border-primary-5555-40 bg-white p-compact md:inset-x-0'
@@ -111,7 +111,7 @@ function UserSettingMenu() {
 function MenuItem({
   onClick,
   children,
-  className,
+  className
 }: {
   onClick?: () => void
   children: React.ReactNode
@@ -121,7 +121,7 @@ function MenuItem({
     <li
       className={clsx(
         'w-full cursor-pointer rounded-[8px] px-[8px] py-[12px] text-body-sm capitalize hover:bg-primary-5555-20/40',
-        className,
+        className
       )}
       onClick={onClick}
     >

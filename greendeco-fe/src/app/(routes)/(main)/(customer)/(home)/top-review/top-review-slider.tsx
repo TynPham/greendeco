@@ -5,7 +5,7 @@ import {
   ChatBubbleBottomCenterTextIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  StarIcon,
+  StarIcon
 } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import { Swiper as SwiperType } from 'swiper'
@@ -20,22 +20,22 @@ import { ReviewListResponseData } from '@/src/app/_types/review.type'
 const SWIPER_CONFIG = {
   autoplay: {
     delay: 3000,
-    disableOnInteraction: false,
+    disableOnInteraction: false
   },
   breakpoints: {
     300: { slidesPerView: 1 },
-    1024: { slidesPerView: 2, spaceBetween: 30 },
+    1024: { slidesPerView: 2, spaceBetween: 30 }
   },
   initialSlide: 1,
   centeredSlides: true,
-  speed: 800,
+  speed: 800
 }
 
 // Customer Info Component
 function CustomerInfo({
   avatar,
   firstName,
-  lastName,
+  lastName
 }: Pick<ReviewItemData, 'avatar' | 'firstName' | 'lastName'>) {
   return (
     <div className='flex gap-cozy'>
@@ -82,7 +82,7 @@ function ReviewItem({ active, review }: { active?: boolean; review: ReviewItemDa
     <div
       className={clsx(
         'flex-col-start w-full gap-compact rounded-[16px] border-2 border-primary-5555 bg-neutral-gray-1 p-comfortable transition-all duration-[0.8s] ease-in-out',
-        { 'scale-90 opacity-30': !active },
+        { 'scale-90 opacity-30': !active }
       )}
     >
       <div className='flex justify-between'>
@@ -103,7 +103,7 @@ function ReviewItem({ active, review }: { active?: boolean; review: ReviewItemDa
 // Navigation Button Component
 function NavigationButton({
   direction,
-  onClick,
+  onClick
 }: {
   direction: 'next' | 'prev'
   onClick: () => void
@@ -119,7 +119,7 @@ function NavigationButton({
       <Icon
         className={clsx(
           'aspect-square h-[20px] transition duration-100 ease-in',
-          `group-hover:${translateClass}`,
+          `group-hover:${translateClass}`
         )}
       />
     </button>

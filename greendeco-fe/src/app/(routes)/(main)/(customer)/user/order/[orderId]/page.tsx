@@ -13,7 +13,7 @@ import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
 import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
 
 export default function OrderDetailPage({
-  params: { orderId },
+  params: { orderId }
 }: {
   params: {
     orderId: string
@@ -21,7 +21,7 @@ export default function OrderDetailPage({
 }) {
   const orderDetailQuery = useQuery({
     queryKey: [UseQueryKeys.Order, UseQueryKeys.User, orderId],
-    queryFn: () => getOrderFullDetailById(orderId),
+    queryFn: () => getOrderFullDetailById(orderId)
   })
 
   const { data, isLoading, isError } = orderDetailQuery

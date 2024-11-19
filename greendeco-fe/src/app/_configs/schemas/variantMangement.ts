@@ -13,11 +13,11 @@ export const VariantSchema = z
       .min(10, 'The detail of the product must contain at least 10 characters'),
     is_default: z.boolean(),
     available: z.boolean(),
-    price: z.string().min(1, REQUIRED_FIELD_STRING),
+    price: z.string().min(1, REQUIRED_FIELD_STRING)
   })
   .refine((data) => isOnlyNumer(data.price), {
     path: ['price'],
-    message: 'Numbers only',
+    message: 'Numbers only'
   })
 
 function isOnlyNumer(data: string) {

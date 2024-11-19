@@ -10,7 +10,7 @@ const BREAKPOINTS = {
   640: { slidesPerView: 1 },
   768: { slidesPerView: 2 },
   1024: { slidesPerView: 3 },
-  1280: { slidesPerView: 5 },
+  1280: { slidesPerView: 5 }
 }
 
 export default function FeaturedProductCarousel({ type }: { type: 'new' | 'topRated' | 'cheap' }) {
@@ -20,7 +20,7 @@ export default function FeaturedProductCarousel({ type }: { type: 'new' | 'topRa
 
   const featureProductQuery = useGetProductList({
     limit: 10,
-    ...params,
+    ...params
   })
 
   const { data, isLoading, isSuccess } = featureProductQuery

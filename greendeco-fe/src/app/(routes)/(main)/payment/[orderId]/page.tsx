@@ -8,14 +8,14 @@ import { FUNDING } from '@paypal/react-paypal-js'
 import {
   PayPalScriptProvider,
   PayPalButtons,
-  usePayPalScriptReducer,
+  usePayPalScriptReducer
 } from '@paypal/react-paypal-js'
 import { createPaypalPayment, paypalOnApprove } from '@/src/app/_api/axios/payment'
 import { CreateOrderData, CreateOrderActions } from '@paypal/paypal-js/types/components/buttons'
 import { OrderData } from '@/src/app/_api/axios/order'
 
 export default function PaymentPage({
-  params: { orderId },
+  params: { orderId }
 }: {
   params: {
     orderId: string
@@ -23,10 +23,10 @@ export default function PaymentPage({
 }) {
   return (
     <div className='flex-col-start h-full items-center  gap-cozy'>
-      <p className=' text-heading font-bold text-primary-625'>
+      <p className=' px-4 text-center text-heading-2 font-bold text-primary-625 sm:text-heading'>
         Thank you for shopping at GreenDeco <span className='text-[3rem]'>🫶 🥰</span>
       </p>
-      <div className='flex gap-comfortable'>
+      <div className='flex flex-col gap-comfortable px-4 lg:flex-row'>
         <PaymentGuide orderId={orderId} />
         <div className='flex-col-start gap-cozy'>
           <div className='flex justify-between gap-cozy'>
@@ -37,7 +37,7 @@ export default function PaymentPage({
               <PayPalScriptProvider
                 deferLoading={false}
                 options={{
-                  clientId: `${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}`,
+                  clientId: `${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}`
                 }}
               >
                 <PayPalButtons
@@ -81,7 +81,7 @@ const PaymentGuide = ({ orderId }: { orderId: string }) => {
             replace
             className='btn flex-1'
           >
-            <span className='flex items-center justify-center gap-compact font-semi-bold'>
+            <span className='flex h-full items-center justify-center gap-compact font-semi-bold'>
               <ShoppingBagIcon className='aspect-square h-[24px]' />
               Back to shopping
             </span>
@@ -91,7 +91,7 @@ const PaymentGuide = ({ orderId }: { orderId: string }) => {
             replace
             href={USER_SETTING_ROUTE.ORDER.LINK}
           >
-            <span className='flex items-center justify-center gap-compact font-semi-bold'>
+            <span className='flex h-full items-center justify-center gap-compact font-semi-bold'>
               View Order List
               <ClipboardDocumentListIcon className='aspect-square h-[24px]' />
             </span>

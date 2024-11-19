@@ -16,19 +16,19 @@ export default function OrderStateFilterMenu() {
   const fieldQuery: QueryParams['field'] = queryParams?.get('field')
 
   return (
-    <ul className='flex capitalize'>
+    <ul className='flex overflow-x-auto capitalize'>
       <Link
         href={{
           pathname: '',
           query: {
-            field: null,
-          },
+            field: null
+          }
         }}
         replace={true}
         className={clsx('w-fit    px-comfortable py-compact text-body-sm font-semi-bold ', {
           'border-b-[3px] border-primary-418 text-primary-418': fieldQuery === '' || !fieldQuery,
           'border-b-[1px] border-primary-418-20 text-primary-418-60':
-            fieldQuery !== '' && fieldQuery,
+            fieldQuery !== '' && fieldQuery
         })}
       >
         All
@@ -39,15 +39,15 @@ export default function OrderStateFilterMenu() {
           href={{
             pathname: '',
             query: {
-              field: JSON.stringify(value),
-            },
+              field: JSON.stringify(value)
+            }
           }}
           replace={true}
           className={clsx('w-fit  px-comfortable py-compact text-body-sm font-semi-bold ', {
             'border-b-[3px] border-primary-418 text-primary-418':
               fieldQuery === JSON.stringify(value),
             'border-b-[1px] border-primary-418-20 text-primary-418-60':
-              fieldQuery !== JSON.stringify(value),
+              fieldQuery !== JSON.stringify(value)
           })}
         >
           {key}

@@ -16,19 +16,19 @@ export default function AdminLoginForm() {
   const { setUser } = useAppContext()
   const defaultInputValues: LoginFormInputType = {
     email: '',
-    password: '',
+    password: ''
   }
 
   const {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<LoginFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(LoginSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const loginAdminMutation = useLoginAdminMutation()

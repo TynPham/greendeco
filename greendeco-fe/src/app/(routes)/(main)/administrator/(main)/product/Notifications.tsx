@@ -7,30 +7,30 @@ import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
 export const notifyCreateProductSuccess = (productId: string, options?: ToastOptions) => {
   toast.success(<CreateProductSuccessMessage productId={productId} />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 export const notifyUpdateProductSuccess = () => {
   toast.success(<UpdateProductSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 
 export const notifyDeleteProductSuccess = () => {
   toast.success(<DeleteProductSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 
 export const notifyCreateVariantSuccess = () => {
   toast.success(<CreateVariantSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 
 export const notifyUpdateVariantSuccess = () => {
   toast.success(<UpdateVariantSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 const CreateProductSuccessMessage = ({ productId }: { productId: ProductData['id'] }) => (

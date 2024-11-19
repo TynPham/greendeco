@@ -73,8 +73,8 @@ function Detail({ description, color_name, name, price, currency, available, col
           'flex w-fit items-center gap-compact rounded-[8px]  p-cozy text-body-lg font-semi-bold text-white',
           {
             'bg-action-link text-white': available,
-            'bg-neutral-gray-6 text-white': !available,
-          },
+            'bg-neutral-gray-6 text-white': !available
+          }
         )}
       >
         Available <CheckBadgeIcon className='aspect-square h-[24px]' />

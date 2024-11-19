@@ -17,7 +17,7 @@ const BUYING_STEPS: BuyingStepProps[] = [
   { label: 'choose a pot color', icon: Step2 },
   { label: 'put in your cart', icon: Step3 },
   { label: 'have them shipped', icon: Step4 },
-  { label: 'watch them grow', icon: Step5 },
+  { label: 'watch them grow', icon: Step5 }
 ]
 
 const BuyingStep = ({ label, icon, showArrow = false }: BuyingStepProps) => (

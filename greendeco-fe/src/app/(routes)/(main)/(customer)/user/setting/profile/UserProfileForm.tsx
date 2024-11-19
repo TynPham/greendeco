@@ -27,19 +27,19 @@ function UserProfileForm({ profile }: { profile: User }) {
     firstName: firstName,
     lastName: lastName,
     email: email,
-    phoneNumber: phoneNumber,
+    phoneNumber: phoneNumber
   }
 
   const {
     reset,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty }
   } = useForm<UserProfileFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(UserProfileSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const updateUserProfileMutation = useMutation({
@@ -56,7 +56,7 @@ function UserProfileForm({ profile }: { profile: User }) {
       if (e instanceof AxiosError) {
         notifyError(e.response?.data.msg)
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<UserProfileFormInputType> = (values, e) => {
@@ -69,8 +69,8 @@ function UserProfileForm({ profile }: { profile: User }) {
         email: values.email,
         firstName: values.firstName,
         lastName: values.lastName,
-        phoneNumber: values.phoneNumber,
-      },
+        phoneNumber: values.phoneNumber
+      }
     })
   }
   return (

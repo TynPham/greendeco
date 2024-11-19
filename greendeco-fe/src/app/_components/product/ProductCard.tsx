@@ -40,7 +40,7 @@ function CardImage({ imageUrl }: { imageUrl: string }) {
 
 function CardDetail({
   name,
-  price,
+  price
 }: {
   name: ProductCardProps['name']
   price: ProductCardProps['price']

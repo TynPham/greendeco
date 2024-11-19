@@ -4,7 +4,7 @@ import { getCartItemListFromCartId } from '@/src/app/_api/axios/cart'
 import {
   CartListFullDetail,
   handleGetCartFullDetail,
-  CartItemWithFullVariantInfo,
+  CartItemWithFullVariantInfo
 } from '@/src/app/_hooks/useCart'
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
@@ -25,7 +25,7 @@ function OrderItemList() {
     if (!cartId) throw new AxiosError('Cart does not exist', NOT_FOUND_STATUS.toString())
 
     return await getCartItemListFromCartId(cartId).then((cartInfo) =>
-      handleGetCartFullDetail(cartInfo),
+      handleGetCartFullDetail(cartInfo)
     )
   }
 
@@ -48,7 +48,7 @@ function OrderItemList() {
       }
     },
 
-    retry: false,
+    retry: false
   })
 
   const { data, isLoading } = getOrderList
@@ -116,7 +116,7 @@ function OrderItem({ cartItem }: { cartItem: CartItemWithFullVariantInfo }) {
 
 function OrderItemImage({
   imageSrc,
-  name,
+  name
 }: {
   imageSrc: VariantData['image']
   name: VariantData['name']
@@ -134,7 +134,7 @@ function OrderItemImage({
 }
 function OrderItemDetail({
   variant,
-  quantity,
+  quantity
 }: {
   variant: VariantData
   quantity: CartItemWithFullVariantInfo['quantity']

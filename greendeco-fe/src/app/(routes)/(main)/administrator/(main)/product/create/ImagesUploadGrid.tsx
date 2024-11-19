@@ -32,7 +32,7 @@ const UploadInput = React.memo(function UploadInput({ index }: { index: number }
     //NOTE: Execuse after receiving suscess responses
     onSuccess: (data) => {
       replaceImages(data, index)
-    },
+    }
   })
 
   function handleImageChange(imageFile: File) {
@@ -70,7 +70,7 @@ const UploadInput = React.memo(function UploadInput({ index }: { index: number }
 
 const ImageUploadItem = React.memo(function ImageUploadInput({
   image,
-  index,
+  index
 }: {
   image: string
   index: number

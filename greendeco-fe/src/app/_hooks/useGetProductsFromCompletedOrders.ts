@@ -3,7 +3,7 @@ import {
   OrderListData,
   OrderProductList,
   getOrderListByUser,
-  getOrderProductListById,
+  getOrderProductListById
 } from '../_api/axios/order'
 import { FilterParams, ProductData, getProductBaseById } from '../_api/axios/product'
 import { BAD_REQUEST_STATUS, NOT_FOUND_STATUS } from '../_configs/constants/status'
@@ -13,15 +13,15 @@ export const useGetProductsFromCompletedOrders = () => {
   const completedOrderParams: FilterParams = {
     limit: 9999,
     field: JSON.stringify({
-      state: OrderState.Completed,
-    }),
+      state: OrderState.Completed
+    })
   }
 
   const getOrderListWithItem = async (orderList: OrderListData['items']) => {
     return Promise.all(
       orderList.map(async (order) => {
         return await getOrderProductListById(order.id)
-      }),
+      })
     )
   }
 
@@ -57,7 +57,7 @@ export const useGetProductsFromCompletedOrders = () => {
           .then((data) => {
             if (data) return data.items
           })
-      }),
+      })
     )
   }
 
@@ -74,7 +74,7 @@ export const useGetProductsFromCompletedOrders = () => {
       //NOTE: Filter out the duplicate product ids
       .then((productIdList) => {
         return productIdList.filter(
-          (productId, index) => productIdList.indexOf(productId) === index,
+          (productId, index) => productIdList.indexOf(productId) === index
         )
       })
       .then((productIdListAfterFiltering) => getProductDetailsList(productIdListAfterFiltering))
@@ -86,6 +86,6 @@ export const useGetProductsFromCompletedOrders = () => {
   }
 
   return {
-    getProductsFromCompletedOrders: handleGetProductsFromCompletedOrders,
+    getProductsFromCompletedOrders: handleGetProductsFromCompletedOrders
   }
 }

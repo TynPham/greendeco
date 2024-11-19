@@ -1,26 +1,33 @@
-import axios, { HttpStatusCode } from 'axios'
+import axios, { AxiosError, HttpStatusCode } from 'axios'
 import { LoginResType } from '../_types/auth'
 import {
   getAccessTokenFromLocalStorage,
   removeTokensFromLocalStorage,
-  setAccessTokenToLocalStorage,
+  setAccessTokenToLocalStorage
 } from './localStorage'
+import authApis from '@/src/apiRequests/auth.api'
+import path from '@/src/constants/path'
+import { redirect } from 'next/navigation'
 
 type HttpErrorPayload = {
-  message: string
+  msg: string
   [key: string]: any
 }
 
-type UnprocessableEntityErrorPayload = HttpErrorPayload
+type UnprocessableEntityErrorPayload = HttpErrorPayload & {
+  errors: {
+    [key: string]: string
+  }
+}
 
 export class HttpError extends Error {
   status: number
   payload: {
-    message: string
+    msg: string
     [key: string]: any
   }
   constructor(status: number, payload: HttpErrorPayload) {
-    super(payload.message)
+    super(payload.msg)
     this.status = status
     this.payload = payload
   }
@@ -29,7 +36,7 @@ export class HttpError extends Error {
 export class UnprocessableEntityError extends HttpError {
   status = HttpStatusCode.UnprocessableEntity
   payload: UnprocessableEntityErrorPayload
-  constructor(payload: HttpErrorPayload) {
+  constructor(payload: UnprocessableEntityErrorPayload) {
     super(HttpStatusCode.UnprocessableEntity, payload)
     this.payload = payload
   }
@@ -40,8 +47,8 @@ export const http = axios.create({
   baseURL: process.env.NEXT_PUBLIC_GREENDECO_BACKEND_API,
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 })
 
 http.interceptors.request.use(
@@ -61,7 +68,7 @@ http.interceptors.request.use(
   function (error) {
     // Do something with request error
     return Promise.reject(error)
-  },
+  }
 )
 
 // Add a response interceptor
@@ -80,9 +87,40 @@ http.interceptors.response.use(
     // Do something with response data
     return response
   },
-  function (error) {
+  async function (error) {
+    let clientLogoutRequest: null | (() => Promise<any>) = null
+    if (error instanceof AxiosError) {
+      try {
+        if (error.response?.status === HttpStatusCode.UnprocessableEntity) {
+          throw new UnprocessableEntityError(error.response?.data)
+        }
+
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          if (!clientLogoutRequest) {
+            clientLogoutRequest = authApis.logout
+          }
+
+          try {
+            await clientLogoutRequest
+          } catch {
+            console.log('logout error')
+          } finally {
+            clientLogoutRequest = null
+            if (isClient) {
+              location.href = path.login
+            } else {
+              redirect(path.login)
+            }
+          }
+        }
+
+        throw new HttpError(error.response?.status ?? 500, error.response?.data)
+      } catch (err) {
+        throw err
+      }
+    }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error)
-  },
+  }
 )

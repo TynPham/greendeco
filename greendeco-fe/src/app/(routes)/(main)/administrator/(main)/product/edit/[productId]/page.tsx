@@ -7,7 +7,7 @@ import EditFormContainer from './ProductImageProvider'
 import { ProductDetailLoading } from '../../loading'
 
 export default function EditProductPage({
-  params: { productId },
+  params: { productId }
 }: {
   params: {
     productId: string
@@ -15,7 +15,7 @@ export default function EditProductPage({
 }) {
   const productQuery = useQuery({
     queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product, productId],
-    queryFn: () => getProductBaseById(productId),
+    queryFn: () => getProductBaseById(productId)
   })
 
   const { data, isSuccess, isError, isLoading } = productQuery

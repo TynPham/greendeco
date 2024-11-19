@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ProductDetailSchema,
-  ProductDetailFormInputType,
+  ProductDetailFormInputType
 } from '@/src/app/_configs/schemas/createProduct'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createProduct } from '@/src/app/_api/axios/admin/product'
@@ -13,7 +13,7 @@ import {
   SIZE_OPTIONS,
   TYPE_OPTIONS,
   DIFFICULTY_OPTIONS,
-  ADMINISTRATOR_ROUTE,
+  ADMINISTRATOR_ROUTE
 } from '@/src/app/_configs/constants/variables'
 import ImageUploadGrid from './ImagesUploadGrid'
 import { useImageUploadStore } from '@/src/app/_configs/store/useImagesUploadStore'
@@ -37,7 +37,7 @@ export default function CreateProductForm() {
     water: '',
     difficulty: DIFFICULTY_OPTIONS[0],
     detail: '',
-    description: '',
+    description: ''
   }
 
   //NOTE: Validation with useForm
@@ -45,12 +45,12 @@ export default function CreateProductForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ProductDetailFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ProductDetailSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const createProductMutation = useMutation({
@@ -60,12 +60,12 @@ export default function CreateProductForm() {
     onSuccess: (data) => {
       handleResetForm()
       notifyCreateProductSuccess(data.data.id, {
-        onClose: () => router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${data.data.id}`),
+        onClose: () => router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${data.data.id}`)
       })
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product],
+        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product]
       })
-    },
+    }
     //NOTE: Execuse after receving failure responses
     /* onError: (e) => {
 			if (e instanceof AxiosError) {
@@ -78,7 +78,7 @@ export default function CreateProductForm() {
     const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
     createProductMutation.mutate({
       productData: { ...values, images: [...images] },
-      adminAccessToken: adminAccessToken,
+      adminAccessToken: adminAccessToken
     })
   }
 

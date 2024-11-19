@@ -42,15 +42,15 @@ export default function SearchDisplayButton() {
               translateY: '-16px',
               opacity: 0,
               left: '50%',
-              translateX: '-50%',
+              translateX: '-50%'
             }}
             animate={{ opacity: 1, translateY: 0 }}
             exit={{
               opacity: 0,
-              translateY: '-16px',
+              translateY: '-16px'
             }}
             transition={{ ease: 'easeInOut', duration: 0.2 }}
-            className='absolute top-[calc(100%+8px)] w-3/5 justify-center overflow-y-auto rounded-xl bg-white shadow-38 '
+            className='absolute top-[calc(100%+8px)] w-full justify-center overflow-y-auto rounded-xl bg-white shadow-38 lg:w-3/5 '
           >
             <ProductSearchForm />
           </motion.div>

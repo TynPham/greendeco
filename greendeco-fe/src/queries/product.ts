@@ -5,13 +5,13 @@ import productApis from '../apiRequests/product'
 export const useGetProductList = (params?: FilterParams) => {
   return useQuery({
     queryKey: ['product', ...Object.values(params || {})],
-    queryFn: () => productApis.getProductList(params),
+    queryFn: () => productApis.getProductList(params)
   })
 }
 
 export const useGetProductListAsAdministrator = () => {
   return useQuery({
     queryKey: ['product', 'admin'],
-    queryFn: () => productApis.getProductListAsAdministrator(),
+    queryFn: () => productApis.getProductListAsAdministrator()
   })
 }

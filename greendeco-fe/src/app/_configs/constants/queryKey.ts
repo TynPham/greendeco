@@ -7,7 +7,7 @@ export enum UseQueryKeys {
   Order = 'order',
   Variant = 'variant',
   Price = 'price',
-  Notification = 'notification',
+  Notification = 'notification'
 }
 
 export const ADMIN_QUERY_KEY = 'admin'
@@ -16,5 +16,5 @@ export const USER_PURCHASED_PRODUCTS_QUERY_KEYS = [
   UseQueryKeys.Product,
   UseQueryKeys.User,
   UseQueryKeys.Order,
-  ORDER_STATE_FIELD.completed.state,
+  ORDER_STATE_FIELD.completed.state
 ]

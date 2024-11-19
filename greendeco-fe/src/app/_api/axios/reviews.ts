@@ -40,11 +40,11 @@ export type ReviewSortParams = {
 
 export const getReviewListByProductId = async (
   productId: ProductData['id'],
-  params?: ReviewSortParams,
+  params?: ReviewSortParams
 ) => {
   return await http
     .get<ReviewListResponseData>(`/review/product/${productId}`, {
-      params: params ? { ...params } : null,
+      params: params ? { ...params } : null
     })
     .then((res) => res.data)
 }
@@ -52,7 +52,7 @@ export const getReviewListByProductId = async (
 export const getAllReviews = async (params?: ReviewSortParams) => {
   return await http
     .get<ReviewListResponseData>(`/review/all`, {
-      params: params ? { ...params } : null,
+      params: params ? { ...params } : null
     })
     .then((res) => res.data)
 }

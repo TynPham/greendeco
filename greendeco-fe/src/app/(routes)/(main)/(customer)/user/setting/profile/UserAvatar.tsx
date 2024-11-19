@@ -14,7 +14,7 @@ import { User } from '@/src/app/_types/user.type'
 
 function UserAvatar({
   avatar,
-  setAvatar,
+  setAvatar
 }: {
   avatar: User['avatar']
   setAvatar: Dispatch<User['avatar']>
@@ -31,7 +31,7 @@ function UserAvatar({
       if (e instanceof AxiosError) {
         notifyError(e.response?.data.msg)
       }
-    },
+    }
   })
 
   function handleImageChange(imageFile: File) {
@@ -77,7 +77,7 @@ function UserAvatar({
 }
 
 function SelectImageButton({
-  handleFileChange,
+  handleFileChange
 }: {
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }) {

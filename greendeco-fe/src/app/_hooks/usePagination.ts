@@ -18,7 +18,7 @@ export default function usePagination() {
         ? setQueryParams({ offSet: undefined })
         : setQueryParams({ offSet: pageNumber })
     },
-    [setQueryParams],
+    [setQueryParams]
   )
 
   const handlePageChange = (destinationPage: number) => {
@@ -35,6 +35,6 @@ export default function usePagination() {
 
   return {
     goToNextPage: goToNextPage,
-    goToPreviousPage: goToPreviousPage,
+    goToPreviousPage: goToPreviousPage
   }
 }

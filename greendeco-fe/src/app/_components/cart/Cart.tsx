@@ -24,23 +24,25 @@ export default function Cart() {
   return (
     <motion.div
       initial={{
-        translateY: '30%',
+        translateY: '30%'
       }}
       animate={{ translateY: 0, transition: { type: 'spring', stiffness: 300 } }}
       exit={{
         opacity: 0,
         translateY: '-20%',
-        transition: { ease: 'easeInOut', duration: 0.5 },
+        transition: { ease: 'easeInOut', duration: 0.5 }
       }}
       ref={cartRef}
-      className='flex-col-start relative h-full max-h-full w-[550px] gap-compact overflow-hidden rounded-[8px]  bg-white  shadow-26'
+      className='flex-col-start relative h-full max-h-full w-[550px] gap-compact overflow-hidden rounded-[8px] bg-white shadow-26'
     >
       <div className=' p-comfortable pb-0'>
         <div className='flex'>
-          <h3 className='mb-[4px] flex-1 text-heading-1 capitalize text-primary-5555'>Your Cart</h3>
+          <h3 className='mb-[4px] flex-1 text-nowrap text-heading-3 capitalize text-primary-5555 sm:text-heading-1'>
+            Your Cart
+          </h3>
           <span
             onClick={() => closeDialog()}
-            className='flex cursor-pointer items-center gap-compact text-body-xsm text-primary-5555-60 hover:text-primary-5555'
+            className='flex cursor-pointer items-center gap-compact text-nowrap text-body-xsm text-primary-5555-60 hover:text-primary-5555'
           >
             Continue Shopping <ArrowRightIcon className='aspect-square h-[14px] translate-y-px' />
           </span>

@@ -5,22 +5,19 @@ import { motion, Variants } from 'framer-motion'
 
 type ProductCardsGridProps = {
   productList: ProductCardProps[]
-  columns: 3 | 4 | 5
-  gap: 'comfortable' | 'cozy' | 'compact'
 }
-export default function ProductCardsGrid(props: ProductCardsGridProps) {
-  const { productList, columns = 4, gap = 'cozy' } = props
 
+export default function ProductCardsGrid({ productList }: ProductCardsGridProps) {
   const listVariants: Variants = {
     hidden: {
-      opacity: 0.5,
+      opacity: 0.5
     },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25,
-      },
-    },
+        staggerChildren: 0.25
+      }
+    }
   }
 
   const itemVariants: Variants = {
@@ -28,9 +25,10 @@ export default function ProductCardsGrid(props: ProductCardsGridProps) {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { ease: 'easeInOut', duration: 0.35 },
-    },
+      transition: { ease: 'easeInOut', duration: 0.35 }
+    }
   }
+
   return (
     <motion.ul
       variants={listVariants}
@@ -38,30 +36,22 @@ export default function ProductCardsGrid(props: ProductCardsGridProps) {
       animate='visible'
       className={clsx(
         'grid w-full',
-        {
-          'grid-cols-3': columns === 3,
-          'grid-cols-4': columns === 4,
-          'grid-cols-5': columns === 5,
-        },
-        {
-          'gap-comfortable': gap === 'comfortable',
-          'gap-cozy': gap === 'cozy',
-          'gap-compact': gap === 'compact',
-        },
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+        'gap-8'
       )}
     >
       {productList.map((product) => (
         <motion.li
           variants={itemVariants}
           whileHover={{
-            scale: 1.075,
+            scale: 1.025,
             transition: {
               type: 'spring',
-              stiffness: 500,
-            },
+              stiffness: 500
+            }
           }}
           key={product.id}
-          className='rounded-[8px]  shadow-38 '
+          className='rounded-[8px] shadow-38'
         >
           <ProductCard
             key={product.id}

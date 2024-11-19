@@ -23,7 +23,7 @@ const productApis = {
     }
 
     return http.get<ProductListData>('/product', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
   },
 
@@ -32,10 +32,10 @@ const productApis = {
       params: {
         limit: 9999,
         sort: Sort.Descending,
-        sortBy: SortBy.CreatedAt,
-      },
+        sortBy: SortBy.CreatedAt
+      }
     })
-  },
+  }
 }
 
 export default productApis

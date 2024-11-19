@@ -9,7 +9,7 @@ import { QrCodeIcon } from '@heroicons/react/24/solid'
 export default function VNPayButton({ id }: { id: OrderData['id'] }) {
   const VNPayMutation = useMutation({
     mutationFn: createVNPayPayment,
-    onSuccess: (callbackURL) => window.open(callbackURL.data.callback_url, '_blank'),
+    onSuccess: (callbackURL) => window.open(callbackURL.data.callback_url, '_blank')
   })
 
   const handleOnClick = () => {

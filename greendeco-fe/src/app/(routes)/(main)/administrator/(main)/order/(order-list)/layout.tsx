@@ -5,7 +5,7 @@ import OrderStateFilter from '../OrderStateFilter'
 
 export const metadata: Metadata = {
   title: 'Order Management',
-  description: 'Where admin can view list of orders',
+  description: 'Where admin can view list of orders'
 }
 
 export default function OrderListPageLayout({ children }: { children: ReactNode }) {

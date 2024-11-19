@@ -23,13 +23,13 @@ export default function PaymentInformation({ orderId }: { orderId: OrderData['id
           router.push('/login')
         }
       }
-    },
+    }
   })
 
   const { data, isLoading } = orderPriceQuery
 
   return (
-    <div className='flex-col-start w-[500px] divide-y divide-primary-625 rounded-[8px] border-2 border-primary-625 bg-neutral-gray-1 px-comfortable py-cozy text-neutral-gray-10 shadow-15'>
+    <div className='flex-col-start w-full divide-y divide-primary-625 rounded-[8px] border-2 border-primary-625 bg-neutral-gray-1 px-comfortable py-cozy text-neutral-gray-10 shadow-15 sm:w-[500px]'>
       <div className='flex items-center justify-between py-cozy'>
         <CreditCardIcon className='aspect-square h-[24px] text-primary-5555' />
         <div className='flex-col-start items-end gap-compact'>

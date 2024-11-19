@@ -8,7 +8,7 @@ const Variant = ({
   name,
   color,
   color_name,
-  onClick,
+  onClick
 }: {
   id: string
   name: string
@@ -22,20 +22,20 @@ const Variant = ({
   return (
     <div
       className={clsx('flex cursor-pointer items-center gap-[8px] px-cozy first:pl-0', {
-        'pointer-events-none': isActive,
+        'pointer-events-none': isActive
       })}
       onClick={() => onClick()}
     >
       <span
         className={clsx('h-[30px] w-[40px] rounded-[4px] ', {
           'border-[1px] border-primary-625-60': !isActive,
-          'border-[3px] border-primary-625': isActive,
+          'border-[3px] border-primary-625': isActive
         })}
         style={{ backgroundColor: color }}
       ></span>
       <p
         className={clsx('text-body-sm capitalize text-primary-418', {
-          'font-semi-bold': isActive,
+          'font-semi-bold': isActive
         })}
       >
         {color_name}
@@ -45,7 +45,7 @@ const Variant = ({
 }
 
 export const VariantList = ({
-  variantList,
+  variantList
 }: {
   variantList: DetailContainerProps['variantList']
 }) => {

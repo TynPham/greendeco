@@ -26,97 +26,97 @@ export const INVALID_NAME_STRING = '129038@!()8sdf901'
 export const ADMINISTRATOR_ROUTE = {
   PRODUCT: {
     LINK: '/administrator/product',
-    LABEL: 'Product Management',
+    LABEL: 'Product Management'
   },
   ORDER: {
     LINK: '/administrator/order',
-    LABEL: 'Order Management',
+    LABEL: 'Order Management'
   },
   ORDER_DETAIL: {
     LINK: '/administrator/order/order-detail',
-    LABEL: 'Order Detail',
+    LABEL: 'Order Detail'
   },
   LOGIN: {
-    LINK: '/administrator/login',
-  },
+    LINK: '/administrator/login'
+  }
 }
 
 export const USER_SETTING_ROUTE = {
   ORDER: {
     LINK: '/user/order',
-    LABEL: 'Product Management',
+    LABEL: 'Product Management'
   },
   SETTING: {
     PROFILE: {
       LINK: '/user/setting/profile',
-      LABEL: 'User Profile Setting',
+      LABEL: 'User Profile Setting'
     },
     PASSWORD: {
       LINK: '/user/setting/changepassword',
-      LABEL: 'User Password Setting',
-    },
-  },
+      LABEL: 'User Password Setting'
+    }
+  }
 }
 
 export const SHOP_ROUTE = {
   SHOP_LIST: {
-    LINK: '/shop/product-list',
+    LINK: '/shop/product-list'
   },
   PRODUCT_DETAIL: {
-    LINK: '/shop/product-detail',
+    LINK: '/shop/product-detail'
   },
   SEARCH: {
-    LINK: '/search-result',
-  },
+    LINK: '/search-result'
+  }
 }
 
 export const AUTHENTICATION_ROUTE = {
   LOGIN: {
-    LINK: '/login',
+    LINK: '/login'
   },
   REGISTER: {
-    LINK: '/register',
+    LINK: '/register'
   },
   FORGOT_PASSWORD: {
-    LINK: '/forgot-password',
+    LINK: '/forgot-password'
   },
   RESET_PASSWORD: {
-    LINK: '/reset-password',
+    LINK: '/reset-password'
   },
   EMAIL_SEND_SUCCESS: {
-    LINK: '/forgot-password/email-send-success',
+    LINK: '/forgot-password/email-send-success'
   },
   ADMIN_LOGIN: {
-    LINK: '/administrator/login',
-  },
+    LINK: '/administrator/login'
+  }
 }
 
 export const ORDER_STATE_FIELD = {
   draft: {
-    state: OrderState.Draft,
+    state: OrderState.Draft
   },
   processing: {
-    state: OrderState.Processing,
+    state: OrderState.Processing
   },
   completed: {
-    state: OrderState.Completed,
+    state: OrderState.Completed
   },
   cancelled: {
-    state: OrderState.Cancelled,
-  },
+    state: OrderState.Cancelled
+  }
 }
 
 export const FEATURE_PRODUCT_PARAMS = {
   new: {
     sort: Sort.Descending,
-    sortBy: SortBy.CreatedAt,
+    sortBy: SortBy.CreatedAt
   },
   topRated: {
     sort: Sort.Descending,
-    sortBy: 'name',
+    sortBy: 'name'
   },
   cheap: {
     sort: Sort.Ascending,
-    sortBy: SortBy.Price,
-  },
+    sortBy: SortBy.Price
+  }
 }

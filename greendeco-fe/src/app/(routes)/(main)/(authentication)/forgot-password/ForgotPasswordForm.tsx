@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ForgotPasswordFormInputType,
-  ForgotPasswordSchema,
+  ForgotPasswordSchema
 } from '@/src/app/_configs/schemas/authentication'
 import { useMutation } from '@tanstack/react-query'
 import { sendEmailToResetPassword } from '@/src/app/_api/axios/authentication'
@@ -17,7 +17,7 @@ import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
 export default function ForgotPasswordForm() {
   const router = useRouter()
   const defaultInputValues: ForgotPasswordFormInputType = {
-    email: '',
+    email: ''
   }
 
   //NOTE: Validation with useForm
@@ -25,12 +25,12 @@ export default function ForgotPasswordForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ForgotPasswordFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ForgotPasswordSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const forgotPasswordMutation = useMutation({
@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
       if (e instanceof AxiosError) {
         notifySendEmailFail(e.response?.data.msg || e.message)
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<ForgotPasswordFormInputType> = (value, e) => {

@@ -12,7 +12,7 @@ import { ArrowLeftIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import { ProductDetailLoading } from '../loading'
 
 export default function ProductDetailManagementPage({
-  params,
+  params
 }: {
   params: {
     productId: string
@@ -22,7 +22,7 @@ export default function ProductDetailManagementPage({
 
   const productQuery = useQuery({
     queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product, productId],
-    queryFn: () => getProductBaseById(productId),
+    queryFn: () => getProductBaseById(productId)
   })
 
   const { data, isSuccess, isLoading } = productQuery
@@ -43,7 +43,7 @@ export default function ProductDetailManagementPage({
                 <Link
                   className='flex items-center gap-[4px] text-body-xsm'
                   href={{
-                    pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}`,
+                    pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}`
                   }}
                 >
                   <ArrowLeftIcon className='aspect-square h-[16px]' /> Back to product list
@@ -51,7 +51,7 @@ export default function ProductDetailManagementPage({
                 <Link
                   className='btn btnSecondary flex items-center gap-compact'
                   href={{
-                    pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/edit/${productId}`,
+                    pathname: `${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/edit/${productId}`
                   }}
                 >
                   Edit Product

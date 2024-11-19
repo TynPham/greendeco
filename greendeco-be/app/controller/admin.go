@@ -92,7 +92,7 @@ func LoginForAdmin(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(user); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(&models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(&models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -154,7 +154,7 @@ func CreateAdminAccount(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(user); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

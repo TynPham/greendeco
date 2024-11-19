@@ -5,6 +5,7 @@ import (
 	"greendeco-be/app/repository"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )
@@ -60,7 +61,7 @@ func CreateRecommendProduct(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(recommend); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

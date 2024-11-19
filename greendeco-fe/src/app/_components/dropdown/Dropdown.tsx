@@ -22,7 +22,7 @@ export const Dropdown = ({
   value,
   optionContainerStyle,
   optionTextStyle,
-  onSelect,
+  onSelect
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const btnRef = React.useRef<HTMLDivElement>(null)
@@ -52,7 +52,7 @@ export const Dropdown = ({
       <button
         className={clsx(
           'flex w-full items-center justify-between rounded-lg border border-black p-4 font-bold tracking-wider duration-300',
-          inputStyle,
+          inputStyle
         )}
         onClick={handleOnOpen}
       >
@@ -63,7 +63,7 @@ export const Dropdown = ({
         <div
           className={clsx(
             'absolute top-20 z-10 flex w-full flex-col rounded-lg border border-black p-2',
-            dropdownContainerStyle,
+            dropdownContainerStyle
           )}
         >
           {data.map((value, index) => {

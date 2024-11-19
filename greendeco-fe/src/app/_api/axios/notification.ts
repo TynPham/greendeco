@@ -18,7 +18,7 @@ export const getNotificationFromUser = async (params?: FilterParams) => {
 
   return await http
     .get<NotificationListResponseData>('/notification', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
     .then((res) => res.data)
 }

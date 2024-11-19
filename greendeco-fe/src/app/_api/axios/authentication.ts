@@ -41,9 +41,9 @@ export const resetPassword = async (resetPasswordData: ResetPasswordData) => {
       { password: resetPasswordData.password },
       {
         headers: {
-          Authorization: `Bearer ${resetPasswordData.token}`,
-        },
-      },
+          Authorization: `Bearer ${resetPasswordData.token}`
+        }
+      }
     )
     .then((res) => res.data)
 }

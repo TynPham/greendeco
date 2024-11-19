@@ -9,7 +9,7 @@ import {
   CartInfoData,
   clearCartItemList,
   CartItemListResponseData,
-  addCartItem,
+  addCartItem
 } from '../_api/axios/cart'
 import { VariantData, getVariantById } from '../_api/axios/product'
 import { getCookie } from 'cookies-next'
@@ -48,7 +48,7 @@ export const handleGetCartFullDetail = async (cartList: CartItemListResponseData
     const variantInfo = await productApis.getVariantById(item.variant).then((data) => data.data)
     const itemWithVariantInfo: CartItemWithFullVariantInfo = {
       ...item,
-      variant: variantInfo.items,
+      variant: variantInfo.items
     }
     return itemWithVariantInfo
   })
@@ -57,7 +57,7 @@ export const handleGetCartFullDetail = async (cartList: CartItemListResponseData
   return await Promise.all(fullInfoCartList).then((cartItemArray) => {
     const cartListFullDetail: CartListFullDetail = {
       ...cartList,
-      items: cartItemArray,
+      items: cartItemArray
     }
     return cartListFullDetail
   })
@@ -77,7 +77,7 @@ export function useCartQuery() {
       .then((cartId) => {
         setCookie('cartId', cartId, {
           sameSite: 'none',
-          secure: true,
+          secure: true
         })
         return cartId
       })
@@ -98,11 +98,11 @@ export function useCartQuery() {
   const cartQuery = useQuery({
     queryKey: [UseQueryKeys.User, 'cart'],
     queryFn: getCartListWithFullDetail,
-    onError: () => {},
+    onError: () => {}
   })
 
   return {
-    cartQuery: { ...cartQuery },
+    cartQuery: { ...cartQuery }
   }
 }
 export function useCartMutation() {
@@ -121,7 +121,7 @@ export function useCartMutation() {
         e.response?.status === CONFLICT_STATUS && openCart()
         e.response?.status === UNAUTHORIZE_STATUS && router.push('/login')
       }
-    },
+    }
   })
 
   const changeQuantityMutation = useMutation({
@@ -133,7 +133,7 @@ export function useCartMutation() {
       if (e instanceof AxiosError) {
         e.response?.status === UNAUTHORIZE_STATUS && router.push('/login')
       }
-    },
+    }
   })
 
   const removeCartItemMutation = useMutation({
@@ -145,7 +145,7 @@ export function useCartMutation() {
       if (e instanceof AxiosError) {
         e.response?.status === UNAUTHORIZE_STATUS && router.push('/login')
       }
-    },
+    }
   })
 
   const clearCartItemMutation = useMutation({
@@ -157,21 +157,21 @@ export function useCartMutation() {
       if (e instanceof AxiosError) {
         e.response?.status === UNAUTHORIZE_STATUS && router.push('/login')
       }
-    },
+    }
   })
 
   const handleAddCartItem = (
     cart_id: CartInfoData['id'] | undefined,
     quantity: CartItemData['quantity'],
-    variant_id: VariantData['id'],
+    variant_id: VariantData['id']
   ) => {
     if (cart_id) {
       addCartItemMutation.mutate({
         itemData: {
           variant_id: variant_id,
           cart_id: cart_id,
-          quantity: quantity,
-        },
+          quantity: quantity
+        }
       })
     } else {
       router.replace('/login')
@@ -180,27 +180,27 @@ export function useCartMutation() {
 
   const handleIncreaseQuantity = (
     itemId: CartItemData['id'],
-    quantity: CartItemData['quantity'],
+    quantity: CartItemData['quantity']
   ) => {
     const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
 
     changeQuantityMutation.mutate({
       itemId: itemId,
       quantity: quantity + 1,
-      accessToken: accessToken,
+      accessToken: accessToken
     })
   }
 
   const handleDecreaseQuantity = (
     itemId: CartItemData['id'],
-    quantity: CartItemData['quantity'],
+    quantity: CartItemData['quantity']
   ) => {
     const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
     if (quantity > 1)
       changeQuantityMutation.mutate({
         itemId: itemId,
         quantity: quantity - 1,
-        accessToken: accessToken,
+        accessToken: accessToken
       })
     if (quantity === 1) {
       handleRemoveCartItem(itemId)
@@ -211,7 +211,7 @@ export function useCartMutation() {
     const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
     removeCartItemMutation.mutate({
       itemId: itemId,
-      accessToken: accessToken,
+      accessToken: accessToken
     })
   }
 
@@ -219,22 +219,22 @@ export function useCartMutation() {
     const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
     clearCartItemMutation.mutate({
       cartId: cartId,
-      accessToken: accessToken,
+      accessToken: accessToken
     })
   }
 
   return {
     addCartItem: {
       handle: handleAddCartItem,
-      loading: addCartItemMutation.isLoading,
+      loading: addCartItemMutation.isLoading
     },
 
     changeQuantity: {
       increase: handleIncreaseQuantity,
       decrease: handleDecreaseQuantity,
-      loading: changeQuantityMutation.isLoading,
+      loading: changeQuantityMutation.isLoading
     },
     removeCartItem: handleRemoveCartItem,
-    clearCartItem: handleClearCartList,
+    clearCartItem: handleClearCartList
   }
 }

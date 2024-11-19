@@ -23,7 +23,7 @@ export default function DeleteProductDialog({ productId }: { productId: ProductD
     const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
     mutate({
       productId: productId,
-      adminAccessToken: adminAccessToken,
+      adminAccessToken: adminAccessToken
     })
   }
 

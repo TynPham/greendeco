@@ -20,7 +20,7 @@ import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/quer
 
 export default function CreateVariantForm({
   productId,
-  productName,
+  productName
 }: {
   productId: ProductData['id']
   productName: ProductData['name']
@@ -35,7 +35,7 @@ export default function CreateVariantForm({
     available: false,
     price: '0',
     color_name: '',
-    description: '',
+    description: ''
   }
 
   //NOTE: Validation with useForm
@@ -43,12 +43,12 @@ export default function CreateVariantForm({
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<VariantFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(VariantSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const createVariantMutation = useMutation({
@@ -58,7 +58,7 @@ export default function CreateVariantForm({
     onSuccess: (data) => {
       notifyCreateVariantSuccess()
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, productId],
+        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, productId]
       })
       router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${productId}`)
     },
@@ -67,7 +67,7 @@ export default function CreateVariantForm({
       if (e instanceof AxiosError) {
         console.log(e)
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<VariantFormInputType> = (values, e) => {
@@ -85,9 +85,9 @@ export default function CreateVariantForm({
           color_name: color_name,
           price: parseInt(price),
           image: variantImage,
-          currency: VARIANT_CURRENCY,
+          currency: VARIANT_CURRENCY
         },
-        adminAccessToken: adminAccessToken,
+        adminAccessToken: adminAccessToken
       })
     }
   }

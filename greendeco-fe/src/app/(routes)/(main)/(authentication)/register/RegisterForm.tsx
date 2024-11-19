@@ -19,7 +19,7 @@ export default function RegisterForm() {
     email: '',
     phoneNumber: '',
     password: '',
-    passwordConfirm: '',
+    passwordConfirm: ''
   }
 
   //NOTE: Validation with useForm
@@ -27,12 +27,12 @@ export default function RegisterForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<RegisterFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(RegisterSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const registerMutation = useMutation({
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     onSuccess: () => {
       reset()
       notifyRegisterSuccess({
-        onClose: () => router.replace(AUTHENTICATION_ROUTE.LOGIN.LINK),
+        onClose: () => router.replace(AUTHENTICATION_ROUTE.LOGIN.LINK)
       })
     },
     //NOTE: Execuse after receving failure responses
@@ -50,7 +50,7 @@ export default function RegisterForm() {
       if (e instanceof AxiosError) {
         notifyRegisterFail(e.response?.data.msg || e.message)
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<RegisterFormInputType> = (values, e) => {
@@ -62,7 +62,7 @@ export default function RegisterForm() {
       lastName: values.lastName,
       email: values.email,
       password: values.password,
-      phoneNumber: values.phoneNumber,
+      phoneNumber: values.phoneNumber
     })
   }
 

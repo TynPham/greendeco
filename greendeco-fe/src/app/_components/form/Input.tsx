@@ -7,7 +7,7 @@ import { EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
 //NOTE: Input
 const Input = React.forwardRef(function Input(
   props: InputProps,
-  ref: React.ForwardedRef<HTMLInputElement>,
+  ref: React.ForwardedRef<HTMLInputElement>
 ) {
   const { className, disabled, error, ...otherInputProps } = props
 
@@ -20,12 +20,12 @@ const Input = React.forwardRef(function Input(
         root: {
           className: clsx(['baseInput', className], {
             inputDisabled: disabled,
-            inputError: error,
-          }),
+            inputError: error
+          })
         },
         input: {
-          className: 'w-full outline-none bg-inherit',
-        },
+          className: 'w-full outline-none bg-inherit'
+        }
       }}
     />
   )
@@ -41,12 +41,12 @@ type StartIconType = {
 const StartIconArray: StartIconType[] = [
   {
     type: 'email',
-    icon: <EnvelopeIcon className='aspect-square w-[1.8rem] text-primary-418-60' />,
+    icon: <EnvelopeIcon className='aspect-square w-[1.8rem] text-primary-418-60' />
   },
   {
     type: 'password',
-    icon: <LockClosedIcon className='aspect-square w-[1.8rem] text-primary-418-60' />,
-  },
+    icon: <LockClosedIcon className='aspect-square w-[1.8rem] text-primary-418-60' />
+  }
 ]
 
 const renderStartAndormentIcon = (type: React.HTMLInputTypeAttribute) => {

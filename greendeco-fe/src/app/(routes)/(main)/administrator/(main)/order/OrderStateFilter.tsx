@@ -20,8 +20,8 @@ export default function OrderStateFilter() {
         href={{
           pathname: '',
           query: {
-            field: null,
-          },
+            field: null
+          }
         }}
         replace={true}
         className={clsx(
@@ -29,8 +29,8 @@ export default function OrderStateFilter() {
           {
             'border-b-[3px] border-primary-418 text-primary-418': fieldQuery === '' || !fieldQuery,
             'border-b-[1px] border-primary-418-20 text-primary-418-60':
-              fieldQuery !== '' && fieldQuery,
-          },
+              fieldQuery !== '' && fieldQuery
+          }
         )}
       >
         All
@@ -41,8 +41,8 @@ export default function OrderStateFilter() {
           href={{
             pathname: '',
             query: {
-              field: JSON.stringify(value),
-            },
+              field: JSON.stringify(value)
+            }
           }}
           replace={true}
           className={clsx(
@@ -51,8 +51,8 @@ export default function OrderStateFilter() {
               'border-b-[3px] border-primary-418 text-primary-418':
                 fieldQuery === JSON.stringify(value),
               'border-b-[1px] border-primary-418-20 text-primary-418-60':
-                fieldQuery !== JSON.stringify(value),
-            },
+                fieldQuery !== JSON.stringify(value)
+            }
           )}
         >
           {key}

@@ -6,42 +6,42 @@ import { AUTHENTICATION_ROUTE, SHOP_ROUTE } from '@/src/app/_configs/constants/v
 export const notifyRegisterSuccess = (options?: ToastOptions) => {
   toast.success(<RegisterSuccessMessage />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 export const notifyRegisterFail = (errorMessage?: string) => {
   toast.error(<RegisterErrorMessage message={errorMessage ? errorMessage : undefined} />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 export const notifyLoginSuccess = (options?: ToastOptions) => {
   toast.success(<LoginSuccessMessage />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 export const notifyLoginFail = (errorMessage?: string) => {
   toast.error(<LoginErrorMessage message={errorMessage ? errorMessage : undefined} />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 
 export const notifyResetPasswordSuccess = (options?: ToastOptions) => {
   toast.success(<ResetPasswordSuccessMessage />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 export const notifyResetPasswordFail = (errorMessage?: string, options?: ToastOptions) => {
   toast.error(<ResetPasswordErrorMessage message={errorMessage ? errorMessage : undefined} />, {
     position: 'top-center',
-    onClose: options?.onClose,
+    onClose: options?.onClose
   })
 }
 
 export const notifySendEmailFail = (errorMessage?: string) => {
   toast.error(<SendEmailErrorMessage message={errorMessage ? errorMessage : undefined} />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 

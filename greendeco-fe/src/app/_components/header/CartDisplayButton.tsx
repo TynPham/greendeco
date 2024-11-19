@@ -14,6 +14,7 @@ export default function CartDisplayButton() {
   const { isSuccess, isError, data } = cartQuery
 
   const handleCartButtonOnClick = () => {
+    console.log('isSuccess', isSuccess)
     if (isSuccess) openCart()
     if (isError) router.push('/login')
   }

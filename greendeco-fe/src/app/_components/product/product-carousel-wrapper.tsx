@@ -15,7 +15,7 @@ type ProductCarouselWrapperProps = {
 export default function ProductCarouselWrapper({
   children,
   breakpoints,
-  navigationButtons = true,
+  navigationButtons = true
 }: ProductCarouselWrapperProps) {
   const swiperRef = useRef<SwiperType>()
 

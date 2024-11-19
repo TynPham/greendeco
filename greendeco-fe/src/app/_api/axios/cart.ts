@@ -78,7 +78,7 @@ export const createNewCart = async () => {
   return await http
     .post<CreateNewCartResponseData>('/cart', {
       //NOTE: In the future, the description will have username + Cart
-      description: 'User Cart',
+      description: 'User Cart'
     })
     .then((res) => res.data)
 }
@@ -95,7 +95,7 @@ export const addCartItem = async (data: AddItemRequestData) => {
 export const changeCartItemQuantity = async (data: ChangeItemQuantityRequestData) => {
   const { itemId, quantity } = data
   return await http.put(`/cart/product/${itemId}`, {
-    quantity: quantity,
+    quantity: quantity
   })
 }
 

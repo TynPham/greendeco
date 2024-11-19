@@ -8,6 +8,7 @@ import (
 	"greendeco-be/pkg/middlewares"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -46,7 +47,7 @@ func CreateProduct(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(newProduct); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -112,7 +113,7 @@ func UpdateProduct(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(updateProduct); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -295,7 +296,7 @@ func UpdateDefaultVariant(c *fiber.Ctx) error {
 	updateRequest.ProductId = uuid
 	validator := validators.NewValidator()
 	if err := validator.Struct(updateRequest); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

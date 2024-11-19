@@ -9,7 +9,7 @@ export const ProductDetailSchema = z.object({
   size: z.string().min(1, REQUIRED_FIELD_STRING),
   water: z.string().min(1, REQUIRED_FIELD_STRING),
   difficulty: z.string().min(1, REQUIRED_FIELD_STRING),
-  light: z.string().min(1, REQUIRED_FIELD_STRING),
+  light: z.string().min(1, REQUIRED_FIELD_STRING)
 })
 
 export type ProductDetailFormInputType = z.infer<typeof ProductDetailSchema>

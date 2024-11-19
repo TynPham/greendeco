@@ -23,15 +23,15 @@ export const RegisterSchema = z
       .string()
       .min(MIN_PASSWORD, `Password must be more than ${MIN_PASSWORD} characters`)
       .max(MAX_PASSWORD, `Password must be less than ${MAX_PASSWORD} characters`),
-    passwordConfirm: z.string().min(1, 'Please confirm your password'),
+    passwordConfirm: z.string().min(1, 'Please confirm your password')
   })
   .refine((data) => data.password === data.passwordConfirm, {
     path: ['passwordConfirm'],
-    message: 'Passwords do not match',
+    message: 'Passwords do not match'
   })
   .refine((data) => validatePhoneForE164(data.phoneNumber), {
     path: ['phoneNumber'],
-    message: 'Invalid phone number',
+    message: 'Invalid phone number'
   })
 
 export const LoginSchema = z.object({
@@ -39,7 +39,7 @@ export const LoginSchema = z.object({
   password: z
     .string()
     .min(MIN_PASSWORD, `Password must be more than ${MIN_PASSWORD} characters`)
-    .max(MAX_PASSWORD, `Password must be less than ${MAX_PASSWORD} characters`),
+    .max(MAX_PASSWORD, `Password must be less than ${MAX_PASSWORD} characters`)
 })
 
 export const ResetPasswordSchema = z
@@ -48,15 +48,15 @@ export const ResetPasswordSchema = z
       .string()
       .min(MIN_PASSWORD, `Password must be more than ${MIN_PASSWORD} characters`)
       .max(MAX_PASSWORD, `Password must be less than ${MAX_PASSWORD} characters`),
-    passwordConfirm: z.string().min(1, 'Please confirm your password'),
+    passwordConfirm: z.string().min(1, 'Please confirm your password')
   })
   .refine((data) => data.password === data.passwordConfirm, {
     path: ['passwordConfirm'],
-    message: 'Passwords do not match',
+    message: 'Passwords do not match'
   })
 
 export const ForgotPasswordSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Email is invalid'),
+  email: z.string().min(1, 'Email is required').email('Email is invalid')
 })
 
 export type RegisterFormInputType = z.infer<typeof RegisterSchema>

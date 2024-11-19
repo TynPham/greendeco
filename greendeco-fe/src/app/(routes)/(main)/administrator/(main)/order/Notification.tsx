@@ -7,7 +7,7 @@ import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
 export const notifyUpdateCancelSuccess = (
   orderId: string,
   orderState: string,
-  options?: ToastOptions,
+  options?: ToastOptions
 ) => {
   toast.success(
     <UpdateOrderStateSuccessMessage
@@ -15,14 +15,14 @@ export const notifyUpdateCancelSuccess = (
       state={orderState}
     />,
     {
-      position: 'top-center',
-    },
+      position: 'top-center'
+    }
   )
 }
 
 const UpdateOrderStateSuccessMessage = ({
   orderId,
-  state,
+  state
 }: {
   orderId: OrderData['id']
   state: string

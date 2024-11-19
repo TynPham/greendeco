@@ -21,7 +21,7 @@ export default function CreateReviewForm({ productId }: { productId: ProductData
   const router = useRouter()
   const defaultInputValues: ReviewFormInputType = {
     content: '',
-    star: '0',
+    star: '0'
   }
 
   //NOTE: Validation with useForm
@@ -29,12 +29,12 @@ export default function CreateReviewForm({ productId }: { productId: ProductData
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ReviewFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(ReviewSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const createReviewMutation = useMutation({
@@ -52,7 +52,7 @@ export default function CreateReviewForm({ productId }: { productId: ProductData
           router.push('/login')
         }
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<ReviewFormInputType> = (values, e) => {
@@ -60,7 +60,7 @@ export default function CreateReviewForm({ productId }: { productId: ProductData
     createReviewMutation.mutate({
       product_id: productId,
       star: parseInt(values.star),
-      content: values.content,
+      content: values.content
     })
   }
 
@@ -94,7 +94,7 @@ export default function CreateReviewForm({ productId }: { productId: ProductData
           <div className='flex w-full  gap-cozy'>
             <Button
               className={clsx('btnSecondary flex-1', {
-                hidden: createReviewMutation.isLoading,
+                hidden: createReviewMutation.isLoading
               })}
               type='button'
               onClick={closeDialog}

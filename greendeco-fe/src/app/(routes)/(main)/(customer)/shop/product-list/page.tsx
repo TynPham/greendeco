@@ -18,19 +18,18 @@ export default function ProductListPage() {
     queryFn: () =>
       getProductList({
         limit: 20,
-        ...queryObject,
-      }),
+        ...queryObject
+      })
   })
 
   return (
-    <div className='grid grid-cols-12 gap-comfortable py-comfortable'>
-      <div className='col-span-3'>
+    <div className='grid grid-cols-1 gap-8 px-4 py-comfortable md:grid-cols-12'>
+      <div className='hidden xl:col-span-3 xl:block'>
         <FilterSideBar />
       </div>
 
-      <div className='col-span-9'>
+      <div className='col-span-12 xl:col-span-9'>
         <div className='flex-col-start gap-cozy'>
-          {/*NOTE: Because isError default false => doesn't cause rerender the SortMenu  */}
           {productListQuery.isError === false && productListQuery.data?.page_size !== 0 && (
             <div className='flex w-full items-center justify-end'>
               <ProductSortMenu />
@@ -43,11 +42,7 @@ export default function ProductListPage() {
             <>
               {productListQuery.data.page_size > 0 ? (
                 <>
-                  <ProductCardsGrid
-                    productList={productListQuery.data.items}
-                    columns={4}
-                    gap='cozy'
-                  />
+                  <ProductCardsGrid productList={productListQuery.data.items} />
                   <ProductListPagination
                     next={productListQuery.data.next}
                     prev={productListQuery.data.prev}
@@ -68,11 +63,12 @@ export default function ProductListPage() {
 
 function OutOfProductMessage() {
   return (
-    <div className='flex h-[200px] w-full items-center justify-center text-primary-418'>
+    <div className='flex h-[150px] w-full items-center justify-center text-primary-418 md:h-[200px]'>
       <span className='flex-col-center gap-compact'>
-        <FaceFrownIcon className='aspect-square h-[80px]' />
-
-        <p className='text-body-md'>Sorry! We can&apos;t find any product</p>
+        <FaceFrownIcon className='aspect-square h-[60px] md:h-[80px]' />
+        <p className='px-4 text-center text-body-sm md:text-body-md'>
+          Sorry! We can&apos;t find any product
+        </p>
       </span>
     </div>
   )

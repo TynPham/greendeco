@@ -139,7 +139,7 @@ export const getProductList = async (params?: FilterParams) => {
 
   return await http
     .get<ProductListData>('/product', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
     .then((res) => res.data)
 }
@@ -152,7 +152,7 @@ export const getProductListWithSearch = async (params?: FilterParams) => {
 
   return await http
     .get<ProductListData>('/product', {
-      params: { ...paramAfterJSON },
+      params: { ...paramAfterJSON }
     })
     .then((res) => res.data)
 }
@@ -180,14 +180,14 @@ export const getProductDetailById = async (productId: string) => {
   return await Promise.all([
     getProductBaseById(productId),
     getVariantsByProductId(productId),
-    getDefaultVariantByProductId(productId),
+    getDefaultVariantByProductId(productId)
   ]).then(([product, variants, defaultVariant]) => {
     const responseProduct = product.items
     responseProduct.default_variant = defaultVariant
 
     const productDetail: ProductDetailData = {
       product: responseProduct,
-      variants: variants.items,
+      variants: variants.items
     }
     return productDetail
   })
@@ -201,7 +201,7 @@ export const getProductVariant = async (productId: string, variantId: string) =>
       const variantRes = variant.items
       const productDetail: VariantProductData = {
         product: productRes,
-        variant: variantRes,
+        variant: variantRes
       }
       console.log('productDetail', productDetail)
       return productDetail

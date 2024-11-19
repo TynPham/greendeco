@@ -17,26 +17,15 @@ export async function POST(request: Request) {
       httpOnly: true,
       sameSite: 'lax',
       secure: true,
-      expires: accessTokenDecoded.exp * 1000,
+      expires: accessTokenDecoded.exp * 1000
     })
 
     return NextResponse.json(data, {
-      status: HttpStatusCode.Ok,
+      status: HttpStatusCode.Ok
     })
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return NextResponse.json(error.response?.data, {
-        status: error.status,
-      })
-    }
-
-    return NextResponse.json(
-      {
-        message: 'Internal Server Error',
-      },
-      {
-        status: HttpStatusCode.InternalServerError,
-      },
-    )
+  } catch (error: any) {
+    return NextResponse.json(error.payload, {
+      status: error.status
+    })
   }
 }

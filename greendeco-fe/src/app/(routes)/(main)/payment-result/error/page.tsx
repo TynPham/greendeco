@@ -5,7 +5,7 @@ import BrandLogoFullWhite from '@/public/BrandLogoFullWhite.svg'
 import {
   ShoppingBagIcon,
   ClipboardDocumentListIcon,
-  ExclamationTriangleIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/solid'
 import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
 export default function PaymentPage() {

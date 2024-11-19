@@ -5,7 +5,7 @@ import ProductCard from './ProductCard'
 
 export default function ProductCarousel({
   productList,
-  breakpoints,
+  breakpoints
 }: {
   productList: ProductListData['items']
   breakpoints: Record<number, { slidesPerView: number }>

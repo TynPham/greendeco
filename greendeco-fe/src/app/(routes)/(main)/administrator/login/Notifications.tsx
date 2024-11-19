@@ -4,12 +4,12 @@ import Link from 'next/link'
 
 export const notifyLoginSuccess = () => {
   toast.success(<LoginSuccessMessage />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 export const notifyLoginFail = (errorMessage?: string) => {
   toast.error(<LoginErrorMessage message={errorMessage ? errorMessage : undefined} />, {
-    position: 'top-center',
+    position: 'top-center'
   })
 }
 

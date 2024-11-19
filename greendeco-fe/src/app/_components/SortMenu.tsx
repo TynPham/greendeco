@@ -19,16 +19,16 @@ const defaultSortOptions: SortOptionType[] = [
     label: 'Newest',
     value: {
       sort: 'desc',
-      sortBy: 'created_at',
-    },
+      sortBy: 'created_at'
+    }
   },
   {
     label: 'Oldest',
     value: {
       sort: 'asc',
-      sortBy: 'created_at',
-    },
-  },
+      sortBy: 'created_at'
+    }
+  }
 ]
 
 export const DefaultSortMenu = ({ options }: { options?: SortOptionType[] }) => {
@@ -44,14 +44,14 @@ export const DefaultSortMenu = ({ options }: { options?: SortOptionType[] }) => 
       if (value === optionFilter || !event.target.value) {
         setQueryParams({
           sort: undefined,
-          sortBy: undefined,
+          sortBy: undefined
         })
         return
       }
 
       setQueryParams({ sort: value.sort, sortBy: value.sortBy, offSet: 1 })
     },
-    [setQueryParams, optionFilter],
+    [setQueryParams, optionFilter]
   )
 
   return (

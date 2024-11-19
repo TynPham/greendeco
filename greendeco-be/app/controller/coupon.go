@@ -5,6 +5,7 @@ import (
 	"greendeco-be/app/repository"
 	"greendeco-be/pkg/validators"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )
@@ -29,7 +30,7 @@ func CreateCoupon(c *fiber.Ctx) error {
 
 	validate := validators.NewValidator()
 	if err := validate.Struct(newCoupon); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})
@@ -97,7 +98,7 @@ func UpdateCouponById(c *fiber.Ctx) error {
 
 	validator := validators.NewValidator()
 	if err := validator.Struct(updateCoupon); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "invalid input found",
 			Errors:  validators.ValidatorErrors(err),
 		})

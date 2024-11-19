@@ -27,7 +27,7 @@ function ProductDetailDisplay({
   water,
   difficulty,
   is_publish,
-  available,
+  available
 }: {
   name: ProductData['name']
   description: ProductData['description']
@@ -99,8 +99,8 @@ function ProductDetailDisplay({
             'flex w-fit items-center gap-compact rounded-[8px]  p-cozy text-body-lg font-semi-bold text-white',
             {
               'bg-action-link text-white': available,
-              'bg-neutral-gray-6 text-white': !available,
-            },
+              'bg-neutral-gray-6 text-white': !available
+            }
           )}
         >
           Available
@@ -115,8 +115,8 @@ function ProductDetailDisplay({
             'flex w-fit items-center gap-compact rounded-[8px]  p-cozy text-body-lg font-semi-bold text-white',
             {
               'bg-blue-600 text-white': is_publish,
-              'bg-neutral-gray-6 text-white': !is_publish,
-            },
+              'bg-neutral-gray-6 text-white': !is_publish
+            }
           )}
         >
           Published

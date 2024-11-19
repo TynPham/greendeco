@@ -59,7 +59,7 @@ function NavigationList() {
 function NavItem({
   href,
   active,
-  children,
+  children
 }: {
   href: string
   children: ReactNode
@@ -72,15 +72,15 @@ function NavItem({
       className={clsx(
         ' rounded-l-[8px] text-body-md font-semi-bold text-white hover:bg-neutral-gray-1/20',
         {
-          'pointer-events-none bg-neutral-gray-1': active,
-        },
+          'pointer-events-none bg-neutral-gray-1': active
+        }
       )}
     >
       <Link
         href={href}
         className={clsx('block px-comfortable py-cozy capitalize', {
           'font-bold text-primary-625': active,
-          'text-white': !active,
+          'text-white': !active
         })}
       >
         {children}

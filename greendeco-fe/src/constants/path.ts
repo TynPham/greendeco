@@ -11,7 +11,7 @@ const path = {
   products: '/shop/product-list',
   productDetail: '/shop/product-detail',
   checkout: '/checkout',
-  payment: '/payment',
+  payment: '/payment'
 }
 
 export default path

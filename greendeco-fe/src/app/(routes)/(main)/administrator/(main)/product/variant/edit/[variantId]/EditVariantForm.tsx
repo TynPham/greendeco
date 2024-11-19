@@ -30,7 +30,7 @@ export default function EditVariantForm(variant: VariantData) {
     available: variant.available,
     price: variant.price,
     color_name: variant.color_name,
-    description: variant.description,
+    description: variant.description
   }
 
   //NOTE: Validation with useForm
@@ -38,12 +38,12 @@ export default function EditVariantForm(variant: VariantData) {
     reset,
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty }
   } = useForm<VariantFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(VariantSchema),
-    defaultValues: defaultInputValues,
+    defaultValues: defaultInputValues
   })
 
   const updateVariantMutation = useMutation({
@@ -53,7 +53,7 @@ export default function EditVariantForm(variant: VariantData) {
     onSuccess: (data) => {
       notifyUpdateVariantSuccess()
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, variant.product],
+        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, variant.product]
       })
       router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${variant.product}`)
     },
@@ -62,7 +62,7 @@ export default function EditVariantForm(variant: VariantData) {
       if (e instanceof AxiosError) {
         console.log(e)
       }
-    },
+    }
   })
 
   const onSubmitHandler: SubmitHandler<VariantFormInputType> = (values, e) => {
@@ -81,9 +81,9 @@ export default function EditVariantForm(variant: VariantData) {
           color_name: color_name,
           price: parseInt(price),
           image: variantImage,
-          currency: VARIANT_CURRENCY,
+          currency: VARIANT_CURRENCY
         },
-        adminAccessToken: adminAccessToken,
+        adminAccessToken: adminAccessToken
       })
     }
   }

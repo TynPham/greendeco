@@ -1,17 +1,17 @@
 export enum SortBy {
   CreatedAt = 'created_at',
   Price = 'price',
-  Star = 'star',
+  Star = 'star'
 }
 
 export enum Sort {
   Ascending = 'asc',
-  Descending = 'desc',
+  Descending = 'desc'
 }
 
 export enum OrderState {
   Draft = 'draft',
   Processing = 'processing',
   Completed = 'completed',
-  Cancelled = 'cancelled',
+  Cancelled = 'cancelled'
 }

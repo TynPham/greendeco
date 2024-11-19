@@ -8,7 +8,7 @@ import EditVariantForm from './EditVariantForm'
 import { VariantFormLoading } from '../../../loading/VariantLoading'
 
 export default function VariantManagement({
-  params: { variantId },
+  params: { variantId }
 }: {
   params: {
     variantId: string
@@ -16,7 +16,7 @@ export default function VariantManagement({
 }) {
   const variantQuery = useQuery({
     queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, variantId],
-    queryFn: () => getVariantById(variantId),
+    queryFn: () => getVariantById(variantId)
   })
 
   const { data, isSuccess, isLoading, isError } = variantQuery

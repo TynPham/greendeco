@@ -19,7 +19,7 @@ export const useVariantStore = create<ActiveVariantState>()((set) => ({
     available: false,
     created_at: '',
     updated_at: '',
-    description: '',
+    description: ''
   },
-  setActiveVariant: (variant) => set({ activeVariant: variant }),
+  setActiveVariant: (variant) => set({ activeVariant: variant })
 }))

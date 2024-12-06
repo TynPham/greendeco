@@ -64,7 +64,8 @@ func CreateVnPayPayment(c *fiber.Ctx) error {
 		})
 	}
 
-	url, err := createVNPayBill(order, c.IP(), token.Raw)
+	serverIP := "64.29.17.193"
+	url, err := createVNPayBill(order, serverIP, token.Raw)
 	if err != nil {
 		if err == models.ErrNotFound {
 			return c.Status(fiber.StatusNotFound).JSON(models.ErrorResponse{
@@ -357,7 +358,10 @@ func createVNPayBill(order *models.Order, IP string, accessToken string) (string
 	if err != nil {
 		return "", err
 	}
-
+	ipAddr := IP
+    if configs.AppConfig().Environment.Env == "development" {
+        ipAddr = "127.0.0.1"
+    }
 	totalString := fmt.Sprintf("%.0f", totalVNDFloat*100)
 	cfgs := configs.AppConfig().VnPay
 	t := time.Now().Format("20060102150405")
@@ -372,7 +376,7 @@ func createVNPayBill(order *models.Order, IP string, accessToken string) (string
 	v.Set("vnp_OrderType", "other")
 	v.Set("vnp_Amount", totalString)
 	v.Set("vnp_ReturnUrl", cfgs.ReturnUrl + "api/v1/payment/vnpay_return?accessToken=" + accessToken)
-	v.Set("vnp_IpAddr", IP)
+	v.Set("vnp_IpAddr", ipAddr)
 	v.Set("vnp_CreateDate", t)
 
 	sortedParam := sortURLValues(v)

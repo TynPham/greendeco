@@ -59,6 +59,9 @@ type Config struct {
 	ExchangeMoneyApi struct {
 		Url string `envconfig:"EXCHANGE_MONEY_API"`
 	}
+	Environment struct {
+		Env string `envconfig:"ENVIRONMENT"`
+	}
 }
 
 var appConfig = &Config{}

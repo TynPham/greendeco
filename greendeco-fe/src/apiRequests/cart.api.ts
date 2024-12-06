@@ -1,9 +1,13 @@
-import { http } from '../app/_utils/http'
+import { http } from '../utils/http'
 import {
   CartItemListResponseData,
   CartUserResponseData,
-  CreateNewCartResponseData
-} from '../app/_types/cart'
+  ChangeItemQuantityRequestData,
+  ClearItemCartRequestData,
+  CreateNewCartResponseData,
+  ItemAddData,
+  RemoveItemCartRequestData
+} from '../types/cart.type'
 
 const cartApis = {
   createNewCart: () =>
@@ -14,7 +18,19 @@ const cartApis = {
   getCartUser: () => http.get<CartUserResponseData>('/cart'),
 
   getCartItemListFromCartId: (cartId: string) =>
-    http.get<CartItemListResponseData>(`/cart/${cartId}/product`)
+    http.get<CartItemListResponseData>(`/cart/${cartId}/product`),
+
+  addCartItem: (itemData: ItemAddData) =>
+    http.post<CartItemListResponseData>('/cart/product', itemData),
+
+  changeCartItemQuantity: ({ itemId, quantity }: ChangeItemQuantityRequestData) =>
+    http.put(`/cart/product/${itemId}`, {
+      quantity
+    }),
+
+  clearCartItemList: ({ cartId }: ClearItemCartRequestData) => http.delete(`/cart/${cartId}/clear`),
+
+  removeCartItem: ({ itemId }: RemoveItemCartRequestData) => http.delete(`/cart/product/${itemId}`)
 }
 
 export default cartApis

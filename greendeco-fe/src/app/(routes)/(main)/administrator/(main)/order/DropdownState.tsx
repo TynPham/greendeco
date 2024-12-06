@@ -1,24 +1,22 @@
 'use client'
 
-import {
-  OrderState,
-  updateOrderStatus,
-  updateOrderStatusSendNoti
-} from '@/src/app/_api/axios/admin/order'
-import { Dropdown } from '@/src/app/_components/dropdown'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { ORDER_STATE_FIELD } from '@/src/app/_configs/constants/variables'
+import { Dropdown } from '@/src/components/dropdown'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/configs/constants/cookies'
+import { ORDER_STATE_FIELD } from '@/src/configs/constants/variables'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { getCookie } from 'cookies-next'
 import { useState, useEffect } from 'react'
 import { notifyUpdateCancelSuccess } from './Notification'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/configs/constants/queryKey'
 import { notifyError } from '../../../(customer)/user/setting/profile/Notification'
-import useOrderUpdateDialog from '@/src/app/_hooks/dialog/useOrderUpdateDialog'
-import createNotificationMessage from '@/src/app/_hooks/useOrderNotificationMessage'
+import useOrderUpdateDialog from '@/src/hooks/dialog/useOrderUpdateDialog'
+import createNotificationMessage from '@/src/hooks/useOrderNotificationMessage'
+import { useUpdateOrderStatusSendNotiMutation } from '@/src/queries/order'
+import { OrderStateTable } from '@/src/types/order.type'
+import { handleErrorApi } from '@/src/utils/utils'
 
-export default function OrderDropdownState({ order }: { order: OrderState }) {
+export default function OrderDropdownState({ order }: { order: OrderStateTable }) {
   const [state, setState] = useState(order.state)
   const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
   const { openOrderUpdateDialog } = useOrderUpdateDialog({ order: order })
@@ -36,20 +34,9 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
     cancelled: []
   }
 
-  const updateOrderStatusComplete = useMutation({
-    mutationFn: updateOrderStatusSendNoti,
-    onSuccess: () => {
-      notifyUpdateCancelSuccess(order.order_id, states.completed.state)
-      queryClient.invalidateQueries({ queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order] })
-    },
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyError(e.response?.data.msg)
-      }
-    }
-  })
+  const updateOrderStatusComplete = useUpdateOrderStatusSendNotiMutation()
 
-  const handleOnSelect = (value: string) => {
+  const handleOnSelect = async (value: string) => {
     if (value === states.processing.state) {
       // open modal => full fill paid at => update
       openOrderUpdateDialog('processing')
@@ -61,20 +48,27 @@ export default function OrderDropdownState({ order }: { order: OrderState }) {
     }
 
     if (value === states.completed.state) {
-      const notificationMessage = createNotificationMessage(
-        order.order_id,
-        ORDER_STATE_FIELD.completed.state
-      )
+      if (updateOrderStatusComplete.isLoading) return
 
-      updateOrderStatusComplete.mutate({
-        adminAccessToken: adminAccessToken!,
-        orderId: order.order_id,
-        state: states.completed.state,
-        //NOTE: full fill message, title for processing state
-        message: notificationMessage.message,
-        title: notificationMessage.title,
-        userId: order.owner_id
-      })
+      try {
+        const notificationMessage = createNotificationMessage(
+          order.order_id,
+          ORDER_STATE_FIELD.completed.state
+        )
+
+        await updateOrderStatusComplete.mutateAsync({
+          orderId: order.order_id,
+          state: states.completed.state,
+          //NOTE: full fill message, title for processing state
+          message: notificationMessage.message,
+          title: notificationMessage.title,
+          userId: order.owner_id
+        })
+
+        notifyUpdateCancelSuccess(order.order_id, states.completed.state)
+      } catch (error) {
+        handleErrorApi({ error })
+      }
     }
   }
 

@@ -1,30 +1,28 @@
 'use client'
 
-import {
-  OrderState,
-  ProcessStatusRequest,
-  updateOrderProcessStatus
-} from '@/src/app/_api/axios/admin/order'
-import Button from '@/src/app/_components/Button'
-import { TextField } from '@/src/app/_components/form'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
+import Button from '@/src/components/Button'
+import { TextField } from '@/src/components/form'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/configs/constants/cookies'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { getCookie } from 'cookies-next'
 import { notifyError } from '../../../(customer)/user/setting/profile/Notification'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { OrderUpdateSchema, OrderUpdateSchemaType } from '@/src/app/_configs/schemas/order'
+import { OrderUpdateSchema, OrderUpdateSchemaType } from '@/src/configs/schemas/order'
 import { notifyUpdateCancelSuccess } from './Notification'
-import { ORDER_STATE_FIELD } from '@/src/app/_configs/constants/variables'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
-import { useDialogStore } from '@/src/app/_configs/store/useDialogStore'
-import createNotificationMessage from '@/src/app/_hooks/useOrderNotificationMessage'
+import { ORDER_STATE_FIELD } from '@/src/configs/constants/variables'
+import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/configs/constants/queryKey'
+import { useDialogStore } from '@/src/configs/store/useDialogStore'
+import createNotificationMessage from '@/src/hooks/useOrderNotificationMessage'
 import { useRef } from 'react'
-import useClickOutside from '@/src/app/_hooks/useClickOutside'
+import useClickOutside from '@/src/hooks/useClickOutside'
+import { useUpdateOrderProcessStatusMutation } from '@/src/queries/order'
+import { handleErrorApi } from '@/src/utils/utils'
+import { OrderStateTable, ProcessStatusRequest } from '@/src/types/order.type'
 
 type PickUpdateModalType = {
-  order: OrderState
+  order: OrderStateTable
 }
 
 export default function PickUpDateModal({ order }: PickUpdateModalType) {
@@ -39,46 +37,40 @@ export default function PickUpDateModal({ order }: PickUpdateModalType) {
   const defaultInputValues: OrderUpdateSchemaType = {
     paid_at: ''
   }
-  const { register, handleSubmit, reset } = useForm<ProcessStatusRequest>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+  const { register, handleSubmit, reset, setError } = useForm<ProcessStatusRequest>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(OrderUpdateSchema),
     defaultValues: defaultInputValues
   })
 
-  const updateStatusMutation = useMutation({
-    mutationFn: updateOrderProcessStatus,
-    onSuccess: () => {
+  const updateStatusMutation = useUpdateOrderProcessStatusMutation()
+
+  const handleOnSubmit: SubmitHandler<ProcessStatusRequest> = async (values) => {
+    if (updateStatusMutation.isLoading) return
+
+    try {
+      const notificationMessage = createNotificationMessage(
+        order.order_id,
+        ORDER_STATE_FIELD.processing.state
+      )
+
+      await updateStatusMutation.mutateAsync({
+        orderId: order.order_id,
+        state: ORDER_STATE_FIELD.processing.state,
+        paid_at: new Date(values.paid_at).toISOString(),
+        //NOTE: chnage the message and tilte data for processing status
+        message: notificationMessage.message,
+        title: notificationMessage.title,
+        userId: order.owner_id
+      })
+
       notifyUpdateCancelSuccess(order.order_id, ORDER_STATE_FIELD.processing.state)
-      queryClient.invalidateQueries({ queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order] })
       closeDialog()
       reset()
-    },
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyError(e.response?.data.msg)
-      }
+    } catch (error) {
+      handleErrorApi({ error, setError })
     }
-  })
-
-  const handleOnSubmit: SubmitHandler<ProcessStatusRequest> = (values, e) => {
-    e?.preventDefault()
-
-    const notificationMessage = createNotificationMessage(
-      order.order_id,
-      ORDER_STATE_FIELD.processing.state
-    )
-
-    updateStatusMutation.mutate({
-      adminAccessToken: adminAccessToken!,
-      orderId: order.order_id,
-      state: ORDER_STATE_FIELD.processing.state,
-      paid_at: new Date(values.paid_at).toISOString(),
-      //NOTE: chnage the message and tilte data for processing status
-      message: notificationMessage.message,
-      title: notificationMessage.title,
-      userId: order.owner_id
-    })
   }
 
   return (

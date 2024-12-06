@@ -1,22 +1,21 @@
 'use client'
-import { TextField, MultilineTextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
+import { TextField, MultilineTextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { VariantSchema, VariantFormInputType } from '@/src/app/_configs/schemas/variantMangement'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { AxiosError } from 'axios'
+import { VariantSchema, VariantFormInputType } from '@/src/configs/schemas/variantMangement'
+import { useQueryClient } from '@tanstack/react-query'
 import VariantImage from '../VariantImage'
-import LabelProvider from '@/src/app/_components/form/LabelProvider'
+import LabelProvider from '@/src/components/form/LabelProvider'
 import { useState } from 'react'
-import { ProductData } from '@/src/app/_api/axios/product'
-import { createVariant } from '@/src/app/_api/axios/admin/product'
-import { ADMINISTRATOR_ROUTE, VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
+import { VARIANT_CURRENCY } from '@/src/configs/constants/variables'
 import { notifyCreateVariantSuccess } from '../../Notifications'
 import { useRouter } from 'next/navigation'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ProductData } from '@/src/types/product.type'
+import { useCreateVariantMutation } from '@/src/queries/product'
+import { handleErrorApi } from '@/src/utils/utils'
+import path from '@/src/constants/path'
+import QuantityController from '@/src/components/QuantityController'
 
 export default function CreateVariantForm({
   productId,
@@ -28,6 +27,8 @@ export default function CreateVariantForm({
   const queryClient = useQueryClient()
   const router = useRouter()
 
+  const [quantity, setQuantity] = useState(0)
+
   const [variantImage, setVariantImage] = useState<string | undefined>()
   const defaultInputValues: VariantFormInputType = {
     color: '',
@@ -35,7 +36,8 @@ export default function CreateVariantForm({
     available: false,
     price: '0',
     color_name: '',
-    description: ''
+    description: '',
+    quantity: 0
   }
 
   //NOTE: Validation with useForm
@@ -43,52 +45,38 @@ export default function CreateVariantForm({
     reset,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<VariantFormInputType>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(VariantSchema),
     defaultValues: defaultInputValues
   })
 
-  const createVariantMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: createVariant,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: (data) => {
-      notifyCreateVariantSuccess()
-      queryClient.invalidateQueries({
-        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, productId]
-      })
-      router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${productId}`)
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        console.log(e)
-      }
-    }
-  })
+  const createVariantMutation = useCreateVariantMutation(productId)
 
-  const onSubmitHandler: SubmitHandler<VariantFormInputType> = (values, e) => {
-    e?.preventDefault()
+  const onSubmitHandler: SubmitHandler<VariantFormInputType> = async (values) => {
+    if (createVariantMutation.isLoading) return
 
-    const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-
-    const { price, color_name, ...restValues } = values
-    if (variantImage) {
-      createVariantMutation.mutate({
-        variantData: {
+    try {
+      const { price, color_name, ...restValues } = values
+      if (variantImage) {
+        await createVariantMutation.mutate({
           ...restValues,
           product_id: productId,
           name: `${productName} ${color_name}`,
           color_name: color_name,
           price: parseInt(price),
           image: variantImage,
-          currency: VARIANT_CURRENCY
-        },
-        adminAccessToken: adminAccessToken
-      })
+          currency: VARIANT_CURRENCY,
+          quantity: quantity
+        })
+        notifyCreateVariantSuccess()
+        router.replace(`${path.productAdministrator}/${productId}`)
+      }
+    } catch (error) {
+      handleErrorApi({ error, setError })
     }
   }
 
@@ -123,6 +111,18 @@ export default function CreateVariantForm({
                   className=' size-[40px]'
                   type='color'
                   {...register('color')}
+                />
+              </LabelProvider>
+            </div>
+            <div>
+              <LabelProvider
+                label='Quantity'
+                className='items-center'
+              >
+                <QuantityController
+                  quantity={quantity}
+                  decrease={() => setQuantity(quantity - 1)}
+                  increase={() => setQuantity(quantity + 1)}
                 />
               </LabelProvider>
             </div>

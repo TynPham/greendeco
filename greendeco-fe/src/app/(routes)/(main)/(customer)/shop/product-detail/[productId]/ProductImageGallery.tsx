@@ -1,5 +1,5 @@
-import { ProductData, VariantData } from '@/src/app/_api/axios/product'
-import { useVariantStore } from '@/src/app/_configs/store/useVariantStore'
+import { useVariantStore } from '@/src/configs/store/useVariantStore'
+import { ProductData } from '@/src/types/product.type'
 import clsx from 'clsx'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'

@@ -1,14 +1,14 @@
 'use client'
 
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
-import { useDialogStore } from '@/src/app/_configs/store/useDialogStore'
-import useActivePath from '@/src/app/_hooks/useActivePath'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
+import { useDialogStore } from '@/src/configs/store/useDialogStore'
+import useActivePath from '@/src/hooks/useActivePath'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { useRef } from 'react'
-import useClickOutside from '@/src/app/_hooks/useClickOutside'
+import useClickOutside from '@/src/hooks/useClickOutside'
 
 export default function AdministratorSidebar() {
   const { closeDialog } = useDialogStore()

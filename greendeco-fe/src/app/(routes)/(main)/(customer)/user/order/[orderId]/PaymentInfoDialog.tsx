@@ -1,12 +1,12 @@
 import PaymentInformation from '@/src/app/(routes)/(main)/payment/[orderId]/PaymentInformation'
-import { OrderData } from '@/src/app/_api/axios/order'
-import { useDialogStore } from '@/src/app/_configs/store/useDialogStore'
+import { useDialogStore } from '@/src/configs/store/useDialogStore'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { useRef } from 'react'
-import useClickOutside from '@/src/app/_hooks/useClickOutside'
-import VNPayButton from '@/src/app/_components/paymentButton/VNPayButton'
+import useClickOutside from '@/src/hooks/useClickOutside'
+import VNPayButton from '@/src/components/paymentButton/VNPayButton'
 import { FUNDING, PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { createPaypalPayment, paypalOnApprove } from '@/src/app/_api/axios/payment'
+import { createPaypalPayment, paypalOnApprove } from '@/src/_api/payment'
+import { OrderData } from '@/src/types/order.type'
 
 export default function PaymentInfoDialog({ orderId }: { orderId: OrderData['id'] }) {
   const { closeDialog } = useDialogStore()

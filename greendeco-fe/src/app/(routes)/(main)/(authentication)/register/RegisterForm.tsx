@@ -1,15 +1,14 @@
 'use client'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { RegisterSchema, RegisterFormInputType } from '@/src/app/_configs/schemas/authentication'
-import { useMutation } from '@tanstack/react-query'
-import { registerAccount } from '@/src/app/_api/axios/authentication'
-import { AxiosError } from 'axios'
-import { notifyRegisterFail, notifyRegisterSuccess } from '../Notification'
-import { TextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
+import { RegisterSchema, RegisterFormInputType } from '@/src/configs/schemas/authentication'
+import { TextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
 import { useRouter } from 'next/navigation'
-import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
+import { useRegisterMutation } from '@/src/queries/auth'
+import { toast } from 'react-toastify'
+import path from '@/src/constants/path'
+import { handleErrorApi } from '@/src/utils/utils'
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -27,43 +26,30 @@ export default function RegisterForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<RegisterFormInputType>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(RegisterSchema),
     defaultValues: defaultInputValues
   })
 
-  const registerMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: registerAccount,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: () => {
-      reset()
-      notifyRegisterSuccess({
-        onClose: () => router.replace(AUTHENTICATION_ROUTE.LOGIN.LINK)
-      })
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyRegisterFail(e.response?.data.msg || e.message)
-      }
-    }
-  })
+  const registerMutation = useRegisterMutation()
 
-  const onSubmitHandler: SubmitHandler<RegisterFormInputType> = (values, e) => {
-    e?.preventDefault()
-    //NOTE: Execute the Mutation
-    registerMutation.mutate({
-      identifier: values.email,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      password: values.password,
-      phoneNumber: values.phoneNumber
-    })
+  const onSubmitHandler: SubmitHandler<RegisterFormInputType> = async (values) => {
+    if (registerMutation.isLoading) return
+    try {
+      const res = await registerMutation.mutateAsync({
+        ...values,
+        identifier: values.email
+      })
+      reset()
+      toast.success(res.data.message)
+      router.push(path.login)
+    } catch (error) {
+      handleErrorApi({ error, setError })
+    }
   }
 
   return (

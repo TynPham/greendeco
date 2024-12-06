@@ -11,10 +11,9 @@ import Image from 'next/image'
 import { Swiper as SwiperType } from 'swiper'
 import { useRef, useState } from 'react'
 import clsx from 'clsx'
-import { ReviewItemData, getAllReviews } from '@/src/app/_api/axios/reviews'
-import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
-import formatDate from '@/src/app/_hooks/useFormatDate'
-import { ReviewListResponseData } from '@/src/app/_types/review.type'
+import { DEFAULT_AVATAR } from '@/src/configs/constants/images'
+import formatDate from '@/src/hooks/useFormatDate'
+import { ReviewItemData, ReviewListResponseData } from '@/src/types/review.type'
 
 // Constants
 const SWIPER_CONFIG = {

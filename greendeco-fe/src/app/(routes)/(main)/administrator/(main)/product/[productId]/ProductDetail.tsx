@@ -1,10 +1,11 @@
 'use client'
-import { ProductData } from '@/src/app/_api/axios/product'
-import LabelProvider from '@/src/app/_components/form/LabelProvider'
+
+import LabelProvider from '@/src/components/form/LabelProvider'
 import { CheckBadgeIcon, XCircleIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Image from 'next/image'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import formatDate from '@/src/hooks/useFormatDate'
+import { ProductData } from '@/src/types/product.type'
 
 export default function ProductDetail({ product }: { product: ProductData }) {
   return (

@@ -1,8 +1,7 @@
-import { OrderData } from '@/src/app/_api/axios/order'
-import { OrderState } from '@/src/app/_configs/constants/paramKeys'
-import { ORDER_STATE_FIELD } from '@/src/app/_configs/constants/variables'
-import usePaymentInfoDialog from '@/src/app/_hooks/dialog/usePaymentInfoDialog'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import { OrderState } from '@/src/configs/constants/paramKeys'
+import { ORDER_STATE_FIELD } from '@/src/configs/constants/variables'
+import usePaymentInfoDialog from '@/src/hooks/dialog/usePaymentInfoDialog'
+import formatDate from '@/src/hooks/useFormatDate'
 import {
   UserCircleIcon,
   EnvelopeIcon,
@@ -12,7 +11,8 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import Button from '@/src/app/_components/Button'
+import Button from '@/src/components/Button'
+import { OrderData } from '@/src/types/order.type'
 
 export default function OrderDetailContainer({ order }: { order: OrderData }) {
   return (

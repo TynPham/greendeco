@@ -1,4 +1,4 @@
-import { OrderFullDetailData } from '@/src/app/_api/axios/order'
+import { OrderFullDetailData } from '@/src/types/order.type'
 
 export default function OrderInformationWrapper({ order }: { order: OrderFullDetailData }) {
   return (

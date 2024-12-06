@@ -1,7 +1,7 @@
 'use client'
-import Block from '@/src/app/_components/Block'
+import Block from '@/src/components/Block'
 import CreateVariantForm from './CreateVariantForm'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
+import useQueryParams from '@/src/hooks/useQueryParams'
 
 export default function VariantManagement() {
   const { queryParams } = useQueryParams()

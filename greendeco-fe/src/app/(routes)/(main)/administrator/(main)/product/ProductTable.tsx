@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import formatDate from '@/src/hooks/useFormatDate'
 
 import {
   createColumnHelper,
@@ -7,15 +7,15 @@ import {
   getCoreRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { ProductData } from '@/src/app/_api/axios/product'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
 import {
   CheckCircleIcon,
   PencilSquareIcon,
   TrashIcon,
   XCircleIcon
 } from '@heroicons/react/24/solid'
-import useConfirmDeleteProductDialog from '@/src/app/_hooks/dialog/useConfirmDeleteDialog'
+import useConfirmDeleteProductDialog from '@/src/hooks/dialog/useConfirmDeleteDialog'
+import { ProductData } from '@/src/types/product.type'
 
 const columnHelper = createColumnHelper<ProductData>()
 

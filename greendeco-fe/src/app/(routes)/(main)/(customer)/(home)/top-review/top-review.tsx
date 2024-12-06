@@ -1,7 +1,7 @@
 import reviewApis from '@/src/apiRequests/review.api'
 import TopReviewSlider from './top-review-slider'
-import { Sort, SortBy } from '@/src/app/_types'
-import { ReviewListResponseData } from '@/src/app/_types/review.type'
+import { Sort, SortBy } from '@/src/types'
+import { ReviewListResponseData } from '@/src/types/review.type'
 
 const REVIEW_QUERY_PARAMS = {
   limit: 5,

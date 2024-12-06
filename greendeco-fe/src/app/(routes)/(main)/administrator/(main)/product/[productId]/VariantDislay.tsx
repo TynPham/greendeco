@@ -1,18 +1,17 @@
 'use client'
 
-import { ProductData, VariantData } from '@/src/app/_api/axios/product'
 import clsx from 'clsx'
 import VariantDetailDisplay from './VariantDetailDisplay'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
-import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { deleteVariant } from '@/src/app/_api/axios/admin/product'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
+import { useQueryClient } from '@tanstack/react-query'
 import { PencilSquareIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
-import Button from '@/src/app/_components/Button'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
+import Button from '@/src/components/Button'
+import { ProductData, VariantData } from '@/src/types/product.type'
+import { useDeleteVariantMutation } from '@/src/queries/product'
+import { useRouter } from 'next/navigation'
+import path from '@/src/constants/path'
 
 export default function VariantDisplay({
   variantList,
@@ -24,6 +23,9 @@ export default function VariantDisplay({
   productName: ProductData['name']
 }) {
   const [currentVariant, setCurrentVariant] = useState<VariantData>(variantList[0])
+  useEffect(() => {
+    setCurrentVariant(variantList[0])
+  }, [variantList])
   return (
     <>
       <div className='mb-comfortable flex  items-center justify-between'>
@@ -70,7 +72,10 @@ export default function VariantDisplay({
             Edit Variant
             <PencilSquareIcon className='aspect-square h-[24px]' />
           </Link>
-          <DeleteVariantButton variantId={currentVariant.id} />
+          <DeleteVariantButton
+            variantId={currentVariant.id}
+            productId={productId}
+          />
         </div>
       </div>
       <VariantDetailDisplay variant={{ ...currentVariant }} />
@@ -112,28 +117,25 @@ const VariantListItem = ({
   )
 }
 
-const DeleteVariantButton = ({ variantId }: { variantId: VariantData['id'] }) => {
-  const queryClient = useQueryClient()
-  const deleteVariantMutation = useMutation({
-    mutationFn: deleteVariant,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [UseQueryKeys.Variant, ADMIN_QUERY_KEY] })
-    }
-  })
+const DeleteVariantButton = ({
+  variantId,
+  productId
+}: {
+  variantId: VariantData['id']
+  productId: ProductData['id']
+}) => {
+  const router = useRouter()
+  const deleteVariantMutation = useDeleteVariantMutation(productId)
 
-  const handleDeleteVariant = () => {
-    const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-    deleteVariantMutation.mutate({
-      variantId: variantId,
-      adminAccessToken: adminAccessToken
-    })
+  const handleDeleteVariant = async () => {
+    await deleteVariantMutation.mutateAsync(variantId)
   }
   return (
     <Button
       onClick={handleDeleteVariant}
       className='flex items-center border-status-error bg-status-error-light capitalize text-status-error'
     >
-      delete
+      {deleteVariantMutation.isLoading ? 'Deleting...' : 'Delete'}
       <TrashIcon className='aspect-square h-[24px]' />
     </Button>
   )

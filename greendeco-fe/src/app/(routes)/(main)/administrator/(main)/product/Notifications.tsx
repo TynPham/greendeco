@@ -1,8 +1,8 @@
 import React from 'react'
-import { ToastContentProps, toast, ToastOptions } from 'react-toastify'
+import { toast, ToastOptions } from 'react-toastify'
 import Link from 'next/link'
-import { ProductData } from '@/src/app/_api/axios/product'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
+import { ProductData } from '@/src/types/product.type'
 
 export const notifyCreateProductSuccess = (productId: string, options?: ToastOptions) => {
   toast.success(<CreateProductSuccessMessage productId={productId} />, {

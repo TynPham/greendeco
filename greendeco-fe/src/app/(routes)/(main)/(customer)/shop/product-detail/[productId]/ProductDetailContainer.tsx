@@ -1,5 +1,5 @@
+import { ProductData, VariantData } from '@/src/types/product.type'
 import { VariantList } from './components'
-import { ProductData, VariantData } from '@/src/app/_api/axios/product'
 
 export type DetailContainerProps = {
   product: ProductData

@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import Step1 from '@/src/app/_assets/images/homepage/buyingprocess/step1.svg'
-import Step2 from '@/src/app/_assets/images/homepage/buyingprocess/step2.svg'
-import Step3 from '@/src/app/_assets/images/homepage/buyingprocess/step3.svg'
-import Step4 from '@/src/app/_assets/images/homepage/buyingprocess/step4.svg'
-import Step5 from '@/src/app/_assets/images/homepage/buyingprocess/step5.svg'
-import Arrow1 from '@/src/app/_assets/images/homepage/buyingprocess/arrow1.svg'
+import Step1 from '@/src/assets/images/homepage/buyingprocess/step1.svg'
+import Step2 from '@/src/assets/images/homepage/buyingprocess/step2.svg'
+import Step3 from '@/src/assets/images/homepage/buyingprocess/step3.svg'
+import Step4 from '@/src/assets/images/homepage/buyingprocess/step4.svg'
+import Step5 from '@/src/assets/images/homepage/buyingprocess/step5.svg'
+import Arrow1 from '@/src/assets/images/homepage/buyingprocess/arrow1.svg'
 
 type BuyingStepProps = {
   label: string

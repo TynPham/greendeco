@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import authApis from '../apiRequests/auth.api'
-import { removeTokensFromLocalStorage } from '../app/_utils/localStorage'
+import { removeTokensFromLocalStorage } from '../utils/localStorage'
 
 export const useLoginMutation = () => {
   return useMutation({
@@ -20,5 +20,23 @@ export const useLogoutMutation = () => {
     onSuccess: () => {
       removeTokensFromLocalStorage()
     }
+  })
+}
+
+export const useRegisterMutation = () => {
+  return useMutation({
+    mutationFn: authApis.register
+  })
+}
+
+export const useSendEmailToResetPasswordMutation = () => {
+  return useMutation({
+    mutationFn: authApis.sendEmailToResetPassword
+  })
+}
+
+export const useResetPasswordMutation = () => {
+  return useMutation({
+    mutationFn: authApis.resetPassword
   })
 }

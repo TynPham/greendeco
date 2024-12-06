@@ -4,14 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ResetPasswordFormInputType,
   ResetPasswordSchema
-} from '@/src/app/_configs/schemas/authentication'
-import { useMutation } from '@tanstack/react-query'
-import { resetPassword } from '@/src/app/_api/axios/authentication'
-import { AxiosError } from 'axios'
-import { notifyResetPasswordFail, notifyResetPasswordSuccess } from '../Notification'
-import { TextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
+} from '@/src/configs/schemas/authentication'
+import { TextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
 import { useRouter } from 'next/navigation'
+import { handleErrorApi } from '@/src/utils/utils'
+import { toast } from 'react-toastify'
+import { useResetPasswordMutation } from '@/src/queries/auth'
+import path from '@/src/constants/path'
 
 export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswordToken: string }) {
   const router = useRouter()
@@ -25,39 +25,27 @@ export default function ResetPasswordForm({ resetPasswordToken }: { resetPasswor
     reset,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<ResetPasswordFormInputType>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: defaultInputValues
   })
 
-  const resetPasswordMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: resetPassword,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: () => {
-      reset()
-      notifyResetPasswordSuccess({ onClose: () => router.push('/login') })
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyResetPasswordFail(e.response?.data.msg || e.message, {
-          onClose: () => router.push('/forgot-password')
-        })
-      }
-    }
-  })
+  const resetPasswordMutation = useResetPasswordMutation()
 
-  const onSubmitHandler: SubmitHandler<ResetPasswordFormInputType> = (values, e) => {
-    e?.preventDefault()
-    //NOTE: Execute the Mutation
-    resetPasswordMutation.mutate({
-      password: values.password,
-      token: resetPasswordToken
-    })
+  const onSubmitHandler: SubmitHandler<ResetPasswordFormInputType> = async (values) => {
+    if (resetPasswordMutation.isLoading) return
+    try {
+      const res = await resetPasswordMutation.mutateAsync(values)
+      reset()
+      toast.success(res.data.message)
+      router.push(path.login)
+    } catch (error) {
+      handleErrorApi({ error, setError })
+    }
   }
 
   return (

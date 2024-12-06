@@ -1,5 +1,4 @@
-import { OrderTableData, OrderState } from '@/src/app/_api/axios/admin/order'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import formatDate from '@/src/hooks/useFormatDate'
 import {
   createColumnHelper,
   useReactTable,
@@ -7,8 +6,9 @@ import {
   flexRender
 } from '@tanstack/react-table'
 import Link from 'next/link'
-import { ADMINISTRATOR_ROUTE, VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
+import { ADMINISTRATOR_ROUTE, VARIANT_CURRENCY } from '@/src/configs/constants/variables'
 import OrderDropdownState from '../DropdownState'
+import { OrderStateTable, OrderTableData } from '@/src/types/order.type'
 
 const columHelper = createColumnHelper<OrderTableData>()
 
@@ -71,7 +71,7 @@ const columns = [
   })
 ]
 
-const ActionWrapper = ({ order }: { order: OrderState }) => {
+const ActionWrapper = ({ order }: { order: OrderStateTable }) => {
   return (
     <div className='flex min-w-[150px] items-center justify-center'>
       <OrderDropdownState order={order} />

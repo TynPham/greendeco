@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import path from './constants/path'
-import { decodeToken } from './app/_utils/utils'
+import { decodeToken } from './utils/utils'
 
 const authPaths = [path.login, path.register, path.loginAdministrator]
 const privatePaths = [

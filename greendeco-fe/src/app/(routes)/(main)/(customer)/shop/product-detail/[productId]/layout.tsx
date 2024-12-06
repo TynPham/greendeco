@@ -1,12 +1,13 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { getProductDetailById } from '@/src/app/_api/axios/product'
+import { getProductDetailById } from '@/src/apiRequests/product.api'
 
 export const generateMetadata = async (props: {
   params: { productId: string }
 }): Promise<Metadata> => {
   const { params } = props
   const productName = await getProductDetailById(params.productId).then((res) => res.product.name)
+  console.log(productName)
   return {
     title: productName
   }

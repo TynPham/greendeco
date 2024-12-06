@@ -1,10 +1,9 @@
-import { useMutation } from '@tanstack/react-query'
-import { uploadImage } from '@/src/app/_api/axios/media'
-import { IMAGE_MAX_SIZE_IN_MB } from '@/src/app/_configs/constants/variables'
+import { IMAGE_MAX_SIZE_IN_MB } from '@/src/configs/constants/variables'
 import React, { Dispatch, SetStateAction } from 'react'
-import { EMPTY_STRING } from '@/src/app/_configs/constants/variables'
+import { EMPTY_STRING } from '@/src/configs/constants/variables'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+import { useUploadImageMutation } from '@/src/queries/media'
 
 type VariantImageProps = {
   image: string | undefined
@@ -53,10 +52,7 @@ const UploadInput = React.memo(function UploadInput({
 }: {
   setImage: Dispatch<SetStateAction<string | undefined>>
 }) {
-  const imageUploadMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: uploadImage,
-    //NOTE: Execuse after receiving suscess responses
+  const imageUploadMutation = useUploadImageMutation({
     onSuccess: (data) => {
       setImage(data)
     }

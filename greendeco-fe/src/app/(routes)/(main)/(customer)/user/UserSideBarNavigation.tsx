@@ -10,7 +10,7 @@ import {
   HandThumbUpIcon
 } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import useActivePath from '@/src/app/_hooks/useActivePath'
+import useActivePath from '@/src/hooks/useActivePath'
 
 type UserNavigation = {
   label: string

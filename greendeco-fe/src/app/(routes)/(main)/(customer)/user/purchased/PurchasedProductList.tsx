@@ -1,14 +1,14 @@
-import { ProductData } from '@/src/app/_api/axios/product'
 import Image from 'next/image'
-import Button from '@/src/app/_components/Button'
+import Button from '@/src/components/Button'
 import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid'
-import useCreateProductReviewDialog from '@/src/app/_hooks/dialog/useCreateReviewDialog'
+import useCreateProductReviewDialog from '@/src/hooks/dialog/useCreateReviewDialog'
 import { useRouter } from 'next/navigation'
-import { SHOP_ROUTE } from '@/src/app/_configs/constants/variables'
+import { SHOP_ROUTE } from '@/src/configs/constants/variables'
+import { ProductData } from '@/src/types/product.type'
 
 export default function PurchasedProductList({ productList }: { productList: ProductData[] }) {
   return (
-    <ul className=' grid gap-cozy lg:grid-cols-2  '>
+    <ul className='grid grid-cols-1 gap-cozy lg:grid-cols-1 xl:grid-cols-2'>
       {productList.map((product) => (
         <li key={product.id}>
           <Item product={product} />
@@ -33,7 +33,7 @@ const Item = ({ product }: { product: ProductData }) => {
 
 function ItemImage({ imageSrc }: { imageSrc: string }) {
   return (
-    <div className='relative aspect-square w-[140px] overflow-hidden  '>
+    <div className='relative aspect-square w-[140px] overflow-hidden'>
       <Image
         src={imageSrc}
         fill

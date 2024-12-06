@@ -1,27 +1,23 @@
 'use client'
-import { OrderData, getOrderPrice } from '@/src/app/_api/axios/order'
-import { VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
+
+import { VARIANT_CURRENCY } from '@/src/configs/constants/variables'
 import { BanknotesIcon, CreditCardIcon } from '@heroicons/react/24/solid'
-import { useQuery } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/app/_configs/constants/status'
+import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/configs/constants/status'
 import { useRouter } from 'next/navigation'
+import { useGetOrderPriceQuery } from '@/src/queries/order'
+import { OrderData } from '@/src/types/order.type'
 
 export default function PaymentInformation({ orderId }: { orderId: OrderData['id'] }) {
   const router = useRouter()
-  const orderPriceQuery = useQuery({
-    queryKey: ['order', 'price', orderId],
-    queryFn: () => getOrderPrice(orderId),
-
+  const orderPriceQuery = useGetOrderPriceQuery({
+    id: orderId,
     onError: (e) => {
-      if (e instanceof AxiosError) {
-        if (e.code === NOT_FOUND_STATUS.toString() || e.response?.status === NOT_FOUND_STATUS) {
-          router.back()
-        }
+      if (e.code === NOT_FOUND_STATUS.toString() || e.response?.status === NOT_FOUND_STATUS) {
+        router.back()
+      }
 
-        if (e.code === UNAUTHORIZE_STATUS.toString() || e.response?.status === UNAUTHORIZE_STATUS) {
-          router.push('/login')
-        }
+      if (e.code === UNAUTHORIZE_STATUS.toString() || e.response?.status === UNAUTHORIZE_STATUS) {
+        router.push('/login')
       }
     }
   })
@@ -37,19 +33,19 @@ export default function PaymentInformation({ orderId }: { orderId: OrderData['id
             Account number: <span className='text-body-md font-semi-bold'>12345678</span>
           </p>
           <p className='text-body-xsm '>
-            Account owner name: <span className='text-body-md font-semi-bold'>Nguyen Khai Tri</span>
+            Account owner name: <span className='text-body-md font-semi-bold'>Pham Tuyen</span>
           </p>
           <p className='text-body-xsm '>
-            Bank: <span className='text-body-md font-semi-bold'>BIDV DONG SAI GON</span>
+            Bank: <span className='text-body-md font-semi-bold'>Vietcombank</span>
           </p>
         </div>
       </div>
       <div className='flex items-center justify-between py-cozy'>
         <BanknotesIcon className='aspect-square h-[24px] text-primary-5555' />
         <span className='text-body-md font-semi-bold'>
-          {data && data.actual_price && (
+          {data && data.data.actual_price && (
             <>
-              {data?.actual_price} {VARIANT_CURRENCY}
+              {data.data?.actual_price} {VARIANT_CURRENCY}
             </>
           )}
           {isLoading && <>--</>}

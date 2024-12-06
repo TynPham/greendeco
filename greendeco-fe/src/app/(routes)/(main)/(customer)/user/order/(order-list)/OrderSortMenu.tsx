@@ -1,6 +1,6 @@
 'use client'
 
-import { DefaultSortMenu } from '@/src/app/_components/SortMenu'
+import { DefaultSortMenu } from '@/src/components/SortMenu'
 
 export const OrderSortMenu = () => {
   return (

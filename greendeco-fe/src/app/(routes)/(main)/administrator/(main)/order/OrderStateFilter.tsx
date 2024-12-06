@@ -1,6 +1,6 @@
 'use client'
-import { ORDER_STATE_FIELD } from '@/src/app/_configs/constants/variables'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
+import { ORDER_STATE_FIELD } from '@/src/configs/constants/variables'
+import useQueryParams from '@/src/hooks/useQueryParams'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useMemo } from 'react'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ToastContentProps, toast, ToastOptions } from 'react-toastify'
 import Link from 'next/link'
-import { AUTHENTICATION_ROUTE, SHOP_ROUTE } from '@/src/app/_configs/constants/variables'
+import { AUTHENTICATION_ROUTE, SHOP_ROUTE } from '@/src/configs/constants/variables'
 
 export const notifyRegisterSuccess = (options?: ToastOptions) => {
   toast.success(<RegisterSuccessMessage />, {

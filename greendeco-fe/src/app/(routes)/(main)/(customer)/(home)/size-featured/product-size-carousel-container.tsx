@@ -1,7 +1,7 @@
 'use client'
-import ProductCarousel from '@/src/app/_components/product/ProductCarousel'
+import ProductCarousel from '@/src/components/product/ProductCarousel'
 import { useGetProductList } from '@/src/queries/product'
-import { ProductSize } from '@/src/app/_types/product.type'
+import { ProductSize } from '@/src/types/product.type'
 import ProductSizeFallback from './product-size-fallback'
 
 const BREAKPOINTS = {

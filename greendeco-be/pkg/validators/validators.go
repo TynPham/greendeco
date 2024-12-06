@@ -13,7 +13,13 @@ func NewValidator() *validator.Validate {
 	validate := validator.New()
 	validate.RegisterCustomTypeFunc(ValidateUUID, uuid.UUID{})
 	validate.RegisterValidation("ISO8601date", IsISO8601Date)
+	validate.RegisterValidation("phone", ValidateVietnamesePhone)
 	return validate
+}
+
+func ValidateVietnamesePhone(fl validator.FieldLevel) bool {
+	phoneRegex := regexp.MustCompile(`^(0)(3[2-9]|5[2689]|7[06789]|8[1-9]|9[0-9])([0-9]{7})$`)
+	return phoneRegex.MatchString(fl.Field().String())
 }
 
 func ValidatorErrors(err error) map[string]string {

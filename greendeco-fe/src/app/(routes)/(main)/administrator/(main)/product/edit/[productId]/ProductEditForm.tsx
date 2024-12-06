@@ -1,36 +1,28 @@
 'use client'
-import { TextField, MultilineTextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
+import { TextField, MultilineTextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   UpdateProductDetailSchema,
   UpdateProductDetailFormInputType
-} from '@/src/app/_configs/schemas/updateProduct'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import {
-  SIZE_OPTIONS,
-  TYPE_OPTIONS,
-  DIFFICULTY_OPTIONS,
-  ADMINISTRATOR_ROUTE
-} from '@/src/app/_configs/constants/variables'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { updateProduct } from '@/src/app/_api/axios/admin/product'
-import { ProductData } from '@/src/app/_api/axios/product'
+} from '@/src/configs/schemas/updateProduct'
+import { SIZE_OPTIONS, TYPE_OPTIONS, DIFFICULTY_OPTIONS } from '@/src/configs/constants/variables'
 import EditImagesGrid from './EditImagesGrid'
 import { useContext } from 'react'
 import { useStore } from 'zustand'
-import { EditImagesContext } from '@/src/app/_configs/store/useEditImageStore'
-import LabelProvider from '@/src/app/_components/form/LabelProvider'
-import { notifyUpdateProductSuccess } from '../../Notifications'
+import { EditImagesContext } from '@/src/configs/store/useEditImageStore'
+import LabelProvider from '@/src/components/form/LabelProvider'
 import { useRouter } from 'next/navigation'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ProductData } from '@/src/types/product.type'
+import { useUpdateProductMutation } from '@/src/queries/product'
+import { handleErrorApi } from '@/src/utils/utils'
+import { toast } from 'react-toastify'
+import path from '@/src/constants/path'
 
 export default function ProductEditForm(product: ProductData) {
   const router = useRouter()
 
-  const queryClient = useQueryClient()
   const imagesStore = useContext(EditImagesContext)
   if (!imagesStore) throw new Error('Missing EditImageContext.Provider in the tree')
   const images = useStore(imagesStore, (state) => state.images)
@@ -52,7 +44,8 @@ export default function ProductEditForm(product: ProductData) {
     reset,
     register,
     handleSubmit,
-    formState: { errors, isDirty }
+    formState: { errors, isDirty },
+    setError
   } = useForm<UpdateProductDetailFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -60,33 +53,23 @@ export default function ProductEditForm(product: ProductData) {
     defaultValues: defaultInputValues
   })
 
-  const updateProductMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: updateProduct,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: (data) => {
-      handleResetForm()
-      notifyUpdateProductSuccess()
-      queryClient.invalidateQueries({
-        queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product, product.id]
+  const updateProductMutation = useUpdateProductMutation(product.id)
+
+  const onSubmitHandler: SubmitHandler<UpdateProductDetailFormInputType> = async (values) => {
+    if (updateProductMutation.isLoading) return
+
+    try {
+      await updateProductMutation.mutateAsync({
+        id: product.id,
+        ...values,
+        images: [...images]
       })
-      router.replace(`${ADMINISTRATOR_ROUTE.PRODUCT.LINK}/${product.id}`)
+      handleResetForm()
+      toast.success('Update product successfully')
+      router.replace(`${path.productAdministrator}/${product.id}`)
+    } catch (error) {
+      handleErrorApi({ error, setError })
     }
-    //NOTE: Execuse after receving failure responses
-    /* onError: (e) => {
-			if (e instanceof AxiosError) {
-			}
-		}, */
-  })
-
-  const onSubmitHandler: SubmitHandler<UpdateProductDetailFormInputType> = (values, e) => {
-    e?.preventDefault()
-
-    const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-    updateProductMutation.mutate({
-      productData: { id: product.id, ...values, images: [...images] },
-      adminAccessToken: adminAccessToken
-    })
   }
   const handleResetForm = () => {
     reset()

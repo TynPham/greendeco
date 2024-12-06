@@ -5,13 +5,11 @@ import 'swiper/css'
 import type { Metadata } from 'next'
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
-import AppContextProvider from '../_configs/store/useAppContext'
+import AppContextProvider from '../../configs/store/useAppContext'
 import { cookies } from 'next/headers'
-import { ACCESS_TOKEN_COOKIE_NAME } from '../_configs/constants/cookies'
-import { User } from '../_types/user.type'
-import { getUserProfile } from '../_api/axios/user'
+import { User } from '../../types/user.type'
 import { TokenType } from '@/src/constants/token'
-import UserApis from '@/src/apiRequests/user.api'
+import userApis from '@/src/apiRequests/user.api'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,9 +21,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let user: User | null = null
   const accessToken = cookieStore.get(TokenType.ACCESS_TOKEN)?.value ?? ''
   if (accessToken) {
-    const userResponse = await UserApis.sGetUserProfile(accessToken)
+    const userResponse = await userApis.sGetUserProfile(accessToken)
     user = userResponse.data
   }
+
   return (
     <html lang='en'>
       <body>

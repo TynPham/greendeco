@@ -2,19 +2,17 @@
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AxiosError } from 'axios'
-import Button from '@/src/app/_components/Button'
-import { UserProfileFormInputType, UserProfileSchema } from '@/src/app/_configs/schemas/userProfile'
+import Button from '@/src/components/Button'
+import { UserProfileFormInputType, UserProfileSchema } from '@/src/configs/schemas/userProfile'
 import UserAvatar from './UserAvatar'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState, memo } from 'react'
-import { UserProfileResponseData, updateUserProfile } from '@/src/app/_api/axios/user'
-import { notifySuccess, notifyError } from './Notification'
-import { TextField } from '@/src/app/_components/form'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
-import { User } from '@/src/app/_types/user.type'
-import { useAppContext } from '@/src/app/_configs/store/useAppContext'
+import { notifySuccess } from './Notification'
+import { TextField } from '@/src/components/form'
+import { User } from '@/src/types/user.type'
+import { useAppContext } from '@/src/configs/store/useAppContext'
+import { useUpdateUserProfileMutation } from '@/src/queries/user'
+import { handleErrorApi } from '@/src/utils/utils'
 
 function UserProfileForm({ profile }: { profile: User }) {
   const { avatar, firstName, lastName, email, phoneNumber } = profile
@@ -34,7 +32,8 @@ function UserProfileForm({ profile }: { profile: User }) {
     reset,
     register,
     handleSubmit,
-    formState: { errors, isDirty }
+    formState: { errors, isDirty },
+    setError
   } = useForm<UserProfileFormInputType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -42,36 +41,25 @@ function UserProfileForm({ profile }: { profile: User }) {
     defaultValues: defaultInputValues
   })
 
-  const updateUserProfileMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: updateUserProfile,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: (data) => {
-      reset(data)
-      notifySuccess()
-      setUser(data)
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyError(e.response?.data.msg)
-      }
-    }
-  })
+  const updateUserProfileMutation = useUpdateUserProfileMutation()
 
-  const onSubmitHandler: SubmitHandler<UserProfileFormInputType> = (values, e) => {
-    e?.preventDefault()
-    const accessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)
-    //NOTE: Execute the Mutation
-    updateUserProfileMutation.mutate({
-      profile: {
+  const onSubmitHandler: SubmitHandler<UserProfileFormInputType> = async (values) => {
+    if (updateUserProfileMutation.isLoading) return
+    try {
+      const res = await updateUserProfileMutation.mutateAsync({
         avatar: userAvatar,
         email: values.email,
         firstName: values.firstName,
         lastName: values.lastName,
         phoneNumber: values.phoneNumber
-      }
-    })
+      })
+
+      reset(res.data)
+      notifySuccess()
+      setUser(res.data)
+    } catch (error) {
+      handleErrorApi({ error, setError: setError })
+    }
   }
   return (
     <div className='flex-col-start gap-comfortable'>

@@ -30,7 +30,7 @@ type CreateUser struct {
 	Password    string `json:"password" validate:"required,lte=50,gte=8"`
 	FirstName   string `json:"firstName" validate:"required,lte=50"`
 	LastName    string `json:"lastName" validate:"required,lte=50"`
-	PhoneNumber string `json:"phoneNumber" validate:"required,e164"`
+	PhoneNumber string `json:"phoneNumber" validate:"required,phone"`
 }
 
 type UserLogin struct {
@@ -51,7 +51,7 @@ type EmailResponse struct {
 type UpdateUser struct {
 	FirstName   string  `json:"firstName" validate:"required,lte=50"`
 	LastName    string  `json:"lastName" validate:"required,lte=50"`
-	PhoneNumber string  `json:"phoneNumber" validate:"required,e164"`
+	PhoneNumber string  `json:"phoneNumber" validate:"required,phone"`
 	Email       string  `json:"email" validate:"required,email,lte=150"`
 	Avatar      *string `json:"avatar" validate:"omitempty,url"`
 }

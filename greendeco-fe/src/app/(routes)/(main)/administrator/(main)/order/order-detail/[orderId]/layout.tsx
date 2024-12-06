@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import Block from '@/src/app/_components/Block'
+import Block from '@/src/components/Block'
 
 export const metadata: Metadata = {
   title: 'Order Detail',

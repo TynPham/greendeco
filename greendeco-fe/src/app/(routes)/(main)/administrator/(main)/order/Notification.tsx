@@ -1,8 +1,8 @@
-import { OrderData } from '@/src/app/_api/axios/order'
 import React from 'react'
 import { ToastOptions, toast } from 'react-toastify'
 import Link from 'next/link'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
+import { OrderData } from '@/src/types/order.type'
 
 export const notifyUpdateCancelSuccess = (
   orderId: string,

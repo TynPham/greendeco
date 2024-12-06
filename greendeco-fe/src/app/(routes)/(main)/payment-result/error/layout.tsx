@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { CheckBadgeIcon } from '@heroicons/react/24/outline'
-import Footer from '@/src/app/_components/footer'
+import Footer from '@/src/components/footer'
 
 export const metadata: Metadata = {
   title: 'Payment Unsuccessful',

@@ -1,11 +1,11 @@
-import { ProductData, getVariantsByProductId } from '@/src/app/_api/axios/product'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
-import { useQuery } from '@tanstack/react-query'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
 import Link from 'next/link'
 import VariantDisplay from './VariantDislay'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ADMIN_QUERY_KEY } from '@/src/configs/constants/queryKey'
 import { ArchiveBoxXMarkIcon, PlusCircleIcon } from '@heroicons/react/24/solid'
 import { VariantDetailLoading } from '../loading/VariantLoading'
+import { useGetVariantsByProductId } from '@/src/queries/product'
+import { ProductData } from '@/src/types/product.type'
 
 export default function ProductVariantInfo({
   productName,
@@ -14,24 +14,20 @@ export default function ProductVariantInfo({
   productName: ProductData['name']
   productId: ProductData['id']
 }) {
-  const variantQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, productId],
-    queryFn: () => getVariantsByProductId(productId)
-  })
-
-  const { data, isSuccess, isError, isLoading } = variantQuery
+  const { data, isLoading } = useGetVariantsByProductId(productId, ADMIN_QUERY_KEY)
+  console.log(data?.data?.items)
 
   return (
     <>
       {isLoading && <VariantDetailLoading />}
-      {data && data?.page_size > 0 && (
+      {data && data.data?.page_size > 0 && (
         <VariantDisplay
-          variantList={data.items}
+          variantList={data.data.items}
           productId={productId}
           productName={productName}
         />
       )}
-      {data && data?.page_size === 0 && (
+      {data && data.data?.page_size === 0 && (
         <CreateNewVariantMessage
           productId={productId}
           productName={productName}

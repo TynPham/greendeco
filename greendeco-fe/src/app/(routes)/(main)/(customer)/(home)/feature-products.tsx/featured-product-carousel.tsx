@@ -1,7 +1,7 @@
 'use client'
 
-import ProductCarousel from '@/src/app/_components/product/ProductCarousel'
-import { FEATURE_PRODUCT_PARAMS } from '@/src/app/_configs/constants/variables'
+import ProductCarousel from '@/src/components/product/ProductCarousel'
+import { FEATURE_PRODUCT_PARAMS } from '@/src/configs/constants/variables'
 import { useMemo } from 'react'
 import { useGetProductList } from '@/src/queries/product'
 import ProductFallback from './product-fallback'

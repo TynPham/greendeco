@@ -1,13 +1,13 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import ReviewSection from './ProductReviewSection'
 import DetailContainer from './ProductDetailContainer'
 import ImageGallery from './ProductImageGallery'
 import Price from './ProductPrice'
-import { ProductDetailData, getProductDetailById } from '@/src/app/_api/axios/product'
-import { useVariantStore } from '@/src/app/_configs/store/useVariantStore'
+import { useVariantStore } from '@/src/configs/store/useVariantStore'
 import ProductDetailLoading from './loading'
+import { useGetProductDetailById } from '@/src/queries/product'
+import { ProductDetailData } from '@/src/types/product.type'
 
 export default function ProductDetailPage({
   params
@@ -16,12 +16,7 @@ export default function ProductDetailPage({
     productId: string
   }
 }) {
-  const productDetailQuery = useQuery({
-    queryKey: ['product', params.productId],
-    queryFn: () => getProductDetailById(params.productId)
-  })
-
-  const { data, isLoading, isSuccess, isError } = productDetailQuery
+  const { data, isLoading, isSuccess } = useGetProductDetailById(params.productId)
 
   return (
     <>

@@ -1,16 +1,12 @@
 import React, { Dispatch } from 'react'
 import Image from 'next/image'
-import { AxiosError } from 'axios'
-import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
-import { useMutation } from '@tanstack/react-query'
-import { uploadImage } from '@/src/app/_api/axios/media'
-import { UserProfileResponseData } from '@/src/app/_api/axios/user'
-import { IMAGE_MAX_SIZE_IN_MB } from '@/src/app/_configs/constants/variables'
-import { notifyError } from './Notification'
-import Button from '@/src/app/_components/Button'
+import { DEFAULT_AVATAR } from '@/src/configs/constants/images'
+import { IMAGE_MAX_SIZE_IN_MB } from '@/src/configs/constants/variables'
+import Button from '@/src/components/Button'
 import { PhotoIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { MutatingDots } from 'react-loader-spinner'
-import { User } from '@/src/app/_types/user.type'
+import { User } from '@/src/types/user.type'
+import { useUploadImageMutation } from '@/src/queries/media'
 
 function UserAvatar({
   avatar,
@@ -19,30 +15,19 @@ function UserAvatar({
   avatar: User['avatar']
   setAvatar: Dispatch<User['avatar']>
 }) {
-  const imageUploadMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: uploadImage,
-    //NOTE: Execuse after receiving suscess responses
+  const imageUploadMutation = useUploadImageMutation({
     onSuccess: (data) => {
       setAvatar(data)
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyError(e.response?.data.msg)
-      }
     }
   })
 
   function handleImageChange(imageFile: File) {
-    validateImageSize(imageFile)
-      .then(() => {
-        const formData = new FormData()
-        formData.append('image', imageFile)
+    validateImageSize(imageFile).then(() => {
+      const formData = new FormData()
+      formData.append('image', imageFile)
 
-        imageUploadMutation.mutate(formData)
-      })
-      .catch((error) => notifyError(error))
+      imageUploadMutation.mutate(formData)
+    })
   }
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

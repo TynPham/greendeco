@@ -3,6 +3,7 @@ package routes
 import (
 	"greendeco-be/app/controller"
 	"greendeco-be/pkg/middlewares"
+
 	"github.com/gofiber/fiber/v2"
 )
 

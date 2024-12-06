@@ -1,8 +1,8 @@
-import { SHOP_ROUTE } from '@/src/app/_configs/constants/variables'
+import { SHOP_ROUTE } from '@/src/configs/constants/variables'
 import Link from 'next/link'
 import Image from 'next/image'
-import HeroImage from '@/src/app/_assets/images/homepage/hero.png'
-import PlantIcon from '@/src/app/_assets/images/homepage/plant.svg'
+import HeroImage from '@/src/assets/images/homepage/hero.png'
+import PlantIcon from '@/src/assets/images/homepage/plant.svg'
 
 const HeroStats = () => (
   <div className='z-20 rounded-[16px] border-[3px] border-primary-625 bg-neutral-gray-1 p-cozy shadow-26 md:absolute md:-left-40 md:bottom-52'>

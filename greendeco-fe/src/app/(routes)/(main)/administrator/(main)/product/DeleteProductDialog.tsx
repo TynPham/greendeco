@@ -1,18 +1,22 @@
 'use client'
 
-import { ProductData } from '@/src/app/_api/axios/product'
-import useDeleteProduct from '@/src/app/_hooks/useDeleteProduct'
-import Button from '@/src/app/_components/Button'
-import { getCookie } from 'cookies-next'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
+import Button from '@/src/components/Button'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { useDialogStore } from '@/src/app/_configs/store/useDialogStore'
-import useClickOutside from '@/src/app/_hooks/useClickOutside'
+import { useDialogStore } from '@/src/configs/store/useDialogStore'
+import useClickOutside from '@/src/hooks/useClickOutside'
 import { useRef } from 'react'
+import { ProductData } from '@/src/types/product.type'
+import { notifyDeleteProductSuccess } from './Notifications'
+import { useDeleteProductMutation } from '@/src/queries/product'
 
 export default function DeleteProductDialog({ productId }: { productId: ProductData['id'] }) {
   const { closeDialog } = useDialogStore()
-  const { mutate, isLoading, isSuccess } = useDeleteProduct()
+  const { mutate, isLoading } = useDeleteProductMutation({
+    onSuccess: () => {
+      closeDialog()
+      notifyDeleteProductSuccess()
+    }
+  })
   const deleteProductDialogRef = useRef<any>()
 
   useClickOutside(deleteProductDialogRef, () => {
@@ -20,11 +24,7 @@ export default function DeleteProductDialog({ productId }: { productId: ProductD
   })
 
   const handleDeleteProduct = () => {
-    const adminAccessToken = getCookie(ACCESS_TOKEN_COOKIE_NAME)?.toString()
-    mutate({
-      productId: productId,
-      adminAccessToken: adminAccessToken
-    })
+    mutate(productId)
   }
 
   return (

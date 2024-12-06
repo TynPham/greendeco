@@ -2,6 +2,8 @@ const path = {
   home: '/',
   login: '/login',
   register: '/register',
+  forgotPassword: '/forgot-password',
+  emailSendSuccess: '/forgot-password/email-send-success',
   loginAdministrator: '/administrator/login',
   productAdministrator: '/administrator/product',
   orderAdministrator: '/administrator/order',

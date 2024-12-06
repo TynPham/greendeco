@@ -1,7 +1,7 @@
 'use client'
 import { memo } from 'react'
 import clsx from 'clsx'
-import { ProductSize } from '@/src/app/_types/product.type'
+import { ProductSize } from '@/src/types/product.type'
 
 export type SizeOptionType = {
   label: string

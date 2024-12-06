@@ -6,6 +6,7 @@ export async function POST(request: Request) {
   const cookieStore = cookies()
 
   cookieStore.delete('accessToken')
+  cookieStore.delete('cartId')
 
   return NextResponse.json({ message: 'Logout successfully' }, { status: HttpStatusCode.Ok })
 }

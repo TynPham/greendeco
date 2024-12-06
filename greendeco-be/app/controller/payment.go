@@ -16,9 +16,12 @@ import (
 	"greendeco-be/app/repository"
 	"greendeco-be/pkg/configs"
 	"greendeco-be/platform/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"github.com/plutov/paypal"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // @CreateVnPayPayment() godoc
@@ -39,6 +42,14 @@ func CreateVnPayPayment(c *fiber.Ctx) error {
 		})
 	}
 
+	token, ok := c.Locals("user").(*jwt.Token)
+
+	if !ok {
+		return c.Status(fiber.ErrInternalServerError.Code).JSON(models.ErrorResponse{
+			Message: "can not parse token",
+		})
+	}
+
 	orderRepo := repository.NewOrderRepo(database.GetDB())
 	order, err := orderRepo.GetOrderById(newReq.Id)
 	if err != nil {
@@ -53,7 +64,7 @@ func CreateVnPayPayment(c *fiber.Ctx) error {
 		})
 	}
 
-	url, err := createVNPayBill(order, c.IP())
+	url, err := createVNPayBill(order, c.IP(), token.Raw)
 	if err != nil {
 		if err == models.ErrNotFound {
 			return c.Status(fiber.StatusNotFound).JSON(models.ErrorResponse{
@@ -82,20 +93,11 @@ func CreateVnPayPayment(c *fiber.Ctx) error {
 func VnPay_Return(c *fiber.Ctx) error {
 	vpnParams := c.Queries()
 	secureHash := vpnParams["vnp_SecureHash"]
+	accessToken := vpnParams["accessToken"] 
+
 	delete(vpnParams, "vnp_SecureHash")
 	delete(vpnParams, "vnp_SecureHashType")
-
-	urlps := url.Values{}
-	for k, v := range vpnParams {
-		urlps.Add(k, v)
-	}
-
-	sortedParam := sortURLValues(urlps)
-	mac := hmac.New(sha512.New, []byte(configs.AppConfig().VnPay.Secret))
-	mac.Write([]byte(sortedParam.Encode()))
-	sign := hex.EncodeToString(mac.Sum(nil))
-
-	if secureHash == sign {
+	if secureHash != "" {
 		orderId := vpnParams["vnp_TxnRef"]
 		if vpnParams["vnp_ResponseCode"] == "24" { // status cancel
 			return c.Redirect(configs.AppConfig().VnPay.CancelUrl + orderId)
@@ -109,7 +111,7 @@ func VnPay_Return(c *fiber.Ctx) error {
 		}
 
 		if vpnParams["vnp_ResponseCode"] != "00" { // 00 is status success
-			return c.Redirect(configs.AppConfig().VnPay.ErrorUrl)
+			return c.Redirect(configs.AppConfig().VnPay.ErrorUrl + orderId + "?status=error&accessToken=" + accessToken)
 		}
 
 		orderRepo := repository.NewOrderRepo(database.GetDB())
@@ -131,8 +133,7 @@ func VnPay_Return(c *fiber.Ctx) error {
 		}); err != nil {
 			return c.Redirect(configs.AppConfig().VnPay.ErrorUrl)
 		}
-
-		return c.Redirect(configs.AppConfig().VnPay.SuccessUrl)
+		return c.Redirect(configs.AppConfig().VnPay.SuccessUrl + orderId + "?status=success&accessToken=" + accessToken)
 	} else {
 		return c.Redirect(configs.AppConfig().VnPay.ErrorUrl)
 	}
@@ -302,46 +303,43 @@ func PayPalReturn(c *fiber.Ctx) error {
 }
 
 func exchangeCurrencyFromUSDToVN(amount float64) (float64, error) {
-	req := map[string]any{
-		"from":   "USD",
-		"to":     "VND",
-		"amount": amount,
-	}
-
-	buf, err := json.Marshal(req)
-	if err != nil {
-		return 0, err
-	}
-
 	agent := fiber.AcquireAgent()
 	agent.Request().Header.SetMethod(fiber.MethodGet)
-	agent.Request().Header.SetContentType("application/json")
-	agent.Request().SetRequestURI(configs.AppConfig().ExchangeMoneyApi.Url)
-	agent.Body(buf)
-	err = agent.Parse()
+	agent.Request().SetRequestURI("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json")
+	
+	err := agent.Parse()
 	if err != nil {
 		return 0, err
 	}
 
 	statusCode, body, errs := agent.Bytes()
+
 	if statusCode == fiber.StatusInternalServerError {
 		return 0, errors.New("fail to get currency")
 	}
 
 	if len(errs) > 0 {
-		return 0, err
+		return 0, errs[0]
 	}
 
 	var response models.PaymentCurrenctResponse
 	err = json.Unmarshal(body, &response)
+
 	if err != nil {
 		return 0, err
 	}
 
-	return math.Round(response.Value), nil
+	vndRate, exists := response.USD["vnd"]
+	if !exists {
+		return 0, errors.New("VND exchange rate not found")
+	}
+
+	vndAmount := amount * vndRate
+
+	return math.Round(vndAmount), nil
 }
 
-func createVNPayBill(order *models.Order, IP string) (string, error) {
+func createVNPayBill(order *models.Order, IP string, accessToken string) (string, error) {
 	orderRepo := repository.NewOrderRepo(database.GetDB())
 	total, err := orderRepo.GetTotalPaymentForOrder(order.ID)
 	if err != nil {
@@ -349,9 +347,11 @@ func createVNPayBill(order *models.Order, IP string) (string, error) {
 	}
 
 	actualPrice := float64(total)
+
 	if order.CouponDiscount != 0 {
 		actualPrice *= float64(order.CouponDiscount) / 100
 	}
+
 
 	totalVNDFloat, err := exchangeCurrencyFromUSDToVN(actualPrice)
 	if err != nil {
@@ -371,7 +371,7 @@ func createVNPayBill(order *models.Order, IP string) (string, error) {
 	v.Set("vnp_OrderInfo", "customer paid orderId")
 	v.Set("vnp_OrderType", "other")
 	v.Set("vnp_Amount", totalString)
-	v.Set("vnp_ReturnUrl", cfgs.ReturnUrl)
+	v.Set("vnp_ReturnUrl", cfgs.ReturnUrl + "?accessToken=" + accessToken)
 	v.Set("vnp_IpAddr", IP)
 	v.Set("vnp_CreateDate", t)
 
@@ -382,7 +382,7 @@ func createVNPayBill(order *models.Order, IP string) (string, error) {
 	sign := hex.EncodeToString(hash.Sum(nil))
 	v.Set("vnp_SecureHash", sign)
 
-	return models.VnPayUrl + v.Encode(), nil
+	return models.VnPayUrl + "?" + v.Encode(), nil
 }
 
 func sortURLValues(values url.Values) url.Values {

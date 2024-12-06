@@ -1,7 +1,7 @@
-import { OrderFullDetailData, OrderProductData } from '@/src/app/_api/axios/order'
 import Image from 'next/image'
-import { VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
-import { NOT_FOUND_IMAGE } from '@/src/app/_configs/constants/images'
+import { VARIANT_CURRENCY } from '@/src/configs/constants/variables'
+import { NOT_FOUND_IMAGE } from '@/src/configs/constants/images'
+import { OrderFullDetailData, OrderProductData } from '@/src/types/order.type'
 
 export default function OrderProductList({
   productList

@@ -1,11 +1,9 @@
 'use client'
-import Block from '@/src/app/_components/Block'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
-import { useQuery } from '@tanstack/react-query'
-import { UseQueryKeys, ADMIN_QUERY_KEY } from '@/src/app/_configs/constants/queryKey'
-import { getVariantById } from '@/src/app/_api/axios/product'
+import Block from '@/src/components/Block'
+import { ADMIN_QUERY_KEY } from '@/src/configs/constants/queryKey'
 import EditVariantForm from './EditVariantForm'
 import { VariantFormLoading } from '../../../loading/VariantLoading'
+import { useGetVariantById } from '@/src/queries/product'
 
 export default function VariantManagement({
   params: { variantId }
@@ -14,21 +12,16 @@ export default function VariantManagement({
     variantId: string
   }
 }) {
-  const variantQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Variant, variantId],
-    queryFn: () => getVariantById(variantId)
-  })
-
-  const { data, isSuccess, isLoading, isError } = variantQuery
+  const { data, isSuccess, isLoading } = useGetVariantById(variantId, ADMIN_QUERY_KEY)
   return (
     <Block>
       {isLoading && <VariantFormLoading />}
       {isSuccess && (
         <>
           <h1>Edit Variant </h1>
-          {data && data.items && (
+          {data && data.data.items && (
             <div className='mt-cozy border-x border-primary-625-80 px-comfortable'>
-              <EditVariantForm {...data.items} />
+              <EditVariantForm {...data.data.items} />
             </div>
           )}
         </>

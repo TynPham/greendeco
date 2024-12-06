@@ -1,11 +1,8 @@
 'use client'
-import { OrderState, getOrderFullDetailAsAdministratorById } from '@/src/app/_api/axios/admin/order'
-import { useQuery } from '@tanstack/react-query'
+
 import OrderDropdownState from '../../DropdownState'
-import { OrderData, OrderFullDetailData } from '@/src/app/_api/axios/order'
 import OrderInformationWrapper from './OrderInformation'
 import { TailSpin } from 'react-loader-spinner'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
 import {
   BanknotesIcon,
   EnvelopeIcon,
@@ -15,8 +12,10 @@ import {
   UserCircleIcon
 } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/navigation'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import formatDate from '@/src/hooks/useFormatDate'
 import OrderProductList from './OrderProductList'
+import { OrderData, OrderFullDetailData, OrderStateTable } from '@/src/types/order.type'
+import { useGetOrderFullDetailByIdQuery } from '@/src/queries/order'
 
 export default function OrderDetailManagementPage({
   params
@@ -26,10 +25,7 @@ export default function OrderDetailManagementPage({
   }
 }) {
   const { orderId } = params
-  const orderQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order, orderId],
-    queryFn: () => getOrderFullDetailAsAdministratorById(orderId)
-  })
+  const orderQuery = useGetOrderFullDetailByIdQuery({ id: orderId })
 
   const { data, isSuccess, isLoading, isError } = orderQuery
   return (
@@ -56,7 +52,7 @@ export default function OrderDetailManagementPage({
 
 function ContentWrapper({ order }: { order: OrderFullDetailData }) {
   const router = useRouter()
-  const orderDropDown: OrderState = {
+  const orderDropDown: OrderStateTable = {
     owner_id: order.order.owner_id,
     order_id: order.order.id,
     state: order.order.state

@@ -1,4 +1,4 @@
-import Block from '@/src/app/_components/Block'
+import Block from '@/src/components/Block'
 import CreateProductForm from './CreateProductForm'
 
 export default function CreateProductPage() {

@@ -1,6 +1,5 @@
 'use client'
 
-import { OrderFullDetailData, getOrderFullDetailById } from '@/src/app/_api/axios/order'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import OrderDetailContainer from './OrderDetailContainer'
@@ -8,9 +7,13 @@ import OrderProductList from './OrderProductList'
 import OrderPrice from './OrderPrice'
 import UserOrderDetailLoading from './loading'
 import { ArrowLeftIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { useRouter } from 'next/navigation'
-import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { USER_SETTING_ROUTE } from '@/src/configs/constants/variables'
+import { useGetOrderFullDetailByIdQuery } from '@/src/queries/order'
+import { getAccessTokenFromLocalStorage } from '@/src/utils/localStorage'
+import { useEffect } from 'react'
+import { TokenType } from '@/src/constants/token'
+import { toast } from 'react-toastify'
 
 export default function OrderDetailPage({
   params: { orderId }
@@ -19,10 +22,26 @@ export default function OrderDetailPage({
     orderId: string
   }
 }) {
-  const orderDetailQuery = useQuery({
-    queryKey: [UseQueryKeys.Order, UseQueryKeys.User, orderId],
-    queryFn: () => getOrderFullDetailById(orderId)
-  })
+  const orderDetailQuery = useGetOrderFullDetailByIdQuery({ id: orderId })
+
+  const searchParams = useSearchParams()
+  const accessToken = getAccessTokenFromLocalStorage()
+  const router = useRouter()
+
+  useEffect(() => {
+    const tokenCallBack = searchParams.get(TokenType.ACCESS_TOKEN)
+    if (tokenCallBack && accessToken) {
+      if (tokenCallBack === accessToken) {
+        const status = searchParams.get('status')
+        if (status === 'success') {
+          toast.success('The order has been paid successfully')
+        } else if (status === 'error') {
+          toast.success('Something went wrong')
+        }
+        router.replace(`/user/order/${orderId}`)
+      }
+    }
+  }, [searchParams, accessToken])
 
   const { data, isLoading, isError } = orderDetailQuery
   return (

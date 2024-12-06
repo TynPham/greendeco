@@ -1,6 +1,6 @@
-import Button from '@/src/app/_components/Button'
+import Button from '@/src/components/Button'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
-import usePagination from '@/src/app/_hooks/usePagination'
+import usePagination from '@/src/hooks/usePagination'
 
 type PaginationProps = {
   next: boolean

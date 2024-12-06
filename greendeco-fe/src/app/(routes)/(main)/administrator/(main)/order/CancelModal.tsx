@@ -1,33 +1,31 @@
 'use client'
 
-import {
-  OrderState,
-  StatusRequest,
-  updateOrderStatusSendNoti
-} from '@/src/app/_api/axios/admin/order'
-import Button from '@/src/app/_components/Button'
-import { MultilineTextField } from '@/src/app/_components/form'
+import Button from '@/src/components/Button'
+import { MultilineTextField } from '@/src/components/form'
 import {
   CreateNotificationInputType,
   CreateNotificationSchema
-} from '@/src/app/_configs/schemas/notification'
+} from '@/src/configs/schemas/notification'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { notifyUpdateCancelSuccess } from './Notification'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { notifyError } from '../../../(customer)/user/setting/profile/Notification'
-import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/app/_configs/constants/cookies'
+import { ACCESS_TOKEN_COOKIE_NAME } from '@/src/configs/constants/cookies'
 import { getCookie } from 'cookies-next'
-import { ORDER_STATE_FIELD } from '@/src/app/_configs/constants/variables'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
-import { useDialogStore } from '@/src/app/_configs/store/useDialogStore'
-import createNotificationMessage from '@/src/app/_hooks/useOrderNotificationMessage'
+import { ORDER_STATE_FIELD } from '@/src/configs/constants/variables'
+import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/configs/constants/queryKey'
+import { useDialogStore } from '@/src/configs/store/useDialogStore'
+import createNotificationMessage from '@/src/hooks/useOrderNotificationMessage'
 import { useRef } from 'react'
-import useClickOutside from '@/src/app/_hooks/useClickOutside'
+import useClickOutside from '@/src/hooks/useClickOutside'
+import { useUpdateOrderStatusSendNotiMutation } from '@/src/queries/order'
+import { handleErrorApi } from '@/src/utils/utils'
+import { OrderStateTable, StatusRequest } from '@/src/types/order.type'
 
 type CancelModalType = {
-  order: OrderState
+  order: OrderStateTable
 }
 
 export default function CancelModal({ order }: CancelModalType) {
@@ -48,46 +46,40 @@ export default function CancelModal({ order }: CancelModalType) {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<StatusRequest>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(CreateNotificationSchema),
     defaultValues: defaultInputValues
   })
 
-  const updateCancelStatusMutation = useMutation({
-    mutationFn: updateOrderStatusSendNoti,
-    onSuccess: () => {
+  const updateCancelStatusMutation = useUpdateOrderStatusSendNotiMutation()
+  const handleOnSubmitCancel: SubmitHandler<StatusRequest> = async (values) => {
+    if (updateCancelStatusMutation.isLoading) return
+
+    try {
+      const notificationMessage = createNotificationMessage(
+        order.order_id,
+        ORDER_STATE_FIELD.cancelled.state,
+        values.message
+      )
+
+      await updateCancelStatusMutation.mutateAsync({
+        orderId: order.order_id,
+        userId: order.owner_id,
+        message: notificationMessage.message,
+        // title for cancel message
+        title: notificationMessage.title,
+        state: ORDER_STATE_FIELD.cancelled.state
+      })
+
       notifyUpdateCancelSuccess(order.order_id, ORDER_STATE_FIELD.cancelled.state)
-      queryClient.invalidateQueries({ queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order] })
       closeDialog()
-    },
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifyError(e.response?.data.msg)
-      }
+    } catch (error) {
+      handleErrorApi({ error, setError })
     }
-  })
-
-  const handleOnSubmitCancel: SubmitHandler<StatusRequest> = (values, e) => {
-    e?.preventDefault()
-
-    const notifcationMessage = createNotificationMessage(
-      order.order_id,
-      ORDER_STATE_FIELD.cancelled.state,
-      values.message
-    )
-
-    updateCancelStatusMutation.mutate({
-      adminAccessToken: adminAccessToken!,
-      orderId: order.order_id,
-      userId: order.owner_id,
-      message: notifcationMessage.message,
-      // title for cancel message
-      title: notifcationMessage.title,
-      state: ORDER_STATE_FIELD.cancelled.state
-    })
   }
   return (
     <div className='container sticky top-0 flex size-full max-h-screen items-center justify-center'>

@@ -1,6 +1,6 @@
-import { VariantData } from '@/src/app/_api/axios/product'
-import LabelProvider from '@/src/app/_components/form/LabelProvider'
-import formatDate from '@/src/app/_hooks/useFormatDate'
+import LabelProvider from '@/src/components/form/LabelProvider'
+import formatDate from '@/src/hooks/useFormatDate'
+import { VariantData } from '@/src/types/product.type'
 import { CheckBadgeIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -28,7 +28,16 @@ function VariantImage({ image }: { image: VariantData['image'] }) {
   )
 }
 
-function Detail({ description, color_name, name, price, currency, available, color }: VariantData) {
+function Detail({
+  description,
+  color_name,
+  name,
+  price,
+  currency,
+  available,
+  color,
+  quantity
+}: VariantData) {
   return (
     <div className='flex-col-start gap-cozy'>
       <LabelProvider
@@ -57,6 +66,13 @@ function Detail({ description, color_name, name, price, currency, available, col
             style={{ backgroundColor: color }}
           />
         </span>
+      </LabelProvider>
+      <LabelProvider
+        label='Quantity:'
+        className='gap-[4px] text-body-sm'
+        direction='vertical'
+      >
+        <span className='text-body-md'>{quantity}</span>
       </LabelProvider>
       <LabelProvider
         label='Price:'

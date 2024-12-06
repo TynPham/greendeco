@@ -1,6 +1,6 @@
 import authApis from '@/src/apiRequests/auth.api'
-import { LoginBodyType } from '@/src/app/_types/auth'
-import { decodeToken } from '@/src/app/_utils/utils'
+import { LoginBodyType } from '@/src/types/auth'
+import { decodeToken } from '@/src/utils/utils'
 import { AxiosError, HttpStatusCode } from 'axios'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'

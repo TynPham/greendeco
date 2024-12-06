@@ -1,4 +1,4 @@
-import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
+import { AUTHENTICATION_ROUTE } from '@/src/configs/constants/variables'
 import RegisterForm from './RegisterForm'
 import Link from 'next/link'
 

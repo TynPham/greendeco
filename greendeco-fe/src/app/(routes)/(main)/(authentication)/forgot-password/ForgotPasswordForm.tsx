@@ -4,15 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ForgotPasswordFormInputType,
   ForgotPasswordSchema
-} from '@/src/app/_configs/schemas/authentication'
-import { useMutation } from '@tanstack/react-query'
-import { sendEmailToResetPassword } from '@/src/app/_api/axios/authentication'
-import { AxiosError } from 'axios'
-import { notifySendEmailFail } from '../Notification'
-import { TextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
+} from '@/src/configs/schemas/authentication'
+import { TextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
 import { useRouter } from 'next/navigation'
-import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
+import { toast } from 'react-toastify'
+import { handleErrorApi } from '@/src/utils/utils'
+import { useSendEmailToResetPasswordMutation } from '@/src/queries/auth'
+import path from '@/src/constants/path'
 
 export default function ForgotPasswordForm() {
   const router = useRouter()
@@ -25,34 +24,27 @@ export default function ForgotPasswordForm() {
     reset,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<ForgotPasswordFormInputType>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: defaultInputValues
   })
 
-  const forgotPasswordMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: sendEmailToResetPassword,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: () => {
-      reset()
-      router.replace(AUTHENTICATION_ROUTE.EMAIL_SEND_SUCCESS.LINK)
-    },
-    //NOTE: Execuse after receving failure responses
-    onError: (e) => {
-      if (e instanceof AxiosError) {
-        notifySendEmailFail(e.response?.data.msg || e.message)
-      }
-    }
-  })
+  const sendEmailToResetPasswordMutation = useSendEmailToResetPasswordMutation()
 
-  const onSubmitHandler: SubmitHandler<ForgotPasswordFormInputType> = (value, e) => {
-    e?.preventDefault()
-    //NOTE: Execute the Mutation
-    forgotPasswordMutation.mutate({ email: value.email })
+  const onSubmitHandler: SubmitHandler<ForgotPasswordFormInputType> = async (values) => {
+    if (sendEmailToResetPasswordMutation.isLoading) return
+    try {
+      const res = await sendEmailToResetPasswordMutation.mutateAsync(values)
+      reset()
+      toast.success(res.data.message)
+      router.push(path.emailSendSuccess)
+    } catch (error) {
+      handleErrorApi({ error, setError })
+    }
   }
   return (
     <>
@@ -72,9 +64,9 @@ export default function ForgotPasswordForm() {
         </div>
         <Button
           type='submit'
-          disabled={forgotPasswordMutation.isLoading}
+          disabled={sendEmailToResetPasswordMutation.isLoading}
         >
-          {forgotPasswordMutation.isLoading ? 'Sending...' : 'Send Email'}
+          {sendEmailToResetPasswordMutation.isLoading ? 'Sending...' : 'Send Email'}
         </Button>
       </form>
     </>

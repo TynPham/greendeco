@@ -1,5 +1,5 @@
-import { OrderData, OrderFullDetailData } from '@/src/app/_api/axios/order'
-import { VARIANT_CURRENCY } from '@/src/app/_configs/constants/variables'
+import { VARIANT_CURRENCY } from '@/src/configs/constants/variables'
+import { OrderData, OrderFullDetailData } from '@/src/types/order.type'
 import { ReceiptPercentIcon } from '@heroicons/react/24/outline'
 
 export default function OrderPrice({

@@ -1,32 +1,30 @@
 'use client'
 
-import { getCartItemListFromCartId } from '@/src/app/_api/axios/cart'
-import {
-  CartListFullDetail,
-  handleGetCartFullDetail,
-  CartItemWithFullVariantInfo
-} from '@/src/app/_hooks/useCart'
+import { handleGetCartFullDetail } from '@/src/hooks/useCart'
 import { useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { getCookie } from 'cookies-next'
-import { VariantData } from '@/src/app/_api/axios/product'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/app/_configs/constants/status'
+import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/configs/constants/status'
 import { memo } from 'react'
 import { MutatingDots } from 'react-loader-spinner'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { UseQueryKeys } from '@/src/configs/constants/queryKey'
+import cartApis from '@/src/apiRequests/cart.api'
+import { CartItemWithFullVariantInfo } from '@/src/types/cart.type'
+import { CartListFullDetail } from '@/src/types/cart.type'
+import { VariantData } from '@/src/types/product.type'
 
 function OrderItemList() {
   const router = useRouter()
   const getCartItemForCheckout = async () => {
-    const cartId = getCookie('cartId')?.toString()
+    const cartId = getCookie('cartId')
 
     if (!cartId) throw new AxiosError('Cart does not exist', NOT_FOUND_STATUS.toString())
 
-    return await getCartItemListFromCartId(cartId).then((cartInfo) =>
-      handleGetCartFullDetail(cartInfo)
-    )
+    return cartApis
+      .getCartItemListFromCartId(cartId)
+      .then((cartInfo) => handleGetCartFullDetail(cartInfo.data))
   }
 
   const getOrderList = useQuery({

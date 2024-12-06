@@ -1,18 +1,12 @@
 import { BookmarkSlashIcon, StarIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
-import { useQuery } from '@tanstack/react-query'
-import { ProductData } from '@/src/app/_api/axios/product'
-import {
-  ReviewItemData,
-  ReviewListResponseData,
-  ReviewSortParams,
-  getReviewListByProductId
-} from '@/src/app/_api/axios/reviews'
-import { DEFAULT_AVATAR } from '@/src/app/_configs/constants/images'
+import { DEFAULT_AVATAR } from '@/src/configs/constants/images'
 import { MutatingDots } from 'react-loader-spinner'
 import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react'
-import { Sort, SortBy } from '@/src/app/_configs/constants/paramKeys'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { Sort, SortBy } from '@/src/configs/constants/paramKeys'
+import { useGetReviewListByProductIdQuery } from '@/src/queries/review'
+import { ReviewItemData, ReviewListResponseData, ReviewSortParams } from '@/src/types/review.type'
+import { ProductData } from '@/src/types/product.type'
 
 export default function ReviewSection({ productId }: { productId: ProductData['id'] }) {
   const [reviewSortParams, setReviewSortParams] = useState<ReviewSortParams>({
@@ -22,12 +16,11 @@ export default function ReviewSection({ productId }: { productId: ProductData['i
     sortBy: SortBy.CreatedAt
   })
 
-  const useReviewQuery = useQuery({
-    queryKey: [UseQueryKeys.Review, productId, reviewSortParams],
-    queryFn: () => getReviewListByProductId(productId, reviewSortParams)
-  })
+  const { data, isLoading, isSuccess } = useGetReviewListByProductIdQuery(
+    productId,
+    reviewSortParams
+  )
 
-  const { data, isLoading, isSuccess, isError } = useReviewQuery
   return (
     <div className='rounded-[8px] bg-white p-comfortable shadow-38'>
       <div className='flex items-center justify-between gap-4'>
@@ -63,9 +56,9 @@ export default function ReviewSection({ productId }: { productId: ProductData['i
         )}
         {isSuccess && (
           <>
-            {data.page_size > 0 ? (
+            {data.data.page_size > 0 ? (
               <>
-                <ReviewList reviewList={data.items} />
+                <ReviewList reviewList={data.data.items} />
               </>
             ) : (
               <NoReviewMessage />

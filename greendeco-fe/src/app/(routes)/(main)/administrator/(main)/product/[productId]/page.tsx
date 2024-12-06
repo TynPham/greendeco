@@ -1,15 +1,14 @@
 'use client'
 
-import { getProductBaseById } from '@/src/app/_api/axios/product'
-import Block from '@/src/app/_components/Block'
-import { useQuery } from '@tanstack/react-query'
+import Block from '@/src/components/Block'
 import ProductDetail from './ProductDetail'
 import ProductVariantInfo from './ProductVariantInfo'
 import Link from 'next/link'
-import { ADMINISTRATOR_ROUTE } from '@/src/app/_configs/constants/variables'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { ADMINISTRATOR_ROUTE } from '@/src/configs/constants/variables'
+import { ADMIN_QUERY_KEY } from '@/src/configs/constants/queryKey'
 import { ArrowLeftIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import { ProductDetailLoading } from '../loading'
+import { useGetProductBaseById } from '@/src/queries/product'
 
 export default function ProductDetailManagementPage({
   params
@@ -20,12 +19,7 @@ export default function ProductDetailManagementPage({
 }) {
   const { productId } = params
 
-  const productQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product, productId],
-    queryFn: () => getProductBaseById(productId)
-  })
-
-  const { data, isSuccess, isLoading } = productQuery
+  const { data, isSuccess, isLoading } = useGetProductBaseById(productId, ADMIN_QUERY_KEY)
 
   return (
     <div className=' min-h-screen  py-comfortable'>
@@ -38,7 +32,7 @@ export default function ProductDetailManagementPage({
         <div className='flex-col-start min-h-full gap-comfortable '>
           <Block>
             <div className='mb-cozy flex items-center justify-between'>
-              <h1>{data.items.name}</h1>
+              <h1>{data.data.items.name}</h1>
               <div className='flex items-center gap-cozy'>
                 <Link
                   className='flex items-center gap-[4px] text-body-xsm'
@@ -59,13 +53,13 @@ export default function ProductDetailManagementPage({
                 </Link>
               </div>
             </div>
-            <ProductDetail product={data.items} />
+            <ProductDetail product={data.data.items} />
           </Block>
 
           <Block>
             <ProductVariantInfo
-              productName={data.items.name}
-              productId={data.items.id}
+              productName={data.data.items.name}
+              productId={data.data.items.id}
             />
           </Block>
         </div>

@@ -1,30 +1,26 @@
 'use client'
 
-import { getOrderListByUser } from '@/src/app/_api/axios/order'
-import { useQuery } from '@tanstack/react-query'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
-import { FilterParams } from '@/src/app/_api/axios/product'
+import useQueryParams from '@/src/hooks/useQueryParams'
 import UserOrderList from './UserOrderList'
 import OrderListPagination from './OrderPagination'
 import { MutatingDots } from 'react-loader-spinner'
 import { ArchiveBoxXMarkIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
-import { Sort, SortBy } from '@/src/app/_configs/constants/paramKeys'
+import { Sort, SortBy } from '@/src/configs/constants/paramKeys'
+import { useGetOrderListByUserQuery } from '@/src/queries/order'
+import { FilterParams } from '@/src/types'
 
 export default function OrderHistoryPage() {
   const { queryObject } = useQueryParams<FilterParams>()
 
-  const userOrderListQuery = useQuery({
-    queryKey: [UseQueryKeys.User, UseQueryKeys.Order, queryObject],
-    queryFn: () =>
-      getOrderListByUser({
-        limit: 10,
-        sort: Sort.Descending,
-        sortBy: SortBy.CreatedAt,
-        ...queryObject
-      })
+  const userOrderListQuery = useGetOrderListByUserQuery({
+    params: {
+      limit: 10,
+      sort: Sort.Descending,
+      sortBy: SortBy.CreatedAt,
+      ...queryObject
+    },
+    queryObject
   })
-
   const { data, isLoading, isError } = userOrderListQuery
 
   return (
@@ -44,17 +40,17 @@ export default function OrderHistoryPage() {
           />
         </div>
       )}
-      {data && data.page_size > 0 && (
+      {data && data.data.page_size > 0 && (
         <div className='flex-col-start gap-cozy'>
-          <UserOrderList orderList={data.items} />
+          <UserOrderList orderList={data.data.items} />
 
           <OrderListPagination
-            next={data.next}
-            prev={data.prev}
+            next={data.data.next}
+            prev={data.data.prev}
           />
         </div>
       )}
-      {data && data.page_size === 0 && <NoItemFoundMessage />}
+      {data && data.data.page_size === 0 && <NoItemFoundMessage />}
       {isError && <ErrorMessage />}
     </>
   )

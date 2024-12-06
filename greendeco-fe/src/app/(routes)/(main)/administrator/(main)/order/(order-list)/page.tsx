@@ -1,23 +1,14 @@
 'use client'
 import React from 'react'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
-import { useQuery } from '@tanstack/react-query'
-import { getOrderListTable } from '@/src/app/_api/axios/admin/order'
 import OrderTable from './OrderTable'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
-import { FilterParams } from '@/src/app/_api/axios/product'
+import useQueryParams from '@/src/hooks/useQueryParams'
 import { TailSpin } from 'react-loader-spinner'
+import { FilterParams } from '@/src/types'
+import { useGetOrderListTableQuery } from '@/src/queries/order'
 
 export default function OrderManagementPage() {
   const { queryObject } = useQueryParams<FilterParams>()
-  const orderQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Order, queryObject],
-    queryFn: () =>
-      getOrderListTable({
-        limit: 9999,
-        ...queryObject
-      })
-  })
+  const orderQuery = useGetOrderListTableQuery({ params: { limit: 9999, ...queryObject } })
   const { data, isLoading } = orderQuery
   const dataMemo = React.useMemo(() => data, [data])
   return (

@@ -1,13 +1,15 @@
 'use client'
-import { FieldParams, FilterParams, getProductListWithSearch } from '@/src/app/_api/axios/product'
-import ProductCardsGrid from '@/src/app/_components/product/ProductGrid'
-import { useQuery } from '@tanstack/react-query'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
+
+import ProductCardsGrid from '@/src/components/product/ProductGrid'
+import useQueryParams from '@/src/hooks/useQueryParams'
 import { ProductSortMenu } from './ProductSortMenu'
 import ProductListLoading from './loading'
 import { FaceFrownIcon } from '@heroicons/react/24/solid'
 import ProuductListError from './error'
 import ProductListPagination from './ProductListPagination'
+import { useGetProductListWithSearch } from '@/src/queries/product'
+import { FilterParams } from '@/src/types'
+import { FieldParams } from '@/src/types/product.type'
 
 export default function ProductListPage() {
   const { queryObject } = useQueryParams<FilterParams>()
@@ -16,32 +18,25 @@ export default function ProductListPage() {
   const field: FieldParams = queryObj.field ? JSON.parse(queryObj.field) : null
   const searchParam = field?.name ? field.name : ''
 
-  const productListQuery = useQuery({
-    queryKey: ['product', queryObject],
-    queryFn: () =>
-      getProductListWithSearch({
-        limit: 20,
-        ...queryObject
-      }),
-    refetchOnWindowFocus: false
+  const { data, isError, isLoading, isSuccess } = useGetProductListWithSearch({
+    limit: 20,
+    ...queryObject
   })
-
-  const { data, isError, isLoading, isSuccess } = productListQuery
 
   return (
     <div className='flex-col-start gap-cozy py-comfortable'>
       {/*NOTE: Because isError default false => doesn't cause rerender the SortMenu  */}
-      {isError === false && data?.page_size !== 0 && (
+      {isError === false && data?.data?.page_size !== 0 && (
         <div className='flex w-full items-center justify-between'>
           <span className='text-body-sm text-primary-418-60'>
-            {data && data?.page_size > 1 ? (
+            {data && data.data?.page_size > 1 ? (
               <>
-                There are {data?.page_size} results that are close to{' '}
+                There are {data?.data?.page_size} results that are close to{' '}
                 <span className='font-semi-bold'>&quot;{searchParam}&quot;</span>
               </>
             ) : (
               <>
-                There is {data?.page_size} result that is close to{' '}
+                There is {data?.data?.page_size} result that is close to{' '}
                 <span className='font-semi-bold'>&quot;{searchParam}&quot;</span>
               </>
             )}
@@ -54,12 +49,12 @@ export default function ProductListPage() {
 
       {isSuccess && (
         <>
-          {data.page_size > 0 ? (
+          {data.data.page_size > 0 ? (
             <>
-              <ProductCardsGrid productList={data.items} />
+              <ProductCardsGrid productList={data.data.items} />
               <ProductListPagination
-                next={data.next}
-                prev={data.prev}
+                next={data.data.next}
+                prev={data.data.prev}
               />
             </>
           ) : (

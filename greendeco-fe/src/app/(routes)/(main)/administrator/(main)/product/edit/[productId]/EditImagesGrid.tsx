@@ -1,17 +1,15 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
-import { uploadImage } from '@/src/app/_api/axios/media'
-import { IMAGE_MAX_SIZE_IN_MB } from '@/src/app/_configs/constants/variables'
+import { IMAGE_MAX_SIZE_IN_MB } from '@/src/configs/constants/variables'
 import React from 'react'
-import { EMPTY_STRING } from '@/src/app/_configs/constants/variables'
+import { EMPTY_STRING } from '@/src/configs/constants/variables'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import { useContext } from 'react'
 import { useStore } from 'zustand'
-import { EditImagesContext } from '@/src/app/_configs/store/useEditImageStore'
-import { ProductData } from '@/src/app/_api/axios/product'
-import { getCookie } from 'cookies-next'
+import { EditImagesContext } from '@/src/configs/store/useEditImageStore'
+import { useUploadImageMutation } from '@/src/queries/media'
+import { ProductData } from '@/src/types/product.type'
 
 function EditImageUploadGrid({ images }: { images: ProductData['images'] }) {
   return (
@@ -33,12 +31,8 @@ const UploadInput = React.memo(function UploadInput({ index }: { index: number }
   const imagesStore = useContext(EditImagesContext)
   if (!imagesStore) throw new Error('Missing EditImageContext.Provider in the tree')
   const replaceImages = useStore(imagesStore, (state) => state.replaceImages)
-  const adminAccessToken = getCookie('admin_Access_Token')?.toString() ?? ''
 
-  const imageUploadMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: uploadImage,
-    //NOTE: Execuse after receiving suscess responses
+  const imageUploadMutation = useUploadImageMutation({
     onSuccess: (data) => {
       replaceImages(data, index)
     }

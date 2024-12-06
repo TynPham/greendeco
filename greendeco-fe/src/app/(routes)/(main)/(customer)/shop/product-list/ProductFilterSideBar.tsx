@@ -1,12 +1,8 @@
 'use client'
 import { useCallback, type ChangeEvent, useMemo } from 'react'
-import useQueryParams from '@/src/app/_hooks/useQueryParams'
+import useQueryParams from '@/src/hooks/useQueryParams'
 import { FunnelIcon } from '@heroicons/react/24/solid'
-import {
-  DIFFICULTY_OPTIONS,
-  SIZE_OPTIONS,
-  TYPE_OPTIONS
-} from '@/src/app/_configs/constants/variables'
+import { DIFFICULTY_OPTIONS, SIZE_OPTIONS, TYPE_OPTIONS } from '@/src/configs/constants/variables'
 
 type FieldQuery = {
   size?: string

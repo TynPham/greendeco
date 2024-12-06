@@ -48,19 +48,19 @@ func CreateUser(c *fiber.Ctx) error {
 	}
 
 	userRepo := repository.NewUserRepo(database.GetDB())
-	// find user by identifier
-	userExist, err := userRepo.GetUserByIdentifier(user.Identifier)
-	if userExist != nil {
-		return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
-			Message: "this user identifier already exists",
-		})
-	}
+	// // find user by identifier
+	// userExist, err := userRepo.GetUserByIdentifier(user.Identifier)
+	// if userExist != nil {
+	// 	return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
+	// 		Message: "this user identifier already exists",
+	// 	})
+	// }
 
-	if err != nil && err != models.ErrNotFound {
-		return c.Status(fiber.StatusInternalServerError).JSON(models.ErrorResponse{
-			Message: "fail to create user",
-		})
-	}
+	// if err != nil && err != models.ErrNotFound {
+	// 	return c.Status(fiber.StatusInternalServerError).JSON(models.ErrorResponse{
+	// 		Message: "fail to create user",
+	// 	})
+	// }
 
 	// find user by email
 	userEmail, err := userRepo.GetUserByEmail(user.Email)
@@ -71,8 +71,9 @@ func CreateUser(c *fiber.Ctx) error {
 	}
 
 	if userEmail != nil {
-		return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
-			Message: "this user email already exists",
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
+			Message: "invalid input found",
+			Errors:  map[string]string{"email": "this user email already exists"},
 		})
 	}
 
@@ -95,7 +96,9 @@ func CreateUser(c *fiber.Ctx) error {
 		})
 	}
 
-	return c.Status(http.StatusCreated).SendString("create success")
+	return c.Status(http.StatusCreated).JSON(fiber.Map{
+		"message": "create success",
+	})
 }
 
 // Login
@@ -409,8 +412,9 @@ func UpdateUserInformation(c *fiber.Ctx) error {
 
 	if err != models.ErrNotFound {
 		if userEmail.ID != userExist.ID {
-			return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
-				Message: "this user email already exists",
+			return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
+				Message: "invalid input found",
+				Errors:  map[string]string{"email": "this user email already exists"},
 			})
 		}
 	}

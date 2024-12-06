@@ -1,10 +1,9 @@
 'use client'
-import Block from '@/src/app/_components/Block'
-import { useQuery } from '@tanstack/react-query'
-import { getProductBaseById } from '@/src/app/_api/axios/product'
-import { ADMIN_QUERY_KEY, UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import Block from '@/src/components/Block'
+import { ADMIN_QUERY_KEY } from '@/src/configs/constants/queryKey'
 import EditFormContainer from './ProductImageProvider'
 import { ProductDetailLoading } from '../../loading'
+import { useGetProductBaseById } from '@/src/queries/product'
 
 export default function EditProductPage({
   params: { productId }
@@ -13,12 +12,7 @@ export default function EditProductPage({
     productId: string
   }
 }) {
-  const productQuery = useQuery({
-    queryKey: [ADMIN_QUERY_KEY, UseQueryKeys.Product, productId],
-    queryFn: () => getProductBaseById(productId)
-  })
-
-  const { data, isSuccess, isError, isLoading } = productQuery
+  const { data, isSuccess, isLoading } = useGetProductBaseById(productId, ADMIN_QUERY_KEY)
 
   return (
     <div className='min-h-screen py-comfortable'>
@@ -28,7 +22,7 @@ export default function EditProductPage({
           <>
             <h1>Edit Product</h1>
             <div className='mt-comfortable border-x border-x-primary-625-60 px-comfortable'>
-              <EditFormContainer {...data.items} />
+              <EditFormContainer {...data.data.items} />
             </div>
           </>
         )}

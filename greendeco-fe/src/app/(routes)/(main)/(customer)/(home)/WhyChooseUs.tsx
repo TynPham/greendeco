@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import HandPlantedIcon from '@/src/app/_assets/images/homepage/whychooseus/handplant.svg'
-import EasyCareIcon from '@/src/app/_assets/images/homepage/whychooseus/easycare.svg'
-import FascinatingIcon from '@/src/app/_assets/images/homepage/whychooseus/fascinating.svg'
+import HandPlantedIcon from '@/src/assets/images/homepage/whychooseus/handplant.svg'
+import EasyCareIcon from '@/src/assets/images/homepage/whychooseus/easycare.svg'
+import FascinatingIcon from '@/src/assets/images/homepage/whychooseus/fascinating.svg'
 
 interface ReasonProps {
   title: string

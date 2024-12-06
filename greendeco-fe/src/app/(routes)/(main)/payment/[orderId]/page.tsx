@@ -2,17 +2,16 @@
 import { ClipboardDocumentListIcon, ShoppingBagIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import PaymentInformation from './PaymentInformation'
-import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
-import VNPayButton from '@/src/app/_components/paymentButton/VNPayButton'
+import { USER_SETTING_ROUTE } from '@/src/configs/constants/variables'
+import VNPayButton from '@/src/components/paymentButton/VNPayButton'
 import { FUNDING } from '@paypal/react-paypal-js'
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer
 } from '@paypal/react-paypal-js'
-import { createPaypalPayment, paypalOnApprove } from '@/src/app/_api/axios/payment'
+import { createPaypalPayment, paypalOnApprove } from '@/src/_api/payment'
 import { CreateOrderData, CreateOrderActions } from '@paypal/paypal-js/types/components/buttons'
-import { OrderData } from '@/src/app/_api/axios/order'
 
 export default function PaymentPage({
   params: { orderId }

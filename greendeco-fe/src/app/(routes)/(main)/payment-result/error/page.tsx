@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import BoxHeart from '@/src/app/_assets/images/boxheartgreen.svg'
+import BoxHeart from '@/src/assets/images/boxheartgreen.svg'
 import BrandLogoFullWhite from '@/public/BrandLogoFullWhite.svg'
 import {
   ShoppingBagIcon,
   ClipboardDocumentListIcon,
   ExclamationTriangleIcon
 } from '@heroicons/react/24/solid'
-import { USER_SETTING_ROUTE } from '@/src/app/_configs/constants/variables'
+import { USER_SETTING_ROUTE } from '@/src/configs/constants/variables'
 export default function PaymentPage() {
   return (
     <div className='flex-center container h-full'>

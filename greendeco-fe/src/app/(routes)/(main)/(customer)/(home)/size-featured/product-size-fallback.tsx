@@ -1,4 +1,4 @@
-import ProductSkeleton from '@/src/app/_components/product/product-skeleton'
+import ProductSkeleton from '@/src/components/product/product-skeleton'
 
 const breakpoints = [
   { className: 'hidden xl:flex', count: 3, width: '250px' },

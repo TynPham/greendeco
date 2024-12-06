@@ -1,5 +1,5 @@
 'use client'
-import ModalProvider from '@/src/app/_components/modal'
+import ModalProvider from '@/src/components/modal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import LoginForm from './LoginForm'
-import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
+import { AUTHENTICATION_ROUTE } from '@/src/configs/constants/variables'
 
 export default function LoginPage() {
   return (

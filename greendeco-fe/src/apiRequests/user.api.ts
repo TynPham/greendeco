@@ -1,9 +1,11 @@
-import { User } from '../app/_types/user.type'
-import { http } from '../app/_utils/http'
+import { User, UserProfileUpdateRequest } from '../types/user.type'
+import { http } from '../utils/http'
 
-const UserApis = {
+const userApis = {
   sGetUserProfile: (token: string) =>
-    http.get<User>('/user/me', { headers: { Authorization: `Bearer ${token}` } })
+    http.get<User>('/user/me', { headers: { Authorization: `Bearer ${token}` } }),
+
+  updateUserProfile: (data: UserProfileUpdateRequest) => http.put<User>('/user/update', data)
 }
 
-export default UserApis
+export default userApis

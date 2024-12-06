@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { SHOP_ROUTE } from '@/src/app/_configs/constants/variables'
+import { SHOP_ROUTE } from '@/src/configs/constants/variables'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 
 export const metadata: Metadata = {

@@ -1,9 +1,9 @@
 'use client'
 
-import Button from '@/src/app/_components/Button'
-import { useAppContext } from '@/src/app/_configs/store/useAppContext'
-import { useVariantStore } from '@/src/app/_configs/store/useVariantStore'
-import { useCartMutation } from '@/src/app/_hooks/useCart'
+import Button from '@/src/components/Button'
+import { useAppContext } from '@/src/configs/store/useAppContext'
+import { useVariantStore } from '@/src/configs/store/useVariantStore'
+import { useCartMutation } from '@/src/hooks/useCart'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { getCookie } from 'cookies-next'
 import { ThreeDots } from 'react-loader-spinner'

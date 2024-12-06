@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { ProductSize } from '@/src/app/_types/product.type'
+import { ProductSize } from '@/src/types/product.type'
 import { ProductSizeSelector } from './product-size-selector'
 import { ProductCarouselContainer } from './product-size-carousel-container'
 

@@ -1,4 +1,4 @@
-import { DefaultSortMenu, SortOptionType } from '@/src/app/_components/SortMenu'
+import { DefaultSortMenu, SortOptionType } from '@/src/components/SortMenu'
 import type { ChangeEvent } from 'react'
 
 const options: SortOptionType[] = [

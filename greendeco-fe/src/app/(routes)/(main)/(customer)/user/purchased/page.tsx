@@ -1,14 +1,14 @@
 'use client'
 
-import { useGetProductsFromCompletedOrders } from '@/src/app/_hooks/useGetProductsFromCompletedOrders'
+import { useGetProductsFromCompletedOrders } from '@/src/hooks/useGetProductsFromCompletedOrders'
 import { useQuery } from '@tanstack/react-query'
 import PurchasedProductList from './PurchasedProductList'
 import { MutatingDots } from 'react-loader-spinner'
 import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline'
 import { AxiosError } from 'axios'
-import { UNAUTHORIZE_STATUS } from '@/src/app/_configs/constants/status'
+import { UNAUTHORIZE_STATUS } from '@/src/configs/constants/status'
 import { useRouter } from 'next/navigation'
-import { USER_PURCHASED_PRODUCTS_QUERY_KEYS } from '@/src/app/_configs/constants/queryKey'
+import { USER_PURCHASED_PRODUCTS_QUERY_KEYS } from '@/src/configs/constants/queryKey'
 
 export default function UserReviewPage() {
   const { getProductsFromCompletedOrders } = useGetProductsFromCompletedOrders()

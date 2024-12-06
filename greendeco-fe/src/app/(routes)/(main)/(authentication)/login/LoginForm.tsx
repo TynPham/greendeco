@@ -1,17 +1,17 @@
 'use client'
-import { TextField } from '@/src/app/_components/form'
+import { TextField } from '@/src/components/form'
 import Link from 'next/link'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Button from '@/src/app/_components/Button'
-import { LoginFormInputType, LoginSchema } from '@/src/app/_configs/schemas/authentication'
+import Button from '@/src/components/Button'
+import { LoginFormInputType, LoginSchema } from '@/src/configs/schemas/authentication'
 import { notifyLoginSuccess } from '../Notification'
 import { useRouter } from 'next/navigation'
-import { AUTHENTICATION_ROUTE } from '@/src/app/_configs/constants/variables'
-import { useAppContext } from '@/src/app/_configs/store/useAppContext'
+import { AUTHENTICATION_ROUTE } from '@/src/configs/constants/variables'
+import { useAppContext } from '@/src/configs/store/useAppContext'
 import path from '@/src/constants/path'
 import { useLoginMutation } from '@/src/queries/auth'
-import { handleErrorApi } from '@/src/app/_utils/utils'
+import { handleErrorApi } from '@/src/utils/utils'
 import { toast } from 'react-toastify'
 
 export default function LoginForm() {
@@ -31,8 +31,8 @@ export default function LoginForm() {
     formState: { errors },
     setError
   } = useForm<LoginFormInputType>({
-    mode: 'onBlur',
-    reValidateMode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(LoginSchema),
     defaultValues: defaultInputValues
   })

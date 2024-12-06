@@ -1,15 +1,15 @@
 'use client'
-import { TextField } from '@/src/app/_components/form'
+import { TextField } from '@/src/components/form'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Button from '@/src/app/_components/Button'
-import { LoginFormInputType, LoginSchema } from '@/src/app/_configs/schemas/authentication'
+import Button from '@/src/components/Button'
+import { LoginFormInputType, LoginSchema } from '@/src/configs/schemas/authentication'
 import { notifyLoginFail, notifyLoginSuccess } from './Notifications'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useLoginAdminMutation } from '@/src/queries/auth'
 import path from '@/src/constants/path'
-import { useAppContext } from '@/src/app/_configs/store/useAppContext'
+import { useAppContext } from '@/src/configs/store/useAppContext'
 
 export default function AdminLoginForm() {
   const router = useRouter()

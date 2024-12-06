@@ -4,16 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ShippingAddressSchema,
   ShippingAddressFormInputType
-} from '@/src/app/_configs/schemas/shippingAddress'
+} from '@/src/configs/schemas/shippingAddress'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { CreateOrderResponseData, createOrder } from '@/src/app/_api/axios/order'
 import { AxiosError } from 'axios'
 import { deleteCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
-import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/app/_configs/constants/status'
-import { TextField } from '@/src/app/_components/form'
-import Button from '@/src/app/_components/Button'
-import { UseQueryKeys } from '@/src/app/_configs/constants/queryKey'
+import { NOT_FOUND_STATUS, UNAUTHORIZE_STATUS } from '@/src/configs/constants/status'
+import { TextField } from '@/src/components/form'
+import Button from '@/src/components/Button'
+import { UseQueryKeys } from '@/src/configs/constants/queryKey'
+import { useCreateOrderMutation } from '@/src/queries/order'
+import { CreateOrderResponseData } from '@/src/types/order.type'
 
 export default function ShippingDetailForm() {
   const router = useRouter()
@@ -48,21 +49,11 @@ export default function ShippingDetailForm() {
     })
   }
 
-  const createOrderMutation = useMutation({
-    //NOTE: The callback used for the mutation
-    mutationFn: createOrder,
-    //NOTE: Execuse after receiving suscess responses
-    onSuccess: (data) => handleCreateOrderSuccess(data.data),
-    //NOTE: Execuse after receving failure responses
+  const createOrderMutation = useCreateOrderMutation({
+    onSuccess: handleCreateOrderSuccess,
     onError: (e) => {
-      if (e instanceof AxiosError) {
-        if (e.code === NOT_FOUND_STATUS.toString() || e.response?.status === NOT_FOUND_STATUS) {
-          router.back()
-        }
-
-        if (e.code === UNAUTHORIZE_STATUS.toString() || e.response?.status === UNAUTHORIZE_STATUS) {
-          router.push('/login')
-        }
+      if (e.response?.status === NOT_FOUND_STATUS || e.code === NOT_FOUND_STATUS.toString()) {
+        router.back()
       }
     }
   })

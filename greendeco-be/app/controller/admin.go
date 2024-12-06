@@ -164,7 +164,7 @@ func CreateAdminAccount(c *fiber.Ctx) error {
 	// find user by email
 	userExist, err := userRepo.GetUserByIdentifier(user.Identifier)
 	if userExist != nil {
-		return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(models.ErrorResponse{
 			Message: "this user identifier already exists",
 		})
 	}
@@ -185,7 +185,8 @@ func CreateAdminAccount(c *fiber.Ctx) error {
 
 	if userEmail != nil {
 		return c.Status(fiber.StatusConflict).JSON(models.ErrorResponse{
-			Message: "this user email already exists",
+			Message: "invalid input found",
+			Errors:  map[string]string{"email": "this user email already exists"},
 		})
 	}
 

@@ -6,6 +6,7 @@ import (
 
 	"greendeco-be/app/models"
 	"greendeco-be/platform/database"
+
 	"github.com/google/uuid"
 )
 
@@ -104,7 +105,7 @@ func (repo *VariantRepo) CreateDefaultVariantProduct(v *models.UpdateDefaultVari
 
 func (repo *VariantRepo) GetVariantsByProductId(id uuid.UUID) ([]models.Variant, error) {
 	result := []models.Variant{}
-	query := fmt.Sprintf(`SELECT * FROM "%s" WHERE product = $1`, VariantTable)
+	query := fmt.Sprintf(`SELECT * FROM "%s" WHERE product = $1 ORDER BY updated_at DESC`, VariantTable)
 	if err := repo.db.Select(&result, query, id); err != nil {
 		return nil, err
 	}

@@ -202,6 +202,8 @@ func GetProducts(c *fiber.Ctx) error {
 		})
 	}
 
+	fmt.Printf("Parsed query: %+v\n", query)
+
 	productRepo := repository.NewProductRepo(database.GetDB())
 	products, err := productRepo.All(*query)
 	if err != nil {

@@ -1,6 +1,5 @@
-import { VariantData } from '@/src/app/_api/axios/product'
 import { DetailContainerProps } from '../ProductDetailContainer'
-import { useVariantStore } from '@/src/app/_configs/store/useVariantStore'
+import { useVariantStore } from '@/src/configs/store/useVariantStore'
 import clsx from 'clsx'
 
 const Variant = ({

@@ -6,6 +6,7 @@ import (
 
 	"greendeco-be/app/models"
 	"greendeco-be/platform/database"
+
 	"github.com/google/uuid"
 )
 
@@ -86,6 +87,7 @@ func (repo *ProductRepo) All(q models.ProductQuery) ([]models.ActivedProduct, er
 		Build()
 
 	query = fmt.Sprintf(query+" LIMIT %d OFFSET %d", limit, pageOffset)
+	fmt.Printf("Query: %+v\n", query)
 	if err := repo.db.Select(&results, query); err != nil {
 		return nil, err
 	}
@@ -143,6 +145,7 @@ func (repo *ProductRepo) DeleteCategory(id string) error {
 }
 
 func (repo *ProductRepo) GetAllProducts(q *models.ProductQuery) ([]models.Product, error) {
+	fmt.Printf("Query: %+v\n", q)
 	limit := q.Limit
 	limit += 1
 	pageOffset := q.BaseQuery.Limit * (q.BaseQuery.OffSet - 1)

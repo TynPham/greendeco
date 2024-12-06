@@ -1,4 +1,4 @@
-import ProductSkeleton from '@/src/app/_components/product/product-skeleton'
+import ProductSkeleton from '@/src/components/product/product-skeleton'
 
 const classWrapper = 'grid-cols-1 gap-cozy md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
 

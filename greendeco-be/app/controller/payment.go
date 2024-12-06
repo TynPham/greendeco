@@ -371,7 +371,7 @@ func createVNPayBill(order *models.Order, IP string, accessToken string) (string
 	v.Set("vnp_OrderInfo", "customer paid orderId")
 	v.Set("vnp_OrderType", "other")
 	v.Set("vnp_Amount", totalString)
-	v.Set("vnp_ReturnUrl", cfgs.ReturnUrl + "?accessToken=" + accessToken)
+	v.Set("vnp_ReturnUrl", cfgs.ReturnUrl + "api/v1/payment/vnpay_return?accessToken=" + accessToken)
 	v.Set("vnp_IpAddr", IP)
 	v.Set("vnp_CreateDate", t)
 

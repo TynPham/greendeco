@@ -19,6 +19,7 @@ type VariantRepository interface {
 	UpdateDefaultVariant(m *models.UpdateDefaultVariant) error
 	Delete(id uuid.UUID) error
 	CreateDefaultVariantProduct(v *models.UpdateDefaultVariant) error
+	UpdateQuantity(variantId uuid.UUID, quantity int) error
 }
 
 type VariantRepo struct {
@@ -162,6 +163,14 @@ func (repo *VariantRepo) UpdateDefaultVariant(m *models.UpdateDefaultVariant) er
 func (repo *VariantRepo) UpdateById(m *models.UpdateVariant) error {
 	query := fmt.Sprintf(`UPDATE "%s" SET available = $2, name = $3, color = $4, price = $5, currency = $6, image = $7, description = $8, color_name = $9, quantity = $10  WHERE id = $1`, VariantTable)
 	if _, err := repo.db.Exec(query, m.ID, m.Available, m.Name, m.Color, m.Price, m.Currency, m.Image, m.Description, m.ColorName, m.Quantity); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (repo *VariantRepo) UpdateQuantity(variantId uuid.UUID, quantity int) error {
+	query := fmt.Sprintf(`UPDATE "%s" SET quantity = quantity - $1 WHERE id = $2`, VariantTable)
+	if _, err := repo.db.Exec(query, quantity, variantId); err != nil {
 		return err
 	}
 	return nil

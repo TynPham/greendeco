@@ -54,9 +54,15 @@ func (repo *OrderRepo) CreateOrderFromCart(m *models.Order, orderItems []*models
 		return "", err
 	}
 
+	variantRepo := NewVariantRepo(repo.db)
+
 	for _, item := range orderItems {
 		_, err = tx.Exec(orderProductQuery, newOrderId, item.VariantId, item.VariantName, item.VariantPrice, item.Quantity)
 		if err != nil {
+			return "", err
+		}
+
+		if err := variantRepo.UpdateQuantity(item.VariantId, item.Quantity); err != nil {
 			return "", err
 		}
 	}

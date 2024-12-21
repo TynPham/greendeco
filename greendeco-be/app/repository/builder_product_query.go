@@ -25,7 +25,7 @@ func (*ProductRepo) newProductQueryBuilder(query string) *productQueryBuilder {
 
 func (q *productQueryBuilder) SetName(name string) *productQueryBuilder {
 	if name != "" {
-		query := fmt.Sprintf(` word_similarity(name,'%s') > 0 `, name)
+		query := fmt.Sprintf(` name ILIKE '%%%s%%' `, name)
 		q.field[query] = true
 	}
 
@@ -112,6 +112,7 @@ func (q *productQueryBuilder) Build() string {
 	if len(q.field) != 0 {
 		q.query += "WHERE "
 		for k := range q.field {
+			fmt.Printf("k: %+v\n", k)
 			if count != 0 {
 				q.query += "AND "
 			}

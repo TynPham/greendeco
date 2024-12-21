@@ -86,7 +86,7 @@ func (repo *ProductRepo) All(q models.ProductQuery) ([]models.ActivedProduct, er
 		SortBy(q.SortBy, q.Sort).
 		Build()
 
-	query = fmt.Sprintf(query+" LIMIT %d OFFSET %d", limit, pageOffset)
+	query = fmt.Sprintf("%s LIMIT %d OFFSET %d", query, limit, pageOffset)
 	fmt.Printf("Query: %+v\n", query)
 	if err := repo.db.Select(&results, query); err != nil {
 		return nil, err
